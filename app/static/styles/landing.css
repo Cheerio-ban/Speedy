@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:active{
+    color: #110526;
+}
+
+
+#logo {
+    padding: 20px;
+}
+
+
+
+
+
+#nav_options ul{
+    display: flex;
+    justify-content: center;
+}
+
+#nav_options ul li{
+    list-style: none;
+    padding: 10px 20px;
+}
+
+#nav_options ul li:last-child {
+    background-color: #110526;
+    color: white;
+}
+
+/* landing html css */
+
+#land_body{
+    height: fit-content;
+    background: conic-gradient(from 181deg at 50% 50%, rgba(217, 217, 217, 0.00) 6.72125369310379deg, rgba(142, 131, 160, 0.48) 51.213160157203674deg, rgba(17, 5, 38, 0.15) 162.17902779579163deg, rgba(167, 164, 172, 0.12) 262.7010440826416deg);
+}
+
+#land_head{
+    display: flex;
+}
+
+#image_side{
+    background: url('../images/head.png'), lightgray 50% / cover no-repeat;
+    background-position: -10px;
+    border-radius: 500px;
+    width: 500px;
+    height: 363px;
+    flex-shrink: 0;
+}
+
+#description p{
+    color: #40101F;
+    font-family: 'Lobster Two', cursive;
+}
+#description p span{
+    color: #40101F;
+    font-family: 'Marvel', sans-serif;
+}
+
+#desc{
+    width: 60%;
+    margin: 20px auto;
+    color: #40101F;
+    margin-top: 20px;
+    display: flex;
+    text-align:right;
+    line-height: 30px;
+    font-family: 'Libre Caslon Text';
+
+}

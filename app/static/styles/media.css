@@ -1,0 +1,109 @@
+@media screen and (max-width: 589px){
+    #nav{
+       
+    }
+    #logo {
+       margin-top: 20px;
+       display: flex;
+       justify-content: center;
+    }
+    #logo span{
+        font-size: 40px;
+    }
+    #land_body{
+        padding: 30px;
+    }
+    #land_head {
+        flex-direction: column;
+    }
+    
+}
+
+@media  screen and (min-width: 590px) and (max-width: 799px) {
+    #nav{
+        margin: 10px;
+        display: flex;
+        justify-content: space-between;
+        height: fit-content;
+    }
+    #logo img{
+        margin-top: 10px;
+    }
+
+    #nav_options{
+        margin-top: 25px;
+    }
+    #nav_options ul li{
+       padding: 10px 10px;
+    }
+    #nav_options ul li:last-child{
+        margin-right: 20px;
+     }
+    #logo span{
+        font-size: 35px;
+        position: relative;
+        top: -17px;
+    }
+
+    #land_body{
+        padding: 40px;
+        margin-top: -20px;
+    }
+}
+
+@media screen and (min-width: 800px){
+    #nav{
+        margin: 30px 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+    #logo{
+        display: flex;
+    }
+    #logo img{
+        margin-top: -7px;
+    }
+    #nav_options{
+        margin-top: 10px;
+    }
+    #nav_options ul li{
+       padding: 10px 20px 10px 40px;
+    }
+    #logo span{
+        font-size: 40px;
+        position: relative;
+        top: -17px;
+    }
+    #land_body {
+        padding: 60px;
+        margin-top: -20px;
+    }
+    #nav_options ul li:last-child{
+        margin-left: 20px;
+        padding: 10px 20px;
+     }
+     #image_side{
+        margin-right: 40px;
+     }
+}
+
+@media screen and (max-width: 1000px) {
+    #image_side{
+        margin-right: 5px;
+        background-position: -10px;
+        border-radius: 350px;
+        width: 350px;
+        height: 250px;
+        flex-shrink: 0;
+    
+    }
+}
+
+@media screen and (min-width: 590px) and (max-width: 700px){
+    #land_head{
+        flex-direction: column;
+    }
+    #image_side{
+        margin: 10px auto;
+    }
+}
