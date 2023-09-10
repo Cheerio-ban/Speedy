@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speedy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/landing.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/media.css')}}">
+</head>
+<body>
+    <div id="container">
+        <div id="nav">
+            <div id="logo">
+                <img src="{{ url_for('static', filename='images/logo.png')}}">
+                <p>Speedy</p>
+            </div>
+            <div id="nav_options">
+                <ul>
+                    <li><a href="{{url_for('landing')}}">Personal</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a>Contact Us</a></li>
+                    <li><a>Log in</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+{% block content %}
+{% endblock %}
+</html>
