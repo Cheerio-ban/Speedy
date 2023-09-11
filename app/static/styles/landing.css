@@ -42,6 +42,8 @@ a:active{
 
 #land_head{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #image_side{
@@ -56,10 +58,12 @@ a:active{
 #description p{
     color: #40101F;
     font-family: 'Lobster Two', cursive;
+    font-size: 60px;
 }
 #description p span{
     color: #40101F;
     font-family: 'Marvel', sans-serif;
+    font-size: 20px;
 }
 
 #desc{
@@ -71,5 +75,19 @@ a:active{
     text-align:right;
     line-height: 30px;
     font-family: 'Libre Caslon Text';
+    font-size: 20px;
 
 }
+
+#description a{
+    padding: 10px 20px;
+    background-color: white;
+    color:#110526;
+    position: relative;
+}
+#description a:last-child{
+    background-color: #110526;
+    color: white;
+    margin: 20px;
+}
+
