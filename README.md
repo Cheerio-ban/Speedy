@@ -1,6 +1,6 @@
-# SWIFT
+# SPEEDY
 
-> Swift is an online banking system, a straight forward digital service offering the fundamental financial services, that allows customers to perform various banking transactions and manage their accounts over the internet using a secure website.
+> Speedy is an online banking system, a straight forward digital service offering the fundamental financial services, that allows customers to perform various banking transactions and manage their accounts over the internet using a secure website.
 
 # ROUTES
 
