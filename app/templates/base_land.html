@@ -27,7 +27,16 @@
             </div>
         </div>
     </div>
+    {% block content %}{% endblock %}
+    <footer>
+        <div>
+            <img src="{{ url_for('static', filename='images/logo.png')}}">
+            <span>Speedy</span>
+        </div>
+        <div>@ 2023 Speedy Digital Services</div>
+        <div></div>
+    </footer>
 </body>
-{% block content %}
-{% endblock %}
+
+
 </html>
