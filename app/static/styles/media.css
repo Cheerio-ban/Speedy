@@ -121,7 +121,6 @@
     .info .transfer_desc p:nth-child(2) {
         font-size: 15px;
         line-height: 40px;
-        text-align: right;
     }
     .photo{
         height: 300px;
@@ -197,7 +196,6 @@
     .info .transfer_desc p:nth-child(2) {
         font-size: 15px;
         line-height: 40px;
-        text-align: right;
     }
 }
 
