@@ -21,7 +21,7 @@ class Customer(db.Model):
   accounts = db.relationship('Account', backref='customer', lazy='dynamic')
 
 
-class Accounts(db.Model):
+class Account(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
   acc_type = db.Column(db.String)
