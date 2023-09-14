@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 
-from models.engine.file import FileStorage
+from models.engine.db_storage import DBStorage
 
-storage = FileStorage()
+storage = DBStorage()
