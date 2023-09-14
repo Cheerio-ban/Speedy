@@ -15,4 +15,4 @@ def not_found():
 @app_views.errorhandler(405)
 def wrong_method():
     """Deal with not allowed methds"""
-    return jsonify("{'error': 'Method not allowed'}")
+    return jsonify({'error': 'Method not allowed'})

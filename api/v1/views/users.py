@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from models import storage
 from app.models import *
+from werkzeug.security import generate_password_hash, check_password_hash
 
 @app_views.route('/users', methods=['GET'])
 def get_users():
@@ -72,10 +73,29 @@ def update_user(user_id: int=None):
     return jsonify({'success': f"user {user_id} successfuly updated"})
         
     
-
-
-        
-
-
-    
-    
+@app_views.route('/users', methods=['POST'])
+def create_user():
+    """Create user """
+    try:
+        r_args = request.get_json()
+    except Exception as e:
+        r_args = None
+    error = None
+    if r_args == None:
+        error = 'Wrong format. Email Required'
+    if error is None:
+        email = r_args.get('email')
+        password = r_args.get('password')
+        if email is None:
+            error = 'Email required'
+        if error is None and password is None:
+            error = 'Password required'
+        if error is None and len(r_args.keys()) > 2:
+            error = 'Only email and password is needed for the creation of a user'
+    if error is not None:
+        return jsonify({'error': error}) 
+    user = User()
+    user.email = email
+    user.password_hash = generate_password_hash(password)
+    storage.save(user)
+    return jsonify({'success': f"user, {user.id} has been created"})     

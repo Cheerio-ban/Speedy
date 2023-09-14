@@ -43,8 +43,10 @@ class DBStorage:
             db.session.delete(obj)
         db.session.commit()
     
-    def save(self):
+    def save(self, obj=None):
         """to save changes to the database"""
+        if obj is not None:
+            db.session.add(obj)
         db.session.commit()
 
     def reload(self):
