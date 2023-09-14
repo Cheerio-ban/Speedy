@@ -1,13 +1,20 @@
 from app import db
+from flask_login import UserMixin
+from app import login
+from werkzeug.security import check_password_hash, generate_password_hash
 
-class User(db.Model):
+class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  email = db.Column(db.String(), index=True, unique=True)
+  email = db.Column(db.String(), index=True, nullable=False, unique=True)
   password_hash = db.Column(db.String(128))
-
-
   def __repr__(self):
     return '<User {}>'.format(self.username)
+  
+  def set_password(self, password):
+    self.password_hash = generate_password_hash(password)
+
+  def check_password(self, password):
+    return check_password_hash(self.password_hash, password)
 
 
 class Customer(db.Model):
@@ -55,3 +62,8 @@ class Address(db.Model):
   country = db.Column(db.String(256), nullable=False)
   postal_code = db.Column(db.Integer)
   address_line_2 = db.Column(db.String(400))
+
+
+@login.user_loader
+def load_user(id):
+  return User.query.get(int(id))
