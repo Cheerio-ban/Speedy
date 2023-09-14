@@ -1,6 +1,8 @@
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import event
+from sqlalchemy.engine import Engine 
 from flask_migrate import Migrate
 
 app = Flask(__name__)

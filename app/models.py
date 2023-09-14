@@ -8,6 +8,13 @@ class User(db.Model):
 
   def __repr__(self):
     return '<User {}>'.format(self.username)
+  
+  def associated(self):
+    """This returns associated objects in the db"""
+    id = self.id
+    customer = Customer.query.filter_by(user_id=id).first()
+    account = Account.query.filter_by(cus_id=customer.id).first()
+    return [customer, account]
 
 
 class Customer(db.Model):
@@ -22,6 +29,8 @@ class Customer(db.Model):
   date_created= db.Column(db.DateTime)
   bank_name = db.Column(db.String(240), default="Speedy")
   accounts = db.relationship('Account', backref='customer', lazy='dynamic')
+
+
 
 
 class Account(db.Model):
