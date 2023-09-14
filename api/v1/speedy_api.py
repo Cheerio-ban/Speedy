@@ -9,7 +9,7 @@ from api.v1.views import app_views
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {'origins': "*"}})
 
-@app.route('/status', methods=['GET'])
+@app.route('/api/v1/status', methods=['GET'])
 def status():
     return jsonify({'status': 'OK'})
 
