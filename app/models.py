@@ -9,12 +9,19 @@ class User(UserMixin, db.Model):
   password_hash = db.Column(db.String(128))
   def __repr__(self):
     return '<User {}>'.format(self.username)
-  
+    
   def set_password(self, password):
     self.password_hash = generate_password_hash(password)
 
   def check_password(self, password):
     return check_password_hash(self.password_hash, password)
+
+  def associated(self):
+    """This returns associated objects in the db"""
+    id = self.id
+    customer = Customer.query.filter_by(user_id=id).first()
+    account = Account.query.filter_by(cus_id=customer.id).first()
+    return [customer, account]
 
 
 class Customer(db.Model):
@@ -31,11 +38,13 @@ class Customer(db.Model):
   accounts = db.relationship('Account', backref='customer', lazy='dynamic')
 
 
+
+
 class Account(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
   account_number = db.Column(db.String(100), nullable=False)
-  account_pin = db.Column(db.String(4), default='0022')
+  account_pin = db.Column(db.String(4), nullable=False)
   acc_type = db.Column(db.String(240))
   balance = db.Column(db.Integer)
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)

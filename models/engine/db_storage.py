@@ -5,7 +5,7 @@
 import json
 import os
 from app import db
-from models import *
+from app.models import *
 from datetime import datetime
 
 class DBStorage:
@@ -18,6 +18,7 @@ class DBStorage:
         return objs
     
     def to_json(self, obj):
+        """To convert an objects attribute to json"""
         dict_obj = obj.__dict__
         for k, v in dict_obj.items():
             if type(v) == datetime:
@@ -26,8 +27,28 @@ class DBStorage:
         del dict_obj['password_hash']
         return dict_obj
 
-    def get(self, cls, parameter):
-        
+    def get(self, cls, parameter, arg):
+        if cls is User:
+            if parameter =="id":
+                obj = cls.query.filter_by(id=arg).first()
+            if parameter == 'email':
+                obj = cls.query.filter_by(email=arg).first()
+        return obj
+    
+    def delete(cls, obj):
+        """To delete an object from the database"""
+        objs = obj.associated()
+        db.session.delete(obj)
+        for obj in objs:
+            db.session.delete(obj)
+        db.session.commit()
+    
+    def save(self, obj=None):
+        """to save changes to the database"""
+        if obj is not None:
+            db.session.add(obj)
+        db.session.commit()
+
     def reload(self):
         """reload the database"""
         pass
