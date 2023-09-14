@@ -28,7 +28,7 @@ class Account(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
   account_number = db.Column(db.String(100), nullable=False)
-  account_pin = db.Column(db.String(4), default='0022')
+  account_pin = db.Column(db.String(4), nullable=False)
   acc_type = db.Column(db.String(240))
   balance = db.Column(db.Integer)
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)

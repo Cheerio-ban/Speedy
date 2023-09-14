@@ -26,8 +26,11 @@ class DBStorage:
         del dict_obj['password_hash']
         return dict_obj
 
-    def get(self, cls, parameter):
-        
+    def get(self, cls, parameter, arg):
+        if parameter =="id":
+            obj = cls.query.filter_by(id=arg).first()
+        return obj
+    
     def reload(self):
         """reload the database"""
         pass
