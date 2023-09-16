@@ -26,15 +26,15 @@
                 {{ form.hidden_tag()}}
                 <div class="firstname">
                      <p>{{ form.firstname.label }}</p>
-                     <p> {{ form.firstname(placeholder='firstname', size=70, class="input") }}</p>
+                     <p> {{ form.firstname(placeholder='firstname', size=70, class="input", id="firstname") }}</p>
                 </div>
                 <div class="lastname">
                     <p>{{ form.lastname.label }} </p>
-                    <p>{{ form.lastname(placeholder='lastname', size=70, class="input") }}</p>
+                    <p>{{ form.lastname(placeholder='lastname', size=70, class="input", id="lastname") }}</p>
                 </div>
                 <div class="email">
                     <p> Email </p>
-                    <input type="text" value="{{ current_user.email}}" size=70 class="inpu" disabled>
+                    <input type="text" value="{{ current_user.email}}" size=70 class="inpu" id="email" autocomplete="off" disabled>
                 </div>
                 <div class="phone_no">
                     <p> {{form.phonenumber.label }} </p>
