@@ -17,12 +17,12 @@
         <header>
             <div id="logo">
                 <img src="{{ url_for('static', filename='images/logo.png')}}">
-                <span>Speedy</span>
+                <span><em>Speedy</em></span>
             </div>
         </header>
         <div id="form_container">
             <form method="POST" action="" novalidate>
-                <p id="title">Create a Speedy Account</p>
+                <p id="title">Open a Speedy Account</p>
                 {{ form.hidden_tag()}}
                 <div class="firstname">
                      <p>{{ form.firstname.label }}</p>
@@ -45,17 +45,18 @@
                     <p>{{ form.dob(min='2015-01-31', class="input") }}</p>
                 </div>
                 <div class="submit_cancel">
-                    <button id="create">Create Account</button>
-                    <button id="cancel">Cancel</button>
+                    {{ form.create(id="submit") }}
                 </div>
             </form>
+            <button id="cancel">Cancel</button>
         </div>
         <div class="pop">
             <div id="message">
-                <p></p>
-                {{ form.create(id="submit") }}
-                <button id="message_cancel"> </button>
-                <button href="" ></button>
+                <p>Are you sure you want to cancel?</p>
+                <div>
+                    <button id="message_no">No</button>
+                    <a href="{{ url_for('logout')}}">Cancel </a>
+                </div>
             </div>
         </div>
     </div>

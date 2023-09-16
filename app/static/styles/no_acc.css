@@ -21,7 +21,7 @@
       border-radius: 14px;
       width: 60%;
       height: fit-content;
-      box-shadow: -13px 16px 52px 1px rgba(143,14,230,0.68);
+      box-shadow: 0px 4px 31px 6px rgba(0,0,0,0.75);
      background-color: silver;
      color: rgb(65, 42, 109);
     
@@ -41,19 +41,12 @@
 }
 
 #create p:first-child{
-    position: relative;
-    top: 17px;
+    padding: 10px 0px;
     font-family: 'Libre Caslon Text';
     display: flex;
     justify-content: space-between;
 }
 
-#create span{
-    position: relative;
-    top: -30px;
-    font-size: 50px;
-    font-family: "Baloo Thambi 2"
-}
 
 #box_options p:not(#create p){
     padding: 0px 15px;
@@ -62,7 +55,7 @@
 }
 
 #create:hover{
-    box-shadow: -19px 17px 22px -15px rgba(32,20,41,1);
+    box-shadow: 0px 4px 31px 6px rgba(0,0,0,0.75);
 }
 
 #box_options p:nth-child(3) a:hover{

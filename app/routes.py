@@ -1,9 +1,11 @@
 from flask import Flask, redirect, render_template, request, url_for, flash
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import *
 from app import app, db
-from app.models import User
+from app.models import *
+from datetime import datetime
+import random
 
 
 @app.route('/', methods=['GET'])
@@ -44,8 +46,17 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/create_account', methods=['GET', 'POST'])
+@login_required
 def create_account():
+    if current_user.has_acc == 1:
+        return redirect('home')
     form = CreateAccountForm()
+    if form.validate_on_submit():
+        account = Account()
+        account.date_created = datetime.strftime(datetime.utcnow(), "%m/%d/%Y")
+        account.cus_id = current_user.id
+        account.create_account_number()
+        account.acc_type
     return render_template('create_account.html', form=form)
 
 @app.route('/logout')

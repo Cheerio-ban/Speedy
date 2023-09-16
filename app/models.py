@@ -2,6 +2,7 @@ from app import db
 from flask_login import UserMixin
 from app import login
 from werkzeug.security import check_password_hash, generate_password_hash
+import random
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -65,6 +66,17 @@ class Account(db.Model):
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
   date_created = db.Column(db.DateTime)
   transactions = db.relationship('Transaction', backref='account', lazy='dynamic')
+
+  def create_account_number(self):
+    """This function will use the random module to create a unique number"""
+    exists = True #bool for if the generated account number exists
+    while exists:
+      number = random.randint(111111111, 999999999)
+      acc_no = Account.query.filter_by(account_number=number)
+      if acc_no is None:
+        exist = False
+    self.account_number = number
+
 
 
 class Transaction(db.Model):
