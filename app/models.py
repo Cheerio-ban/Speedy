@@ -32,6 +32,7 @@ class Customer(db.Model):
   last_name = db.Column(db.String(140))
   email = db.Column(db.String(120), index=True, unique=True)
   phone_number = db.Column(db.String(204), primary_key=True)
+  username = db.Column(db.String(200))
   address = db.relationship('Address', backref='customer', lazy='dynamic')
   dob = db.Column(db.DateTime)
   date_created= db.Column(db.DateTime)

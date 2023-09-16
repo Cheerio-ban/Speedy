@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Accpunt | Speedy</title>
+</head>
+<body>
+    <div id="container">
+        <div id="form_container">
+            <form method="POST" action="" novalidate>
+                <p>Create a Speedy Account</p>
+                {{ form.hidden_tag()}}
+                <div class="firstname">
+                     <p>{{ form.firstname.label }}</p>
+                     <p> {{ form.firstname(placeholder='firstname', size=40) }}</p>
+                </div>
+                <div class="lastname">
+                    <p> </p>
+                </div>
+            </form>
+            <button>Cancel</button>
+        </div>
+    </div>
+</body>
+</html>
