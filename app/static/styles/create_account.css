@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: url('../images/bank_image.png');
+}
+#container{
+    height: 100vh;
+}
+
+header{
+    background-color: white;
+}
+
+#form_container{
+    width: 600px;
+    margin: 40px auto;
+    height: 30em;
+    padding: 20px;
+    border: 2px solid rgb(24, 41, 97);
+    border-radius: 20px;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.pop {
+    display: none;
+}
+
+form p{
+    padding:  5px 10px;
+    font-size: 18px;
+}
+form #title{
+    font-family: 'Iceberg';
+    font-size: 25px;
+    padding: 10px;
+    color: rgb(13, 24, 61);
+}
+
+.input, .inpu{
+    padding: 10px;
+    margin-right: 10px;
+    font-family: 'Cherry Bomb One';
+    font-weight: bold;
+    border:  1px solid silver;
+    border-radius: 7px;
+    
+}
+
+
+.submit_cancel button {
+    margin: 10px;
+    width: 150px;
+    padding: 5px;
+    border:  1px solid silver;
+}
+
+.submit_cancel button:hover{
+    background-color: rgb(197, 203, 221);
+    border:  none;
+}
+
+.input:focus{
+    outline: 2px solid rgb(13, 24, 61);
+}

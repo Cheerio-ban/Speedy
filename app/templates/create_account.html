@@ -4,23 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Accpunt | Speedy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/create_account.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/media.css')}}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Baloo+Thambi+2&family=Cherry+Bomb+One&family=Iceberg&family=Libre+Caslon+Text&family=Lobster+Two&family=Marvel:wght@700&display=swap');
+      </style>
+
 </head>
 <body>
     <div id="container">
+        <header>
+            <div id="logo">
+                <img src="{{ url_for('static', filename='images/logo.png')}}">
+                <span>Speedy</span>
+            </div>
+        </header>
         <div id="form_container">
             <form method="POST" action="" novalidate>
-                <p>Create a Speedy Account</p>
+                <p id="title">Create a Speedy Account</p>
                 {{ form.hidden_tag()}}
                 <div class="firstname">
                      <p>{{ form.firstname.label }}</p>
-                     <p> {{ form.firstname(placeholder='firstname', size=40) }}</p>
+                     <p> {{ form.firstname(placeholder='firstname', size=70, class="input") }}</p>
                 </div>
                 <div class="lastname">
-                    <p> </p>
+                    <p>{{ form.lastname.label }} </p>
+                    <p>{{ form.lastname(placeholder='lastname', size=70, class="input") }}</p>
+                </div>
+                <div class="email">
+                    <p> Email </p>
+                    <input type="text" value="{{ current_user.email}}" size=70 class="inpu" disabled>
+                </div>
+                <div class="phone_no">
+                    <p> {{form.phonenumber.label }} </p>
+                    <p> {{form.phonenumber(placeholder='08098923001', size=70, class="input") }}</p>
+                </div>
+                <div class="dob">
+                    <p> {{ form.dob.label }}</p>
+                    <p>{{ form.dob(min='2015-01-31', class="input") }}</p>
+                </div>
+                <div class="submit_cancel">
+                    <button id="create">Create Account</button>
+                    <button id="cancel">Cancel</button>
                 </div>
             </form>
-            <button>Cancel</button>
+        </div>
+        <div class="pop">
+            <div id="message">
+                <p></p>
+                {{ form.create(id="submit") }}
+                <button id="message_cancel"> </button>
+                <button href="" ></button>
+            </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/script1.js') }}"></script>
 </body>
 </html>
