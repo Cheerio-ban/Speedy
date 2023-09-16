@@ -22,9 +22,10 @@ class DBStorage:
         dict_obj = obj.__dict__
         for k, v in dict_obj.items():
             if type(v) == datetime:
-                dict_obj[k] = datetime.strftime(DBStorage.DATETIME_FORMAT, v)
+                dict_obj[k] = datetime.strftime(v, DBStorage.DATETIME_FORMAT)
         del dict_obj['_sa_instance_state']
-        del dict_obj['password_hash']
+        if 'password_hash' in dict_obj:
+            del dict_obj['password_hash']
         return dict_obj
 
     def get(self, cls, parameter, arg):
@@ -33,7 +34,7 @@ class DBStorage:
                 obj = cls.query.filter_by(id=arg).first()
             if parameter == 'email':
                 obj = cls.query.filter_by(email=arg).first()
-        return obj
+            return obj
     
     def delete(cls, obj):
         """To delete an object from the database"""

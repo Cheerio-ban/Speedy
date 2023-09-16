@@ -58,13 +58,16 @@ def update_user(user_id: int=None):
     error = None
     if request_args is None:
         error = "Wrong format"
-    if error is not None and request_args.get('email') is None:
-        error = 'No email specified'
-    if len(request_args.keys()) > 1:
-        error = "Only email can be updates"
+    if error is not None and request_args.get('email') is None and request_args.get('has_acc') is None:
+        error = 'No email or has_acc status specified'
+    if len(request_args.keys()) > 2:
+        error = "Only email and has_acc can be updated"
     if error is None:
         try:
-            user.email = request_args.get('email')
+            if request_args.get('email') is not None:
+                user.email = request_args.get('email')
+            if request_args.get('has_acc') is not None:
+                user.has_acc = int(request_args.get('has_acc'))
         except Exception as e:
             error ="Cannot update user"
     if error is not None:

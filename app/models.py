@@ -7,6 +7,7 @@ class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
   email = db.Column(db.String(), index=True, nullable=False, unique=True)
   password_hash = db.Column(db.String(128))
+  has_acc = db.Column(db.Integer, default=0, nullable=False)
   def __repr__(self):
     return '<User {}>'.format(self.username)
     
@@ -36,6 +37,19 @@ class Customer(db.Model):
   date_created= db.Column(db.DateTime)
   bank_name = db.Column(db.String(240), default="Speedy")
   accounts = db.relationship('Account', backref='customer', lazy='dynamic')
+
+  @classmethod
+  def get(cls, param, arg):
+    """Get a customer from the database based on information given"""
+    if param == "id":
+      customer = Customer.query.filter_by(id=arg).first()
+    elif param == "email":
+      customer = Customer.query.filter_by(email=arg).first()
+    elif param == "phone_number":
+      customer == Customer.query.filter_by(phone_number=arg).first()
+    else:
+      customer = None
+    return customer
 
 
 

@@ -11,10 +11,8 @@ import asyncio
 from datetime import datetime
 
 
-pins = {}
-accounts = Account.query.all()
-for account in accounts:
-    print(account.account_pin)
+
+user = User.
 
     
     

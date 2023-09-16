@@ -1,4 +1,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Baloo+Thambi+2&family=Cherry+Bomb+One&family=Iceberg&family=Libre+Caslon+Text&family=Lobster+Two&family=Marvel:wght@700&display=swap" rel="stylesheet">
 <div class="login">
   <div class="bank-image">
     <img src="{{ url_for('static', filename='images/bank_image.png') }}" alt="Bank Image">
@@ -43,4 +46,5 @@
       </div>
     </div>
   </div>
+  {% block no_acc %}{% endblock %}
 </div>
