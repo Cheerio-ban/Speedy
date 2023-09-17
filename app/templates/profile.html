@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="{{url_for('static', filename='styles/profile.css')}}">
+
+<div class="profile">
+  <div class="profile-box">
+    <div class="profile-img">
+      <img src="{{ url_for('static', filename='images/profile.png') }}" alt="" >
+    </div>
+    <p class="profile-text">Profile</p>
+    <div class="email-num">
+      <p>name</p>
+      <p>number</p>
+    </div>
+    <hr>
+    <p class="email">email</p>
+    <hr>
+    <div class="save">
+      <a href="/">Save</a>
+    </div>
+  </div>
+  <div class="account-box">
+    <div class="my-account">
+      <div class="account-edit">
+        <p>My Accounts</p>
+        <a href="/">Edit</a>
+      </div>
+      <div class="act-account">
+        <p>Active account</p>
+        <p>account number</p>
+      </div>
+      <div class="blk-account">
+        <p>Blocked account</p>
+        <p>account number</p>
+      </div>
+    </div>
+    <div class="address">
+      <div class="address-edit">
+        <p>Address</p>
+        <a href="/">Edit</a>
+      </div>
+      <div>
+        <p>Active account</p>
+        <p>account number</p>
+      </div>
+      <div>
+        <p>Blocked account</p>
+        <p>account number</p>
+      </div>
+    </div>
+  </div>
+</div>

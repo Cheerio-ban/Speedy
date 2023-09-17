@@ -88,6 +88,10 @@ def add_address(username):
         pass
     return render_template('set_address.html', form=form)
 
+@app.route('/<username>/profile', methods=['GET', 'POST'])
+def profile(username):
+    return render_template('profile.html')
+
 @app.route('/transactions')
 def transactions():
     return render_template('transactions.html')
