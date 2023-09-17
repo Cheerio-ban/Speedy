@@ -1,8 +1,8 @@
 """Table creation
 
-Revision ID: b9a47d76e208
+Revision ID: 385e7c05d31b
 Revises: 
-Create Date: 2023-09-15 17:00:34.176724
+Create Date: 2023-09-17 19:46:25.530808
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b9a47d76e208'
+revision = '385e7c05d31b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
+    sa.Column('has_acc', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('user', schema=None) as batch_op:
@@ -33,12 +34,14 @@ def upgrade():
     sa.Column('first_name', sa.String(length=140), nullable=True),
     sa.Column('last_name', sa.String(length=140), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=True),
-    sa.Column('phone_number', sa.String(length=204), nullable=False),
+    sa.Column('phone_number', sa.String(length=204), nullable=True),
+    sa.Column('username', sa.String(length=200), nullable=True),
     sa.Column('dob', sa.DateTime(), nullable=True),
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('bank_name', sa.String(length=240), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id', 'phone_number')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('phone_number')
     )
     with op.batch_alter_table('customer', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_customer_email'), ['email'], unique=True)
@@ -47,6 +50,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('cus_id', sa.Integer(), nullable=True),
     sa.Column('account_number', sa.String(length=100), nullable=False),
+    sa.Column('account_pin', sa.String(length=4), nullable=True),
     sa.Column('acc_type', sa.String(length=240), nullable=True),
     sa.Column('balance', sa.Integer(), nullable=True),
     sa.Column('bank_name', sa.String(length=240), nullable=False),
@@ -58,7 +62,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('cus_id', sa.Integer(), nullable=True),
     sa.Column('apartment_number', sa.Integer(), nullable=False),
-    sa.Column('street_number', sa.Integer(), nullable=False),
+    sa.Column('street_number', sa.Integer(), nullable=True),
     sa.Column('street_name', sa.String(length=256), nullable=False),
     sa.Column('city', sa.String(length=256), nullable=False),
     sa.Column('state', sa.String(length=256), nullable=False),

@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField
+from wtforms.validators import Regexp, Length
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -36,9 +37,13 @@ class CreateAccountForm(FlaskForm):
     """Create an account form"""
     firstname = StringField('First name', validators=[DataRequired()])
     lastname = StringField('Last name', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
     phonenumber = StringField('Phone number', validators=[DataRequired()])
-    dob = DateField('Date of Birth:', validators=[DataRequired()], format='%m/%d/%Y')
+    dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
+    pin = StringField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits"), Regexp(regex=r'\d*', message='Values must be digits')])
+    email = StringField('Email')
     create = SubmitField('Create account')
+    
 
     def validate_firstname(self, firstname):
         integer = 0
@@ -60,11 +65,29 @@ class CreateAccountForm(FlaskForm):
         if integer == 1:
             raise ValidationError('Lastname must not be a number')
 
-    def validate_phonenumbe(self, phonenumber):
+    def validate_phonenumber(self, phonenumber):
         """validate the phonenmber"""
-        if phonenumber[0] == 0:
-            phone_no = phonenumber[1:]
+        phone_no = phonenumber.data
+        if phonenumber.data[0] == 0:
+            phone_no = phonenumber.data[1:]
         try:
             int(phone_no)
         except Exception:
             raise ValidationError('Phonenumber cannot be words')
+    
+    def validate_pin(self, pin):
+        try:
+            int(pin.data)
+        except Exception:
+            raise ValidationError('The pin should be digits')        
+class FillAddress(FlaskForm):
+    """This is a class of form to fill address"""
+    apartment_number = StringField('Apartment number', validators=[DataRequired(), Regexp(regex=r'\d*', message='Values must be digits')])
+    street_number = StringField('Street number', validators=[DataRequired()])
+    street_name = StringField('Street name', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    country = StringField('Country', validators=[DataRequired()])
+    postal_code = StringField('Postal Code', validators=[Regexp(regex=r'\d*', message='Values must be digits')])
+    address_line_2 = StringField('Address Line 2')
+    submit = SubmitField('Add address')

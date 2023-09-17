@@ -15,6 +15,9 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated and current_user.has_acc == 1:
+        customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+        if customer.address.first() == None:
+            return redirect(url_for('add_address', username=customer.username))
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -25,6 +28,9 @@ def login():
         login_user(user, remember=form.remember_me.data)
         if current_user.has_acc == 0:
             return render_template('no_acc.html', form=form)
+        customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+        if customer.address.first() == None:
+            return redirect(url_for('add_address', username=customer.username))
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('home')
@@ -33,7 +39,10 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and current_user.has_acc == 1:
+        customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+        if customer.address.first() == None:
+            return redirect(url_for('add_address', username=customer.username))
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -49,15 +58,35 @@ def register():
 @login_required
 def create_account():
     if current_user.has_acc == 1:
+        customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+        if customer.address.first() == None:
+            return redirect(url_for('add_address', username=customer.username))
         return redirect('home')
     form = CreateAccountForm()
     if form.validate_on_submit():
+        flash('Account successfully created')
+        current_user.has_acc = 1
+        customer =Customer()
         account = Account()
-        account.date_created = datetime.strftime(datetime.utcnow(), "%m/%d/%Y")
-        account.cus_id = current_user.id
-        account.create_account_number()
-        account.acc_type
-    return render_template('create_account.html', form=form)
+        account.create_account(form)
+        account.customer = customer
+        customer.create_customer(form, account)
+        customer.email = current_user.email
+        customer.user_id = current_user.id
+        account.cus_id = customer.id
+        db.session.add(customer)
+        db.session.commit()
+        db.session.add(account)
+        db.session.commit()
+        return redirect(url_for('add_address', username=customer.username))
+    return render_template('acc_creation.html', form=form)
+
+@app.route('/<username>/add_address')
+def add_address(username):
+    form = FillAddress()
+    if form.validate_on_submit():
+        pass
+    return render_template('set_address.html', form=form)
 
 @app.route('/transactions')
 def transactions():

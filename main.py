@@ -11,8 +11,10 @@ import asyncio
 from datetime import datetime
 
 
+customer = Customer.query.filter_by(id=11).first()
 
-user = User.
+print(customer.address.first())
+
 
     
     

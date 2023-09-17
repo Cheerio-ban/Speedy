@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app import login
 from werkzeug.security import check_password_hash, generate_password_hash
 import random
+from datetime import datetime
 
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -25,6 +26,34 @@ class User(UserMixin, db.Model):
     account = Account.query.filter_by(cus_id=customer.id).first()
     return [customer, account]
 
+class Account(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+  account_number = db.Column(db.String(100), nullable=False)
+  account_pin = db.Column(db.String(4))
+  acc_type = db.Column(db.String(240))
+  balance = db.Column(db.Integer)
+  bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
+  date_created = db.Column(db.DateTime)
+  transactions = db.relationship('Transaction', backref='account', lazy='dynamic')
+
+  def create_account_number(self):
+    """This function will use the random module to create a unique number"""
+    exists = True #bool for if the generated account number exists
+    #while exists:
+    number = random.randint(111111111, 999999999)
+    acc_no = Account.query.filter_by(account_number=number).first()
+    if acc_no is None:
+      exist = False
+    self.account_number = number
+
+  def create_account(self, form):
+    """This creates the accoi=unt based on the form's data"""
+    self.date_created = datetime.utcnow()
+    self.create_account_number()
+    self.acc_type = 'active'
+    self.balance = 0
+    self.account_pin = form.pin.data
 
 class Customer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +61,7 @@ class Customer(db.Model):
   first_name = db.Column(db.String(140))
   last_name = db.Column(db.String(140))
   email = db.Column(db.String(120), index=True, unique=True)
-  phone_number = db.Column(db.String(204), primary_key=True)
+  phone_number = db.Column(db.String(204), unique=True)
   username = db.Column(db.String(200))
   address = db.relationship('Address', backref='customer', lazy='dynamic')
   dob = db.Column(db.DateTime)
@@ -54,28 +83,18 @@ class Customer(db.Model):
     return customer
 
 
+  def create_customer(self, form, account: Account):
+    """This function is to assign values to the attributes of the object"""
+    self.first_name = form.firstname.data
+    self.last_name = form.lastname.data
+    self.dob = form.dob.data
+    self.date_created = account.date_created
+    self.phone_number = form.phonenumber.data
+    self.username = form.username.data
 
 
-class Account(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
-  cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-  account_number = db.Column(db.String(100), nullable=False)
-  account_pin = db.Column(db.String(4), nullable=False)
-  acc_type = db.Column(db.String(240))
-  balance = db.Column(db.Integer)
-  bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
-  date_created = db.Column(db.DateTime)
-  transactions = db.relationship('Transaction', backref='account', lazy='dynamic')
 
-  def create_account_number(self):
-    """This function will use the random module to create a unique number"""
-    exists = True #bool for if the generated account number exists
-    while exists:
-      number = random.randint(111111111, 999999999)
-      acc_no = Account.query.filter_by(account_number=number)
-      if acc_no is None:
-        exist = False
-    self.account_number = number
+
 
 
 
@@ -91,7 +110,7 @@ class Address(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
   apartment_number = db.Column(db.Integer, nullable=False)
-  street_number = db.Column(db.Integer, nullable=False)
+  street_number = db.Column(db.Integer)
   street_name = db.Column(db.String(256), nullable=False)
   city = db.Column(db.String(256), nullable=False)
   state = db.Column(db.String(256), nullable=False)

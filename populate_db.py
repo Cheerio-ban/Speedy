@@ -140,6 +140,17 @@ print(customer.__dict__)
 print(address.__dict__)
              
 
+pins = {}
+account = Account.query.all()
+for accoun in account:
+    pin = str(random.randint(1111, 9999))
+    accoun.account_pin = generate_password_hash(pin)
+    pins[accoun.id] = pin
+    db.session.commit()
+
+with open('accounts.json', 'w') as f:
+    json.dump(pins, f)
+
 
 
         

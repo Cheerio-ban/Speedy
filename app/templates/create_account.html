@@ -21,34 +21,8 @@
             </div>
         </header>
         <div id="form_container">
-            <form method="POST" action="" novalidate>
-                <p id="title">Open a Speedy Account</p>
-                {{ form.hidden_tag()}}
-                <div class="firstname">
-                     <p>{{ form.firstname.label }}</p>
-                     <p> {{ form.firstname(placeholder='firstname', size=70, class="input", id="firstname") }}</p>
-                </div>
-                <div class="lastname">
-                    <p>{{ form.lastname.label }} </p>
-                    <p>{{ form.lastname(placeholder='lastname', size=70, class="input", id="lastname") }}</p>
-                </div>
-                <div class="email">
-                    <p> Email </p>
-                    <input type="text" value="{{ current_user.email}}" size=70 class="inpu" id="email" autocomplete="off" disabled>
-                </div>
-                <div class="phone_no">
-                    <p> {{form.phonenumber.label }} </p>
-                    <p> {{form.phonenumber(placeholder='08098923001', size=70, class="input") }}</p>
-                </div>
-                <div class="dob">
-                    <p> {{ form.dob.label }}</p>
-                    <p>{{ form.dob(min='2015-01-31', class="input") }}</p>
-                </div>
-                <div class="submit_cancel">
-                    {{ form.create(id="submit") }}
-                </div>
-            </form>
-            <button id="cancel">Cancel</button>
+            {% block content %}
+            {% endblock %}
         </div>
         <div class="pop">
             <div id="message">
