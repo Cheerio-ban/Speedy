@@ -59,6 +59,10 @@ def create_account():
         account.acc_type
     return render_template('create_account.html', form=form)
 
+@app.route('/transactions')
+def transactions():
+    return render_template('transactions.html')
+
 @app.route('/logout')
 def logout():
     logout_user()
