@@ -93,11 +93,6 @@ class Customer(db.Model):
     self.username = form.username.data
 
 
-
-
-
-
-
 class Transaction(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   acc_num = db.Column(db.String(100), db.ForeignKey('account.account_number'))
@@ -117,6 +112,16 @@ class Address(db.Model):
   country = db.Column(db.String(256), nullable=False)
   postal_code = db.Column(db.Integer)
   address_line_2 = db.Column(db.String(400))
+
+  def create_address(self, form):
+    """Fill in the address attribute """
+    self.apartment_number = form.apartment_number.data
+    self.street_name = form.street_name.data
+    self.city = form.city.data
+    self.state = form.state.data
+    self.country = form.country.data
+    self.postal_code = form.postal_code.data
+    self.address_line_2 = form.address_line_2.data
 
 
 @login.user_loader
