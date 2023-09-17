@@ -18,7 +18,7 @@ def login():
         customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
         if customer.address.first() == None:
             return redirect(url_for('add_address', username=customer.username))
-        return redirect(url_for('home'))
+        return redirect(url_for('user_home', username=customer.username))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -33,7 +33,7 @@ def login():
             return redirect(url_for('add_address', username=customer.username))
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('home')
+            next_page = url_for('user_home', username=customer.username)
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
@@ -81,12 +81,24 @@ def create_account():
         return redirect(url_for('add_address', username=customer.username))
     return render_template('acc_creation.html', form=form)
 
-@app.route('/<username>/add_address')
+@app.route('/<username>/add_address', methods=['GET', 'POST'])
+@login_required
 def add_address(username):
     form = FillAddress()
     if form.validate_on_submit():
-        pass
+        flash('Address Successfully added')
+        customer = Customer.query.filter_by(user_id=current_user.id).first()
+        address: Address = Address()
+        address.cus_id = customer.id
+        address.create_address(form)
+        db.session.add(address)
+        db.session.commit()
+        return redirect(url_for('user_home', username=username))
     return render_template('set_address.html', form=form)
+
+@app.route('/<username>/home')
+def user_home(username):
+    return render_template('user_home.html', username=username)
 
 @app.route('/transactions')
 def transactions():

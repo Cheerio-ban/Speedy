@@ -79,11 +79,12 @@ class CreateAccountForm(FlaskForm):
         try:
             int(pin.data)
         except Exception:
-            raise ValidationError('The pin should be digits')        
+            raise ValidationError('The pin should be digits')   
+
+
 class FillAddress(FlaskForm):
     """This is a class of form to fill address"""
     apartment_number = StringField('Apartment number', validators=[DataRequired(), Regexp(regex=r'\d*', message='Values must be digits')])
-    street_number = StringField('Street number', validators=[DataRequired()])
     street_name = StringField('Street name', validators=[DataRequired()])
     city = StringField('City', validators=[DataRequired()])
     state = StringField('State', validators=[DataRequired()])
