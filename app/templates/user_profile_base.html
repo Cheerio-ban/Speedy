@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ username}}-Profile Page | Speedy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Baloo+Thambi+2&family=Cherry+Bomb+One&family=Iceberg&family=Libre+Caslon+Text&family=Lobster+Two&family=Marvel:wght@700&display=swap');
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile.css')}}">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <div id="logo">
+                <img src="{{ url_for('static', filename='images/logo.png')}}">
+                <span>Speedy</span>
+            </div>
+        </header>
+        <div id="profile_page">
+            <div id="nav_bar">
+                <a>  Back</a>
+                <a>Edit profile</a>
+                <a>Manage Accounts</a>
+                <a>Manage User Account</a>
+                <a>Settings</a>
+            </div>
+            <div id="profile">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

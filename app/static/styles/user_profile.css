@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container{
+   
+}
+
+header{
+    padding: 10px 40px;
+    background-color: silver;
+}
+
+header span{
+    font-size: 32px;
+    position: relative;
+    top: -0.5em;
+}
+
+
+#nav_bar{
+    background-color: rgb(66, 194, 151);
+    height: fit-content;
+    display: flex;
+    padding: 5px;
+    flex-direction: column;
+    text-align: center;
+}
+
+#nav_bar a {
+    padding: 10px 20px;
+    background-color: rgb(99,21,63) ;
+    margin: 3px auto;
+    max-width: 250px;
+    min-width: 230px;
+}
+
+#profile{
+    background-color: aqua;
+    height: 40px;
+}
+
+#profile_page{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    padding: 0px 30px;
+}

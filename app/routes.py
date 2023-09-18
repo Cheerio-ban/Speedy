@@ -84,6 +84,9 @@ def create_account():
 @app.route('/<username>/add_address', methods=['GET', 'POST'])
 @login_required
 def add_address(username):
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
     form = FillAddress()
     if form.validate_on_submit():
         flash('Address Successfully added')
@@ -97,8 +100,21 @@ def add_address(username):
     return render_template('set_address.html', form=form)
 
 @app.route('/<username>/home')
+@login_required
 def user_home(username):
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
     return render_template('user_home.html', username=username)
+
+@app.route('/<username>/profile', methods=['GET'])
+def profile(username):
+    """Profile page for user"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    return render_template('user_profile_base.html', username=customer.username, customer=customer)
+
 
 # @app.route('/<username>/profile', methods=['GET', 'POST'])
 # def profile(username):
@@ -109,6 +125,9 @@ def user_home(username):
 
 @app.route('/<username>/transactions')
 def transactions(username):
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect('user_home', username=customer.username)
     cus = Customer.query.filter_by(username=username).first()
     account = cus.accounts.first()
     transactions = account.transactions.first()
