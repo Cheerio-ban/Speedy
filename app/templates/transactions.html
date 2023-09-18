@@ -5,8 +5,8 @@
   <div class="top-btn">
     <div class="bal">
       <p class="acc-bal">Account Balance</p>
-      <p class="acc-num">0456757879</p>
-      <p class="acc-bal-ngn">NGN 15000</p>
+      <p class="acc-num">{{ account.account_number | default('0456757879')}}</p>
+      <p class="acc-bal-ngn">NGN {{account.balance | default('15000')}}</p>
     </div>
     <div class="act-btn">
       <div class="transfer">Make a Transfer</div>
