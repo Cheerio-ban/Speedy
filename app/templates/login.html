@@ -27,7 +27,7 @@
             <h1>Sign In</h1>
             <div class="form-group">
                 {{ form.email.label }}<br>
-                {{ form.email(size=20, placeholder='example@email.com') }}
+                {{ form.email(size=40, placeholder='example@email.com') }}
                 {% for error in form.email.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}

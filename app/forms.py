@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
     It gets inputs from the user using wtforms fields.
     (StringField, PasswordField, SubmitField)
     """
-    email = StringField('Email address', validators=[DataRequired(), Length(min=2, max=20), Email()])
+    email = StringField('Email address', validators=[DataRequired(), Length(min=7, max=40), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')

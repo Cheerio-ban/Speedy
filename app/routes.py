@@ -27,7 +27,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         if current_user.has_acc == 0:
-            return render_template('no_acc.html', form=form)
+            return redirect(url_for('create_account'))
         customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
         if customer.address.first() == None:
             return redirect(url_for('add_address', username=customer.username))
