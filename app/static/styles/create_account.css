@@ -58,11 +58,13 @@ button, #submit{
     margin-bottom: 0px;
     width: 150px;
     padding: 10px 5px;
+    background-color: rgb(99,21,63);
     border:  1px solid silver;
+    color: white;
 }
 
 button:hover, #submit:hover{
-    background-color: rgb(197, 203, 221);
+    background-color: rgb(226, 164, 198);
     border:  none;
 }
 
@@ -95,19 +97,25 @@ button:hover, #submit:hover{
 
 #message button{
     width: 100px;
+    position: relative;
+    top: -10px;
+    background-color: rgb(99,21,63);
+    color: white;
 }
 
 #message a{
     position: relative;
-    top: 5px;
+    top: 2px;
     padding: 5px 25px;
     background-color: white;
     text-decoration: none;
+    color: #110526;
 }
 
 #message p{
     padding: 20px;
     color: black;
+    margin-bottom: 5px;
 }
 
 #message div{
