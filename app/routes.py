@@ -102,11 +102,17 @@ def user_home(username):
 
 @app.route('/<username>/profile', methods=['GET', 'POST'])
 def profile(username):
-    return render_template('profile.html')
+    cus = Customer.query.filter_by(username=username).first()
+    account = cus.accounts.first()
+    address = cus.address.first()
+    return render_template('profile.html', customer=cus, account=account, address=address)
 
-@app.route('/transactions')
-def transactions():
-    return render_template('transactions.html')
+@app.route('/<username>/transactions')
+def transactions(username):
+    cus = Customer.query.filter_by(username=username).first()
+    account = cus.accounts.first()
+    transactions = account.transactions.first()
+    return render_template('transactions.html', transactions=transactions, account=account)
 
 @app.route('/logout')
 def logout():
