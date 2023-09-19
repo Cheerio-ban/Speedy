@@ -108,6 +108,7 @@ def user_home(username):
     return render_template('user_home.html', username=username, customer=customer)
 
 @app.route('/<username>/profile', methods=['GET'])
+@login_required
 def profile(username):
     """Profile page for user"""
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
@@ -115,6 +116,27 @@ def profile(username):
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     return render_template('user_profile.html', username=customer.username, customer=customer)
+
+@app.route('/<username>/profile/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile(username):
+    """Edit the profile of the user"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    form = EditProfileInfo()
+    form2=EditProfileAddress()
+    if form.validate_on_submit():
+        customer.phone_number = form.phonenumber.data
+        customer.username = form.username.data
+        db.session.commit()
+        return redirect(url_for('edit_profile', username=customer.username))
+    if form2.validate_on_submit():
+        address = Address.query.filter_by(cus_id=customer.id).first()
+        address.create_address(form2)
+        db.session.commit()
+        return redirect(url_for('edit_profile', username=customer.username))
+    return render_template('edit_profile.html', username=customer.username, customer=customer, form=form, form2=form2)
 
 
 # @app.route('/<username>/profile', methods=['GET', 'POST'])
@@ -133,6 +155,7 @@ def transactions(username):
     account = cus.accounts.first()
     transactions = account.transactions.first()
     return render_template('transactions.html', transactions=transactions, account=account)
+
 
 @app.route('/<username>/transfer')
 def transfer(username):

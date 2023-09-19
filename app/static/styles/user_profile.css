@@ -4,9 +4,7 @@
     box-sizing: border-box;
 }
 
-#container{
-   
-}
+
 
 
 header{
@@ -41,22 +39,32 @@ header span{
     border-radius: 18px;
     box-shadow: 1px 2px 17px -4px rgba(0,0,0,0.75);
     color: white;
+    text-decoration: none;
 }
 
 #nav_bar a:first-child{
     background-color: white;
-    border-bottom: 1px solid rgb(99,21,63);
+    /* border-bottom: 1px solid rgb(99,21,63);*/
+    box-shadow: none; 
+    color: #110526;
+}
+
+#nav_bar a:first-child:visited{
     color: #110526;
 }
 
 #nav_bar a:first-child:hover{
-    background-color: rgba(99,21,63, 0.3)
+    background-color: rgba(99,21,63, 0.3);
 }
 
 #nav_bar a:hover{
     box-shadow: 0px 4px 31px 6px rgba(0,0,0,0.75);
     margin: 7px auto;
     background-color: rgba(99,21,63, 0.3)
+}
+
+#nav_bar a:visited{
+    color: white;
 }
 
 #profile{
@@ -238,3 +246,72 @@ header span{
     color: gray;
 }
 
+/*edit profile css*/
+#form_container{
+    width: 700px;
+    margin: 0px auto;
+    height: 30em;
+    padding: 20px;
+    /* border: 2px solid rgb(24, 41, 97);
+    border-radius: 20px; */
+    overflow-y: scroll;
+    background-color: white;
+}
+
+form div p:first-child{
+    margin-left: 5px;
+    padding:  5px 10px;
+    font-size: 16px;
+}
+form #title{
+    font-family: 'Iceberg';
+    font-size: 20px;
+    padding: 10px;
+    color: rgb(13, 24, 61);
+    margin-bottom: 10px;
+}
+
+.input, .inpu{
+    padding: 10px;
+    margin-right: 10px;
+    font-family: 'Baloo Thambi 2';
+    font-weight: bold;
+    border:  1px solid silver;
+    border-radius: 7px;
+    
+}
+
+
+#submit, #submit2{
+    margin-right: 10px;
+    margin-bottom: 0px;
+    width: 150px;
+    padding: 10px 5px;
+    background-color: rgb(99,21,63);
+    border:  1px solid silver;
+    color: white;
+    border-radius: 14px;
+}
+
+#submit:hover, #submit2:hover{
+    background-color: rgb(226, 164, 198);
+    border:  none;
+}
+
+.input:focus{
+    outline: 2px solid rgb(13, 24, 61);
+}
+
+input{
+    margin-left: 10px;
+}
+
+#submit, #submit2{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form{
+    margin-left: 20px;
+}
