@@ -105,7 +105,7 @@ def user_home(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    return render_template('user_home.html', username=username)
+    return render_template('user_home.html', username=username, customer=customer)
 
 @app.route('/<username>/profile', methods=['GET'])
 def profile(username):
@@ -133,6 +133,12 @@ def transactions(username):
     account = cus.accounts.first()
     transactions = account.transactions.first()
     return render_template('transactions.html', transactions=transactions, account=account)
+
+@app.route('/<username>/transfer')
+def transfer(username):
+    customer = Customer.query.filter_by(user_id=current_user.id).first()
+    form = InterTransfer()
+    return render_template('transfer.html', username=customer.username, form=form, customer=customer)
 
 @app.route('/logout')
 def logout():

@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="act-btn">
-                <a href="/" class="transf">Make a Transfer</a><br>
+                <a href="{{ url_for('transfer', username=customer.username) }}" class="transf">Make a Transfer</a><br>
                 <a href="/" class="transac">Transaction History</a><br>
                 <a href="/" class="creat">Create an Account</a><br>
             </div>
