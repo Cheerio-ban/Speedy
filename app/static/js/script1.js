@@ -15,13 +15,12 @@ cancel_pop.addEventListener('click', () => {
 })
 
 
-/*Profile pagr*/
 
-const cus_info = document.querySelector('#customer_information')
-const customer_button = document.querySelector('.show_cus')
+
+const cus_button = document.querySelector('#show_cus')
 const p = document.querySelector('.title')
 
-customer_button.addEventListener('click', ()=>{
+cus_button.addEventListener('click', () => {
     cus_info.style.display = 'none';
 })
 

@@ -114,7 +114,7 @@ def profile(username):
     accounts=Account.query.filter_by(cus_id=customer.id)
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    return render_template('user_profile_base.html', username=customer.username, customer=customer, acounts=accounts)
+    return render_template('user_profile.html', username=customer.username, customer=customer)
 
 
 # @app.route('/<username>/profile', methods=['GET', 'POST'])

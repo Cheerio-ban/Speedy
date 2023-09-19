@@ -90,6 +90,10 @@ class Customer(db.Model):
   def get_address(self):
     """Get customer address"""
     return self.address.first()
+  
+  def get_accounts(self):
+    """Get accounts from the customer"""
+    return self.accounts.all()
 
 
   def create_customer(self, form, account: Account):
