@@ -16,8 +16,8 @@
  }
 
  .bal-box {
-  width: 40%;
-  margin: 0 5%;
+  width: 30%;
+  margin: 0 10%;
   padding: 3%;
   border-radius: 13px;
   border: 1px solid #000;
@@ -28,7 +28,7 @@
  .bal-box p {
   color: #FFF;
   font-family: Inter;
-  font-size: 25.404px;
+  font-size: 16px;
   font-weight: 700;
  }
 
@@ -76,17 +76,17 @@
 }
 
 .act-btn .transf {
-  padding: 18px 105px;
+  padding: 18px 60px;
   margin-bottom: 40px;
 }
 
  .act-btn .transac {
-  padding: 18px 93px;
+  padding: 18px 48px;
   margin-bottom: 40px;
  }
 
  .act-btn .creat {
-  padding: 18px 100px;
+  padding: 18px 55px;
   margin-bottom: -13px;
  }
 
@@ -97,14 +97,14 @@
 
 .accounts {
   padding: 20px;
-  width: 40%;
-  margin: 0 5%;
+  width: 30%;
+  margin: 0 10%;
 }
 
 .accounts p {
   color: #000;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -144,14 +144,14 @@
 
 .cards {
   padding: 20px;
-  width: 40%;
-  margin: 0 5%;
+  width: 30%;
+  margin: 0 10%;
 }
 
 .cards p {
   color: #000;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -174,7 +174,7 @@
   flex-direction: column;
   align-items: center;
   margin: 20px 0;
-  margin-top: 50px;
+  margin-top: 35px;
 }
 
 
