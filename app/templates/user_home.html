@@ -4,10 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ username }} | Speedy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_home.css'   ) }}">
 </head>
 <body>
-    <p> Welcome {{ username }}</p>
-    <a href="{{ url_for('logout')}}">Logout</a>
-    <a href="{{ url_for('profile', username=username )}}">View customer's profile</a>
+    <div>
+        <p> Welcome {{ username }}</p>
+        <a href="{{ url_for('logout')}}">Logout</a>
+        <a href="{{ url_for('profile', username=username )}}">View customer's profile</a>
+    </div>
+    <div class="user_home">
+        <div class="top-sec">
+            <div class="bal-box">
+                <div class="acc-sta">
+                    <div class="balance">
+                        <p>Balance</p>
+                        <p>N 500.00</p>
+                    </div>
+                    <div class="status">
+                        <p>Status</p>
+                        <p>Active</p>
+                    </div>
+                </div>
+                <div class="num-type">
+                    <div class="num">
+                        <p>Account Number</p>
+                        <p>5674939946</p>
+                    </div>
+                    <div class="type">
+                        <p>Type</p>
+                        <p>Savings Account</p>
+                    </div>
+                </div>
+            </div>
+            <div class="act-btn">
+                <a href="/" class="transf">Make a Transfer</a><br>
+                <a href="/" class="transac">Transaction History</a><br>
+                <a href="/" class="creat">Create an Account</a><br>
+            </div>
+        </div>
+        <div class="bot-sec">
+            <div class="accounts">
+                <p>Accounts</p>
+                <p>Here are your options for a fulfiling bank experience.</p>
+                <div class="a-s">
+                    <a href="/" class="sav">Savings Accounts</a><br>
+                    <a href="/" class="cur">Current Accounts</a><br>
+                    <a href="/" class="comp">Compare Accounts</a><br>
+                </div>
+            </div>
+            <div class="cards">
+                <p>Cards</p>
+                <p>Make your money flexible</p>
+                <div class="n-d">
+                    <a href="/" class="nai">Naira Debit Cards</a><br>
+                    <a href="/" class="dol">Dollar Debit Cards</a><br>
+                    <a href="/" class="prep">Prepaid Cards</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

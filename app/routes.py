@@ -65,7 +65,7 @@ def create_account():
     form = CreateAccountForm()
     if form.validate_on_submit():
         flash('Account successfully created')
-        current_user.has_acc = 1
+        current_user.has_acc = 1  # This should be an in-place increment.
         customer =Customer()
         account = Account()
         account.create_account(form)
