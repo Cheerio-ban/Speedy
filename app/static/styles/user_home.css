@@ -57,7 +57,6 @@
  }
 
 .act-btn a {
-  /* padding: 18px 140px; */
   color: #fff;
   text-decoration: none;
   font-family: Inter;
@@ -80,15 +79,15 @@
   margin-bottom: 10px;
 }
 
- .act-btn .transac {
+.act-btn .transac {
   padding: 18px 48px;
   margin-bottom: 10px;
- }
+}
 
- .act-btn .creat {
+.act-btn .creat {
   padding: 18px 55px;
   margin-bottom: -13px;
- }
+}
 
 .bot-sec {
   display: flex;

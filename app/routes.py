@@ -138,7 +138,14 @@ def transactions(username):
 def transfer(username):
     customer = Customer.query.filter_by(user_id=current_user.id).first()
     form = InterTransfer()
+    # if form.validate_on_submit:
+    #     cus_1 = Customer.query.filter_by(form.acc_number.data)
     return render_template('transfer.html', username=customer.username, form=form, customer=customer)
+
+@app.route('/navbar')
+def navbar():
+    """ Tests Navbar """
+    return render_template('nav-bar.html')
 
 @app.route('/logout')
 def logout():

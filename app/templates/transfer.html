@@ -4,7 +4,7 @@
       {{ form.hidden_tag() }}
       <div class="amount">
         <p>{{ form.amount.label }}</p>
-        <p> {{ form.amount(placeholder='amount', size=70, class="input", id="amount") }}</p>
+        <p> {{ form.amount(placeholder='Amount', size=70, class="input", id="amount") }}</p>
         {% for error in form.amount.errors %}
         <p class="error"> {{ error }}</p>
         {% endfor %}
@@ -25,7 +25,7 @@
       </div>
       <div class="from-acc">
         <p>{{ form.from_acc.label }}</p>
-        <p> {{ form.from_acc(placeholder='Debit Account', size=70, class="input", id="fromacc") }}</p>
+        <p> {{ form.from_acc(placeholder='Account number to be debited', size=70, class="input", id="fromacc") }}</p>
         {% for error in form.from_acc.errors %}
         <p class="error"> {{ error }}</p>
         {% endfor %}
