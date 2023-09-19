@@ -101,3 +101,32 @@ class InterTransfer(FlaskForm):
     bank_name = StringField('Beneficiary Bank Number', validators=[DataRequired()])
     from_acc = StringField('From Account')
     submit = SubmitField('Transfer')
+
+
+class EditProfileInfo(FlaskForm):
+    """This is teh form fo rediting profile"""
+    username = StringField('Username', validators=[DataRequired()])
+    phonenumber = StringField('Phone number', validators=[DataRequired()])
+    submit = SubmitField('Update information')
+
+    def validate_phonenumber(self, phonenumber):
+        """validate the phonenmber"""
+        phone_no = phonenumber.data
+        if phonenumber.data[0] == 0:
+            phone_no = phonenumber.data[1:]
+        try:
+            int(phone_no)
+        except Exception:
+            raise ValidationError('Phonenumber cannot be words')
+        
+class EditProfileAddress(FlaskForm):
+    """This is to edit the address"""
+    apartment_number = StringField('Apartment number', validators=[DataRequired(), Regexp(regex=r'\d*', message='Values must be digits')])
+    street_name = StringField('Street name', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    country = StringField('Country', validators=[DataRequired()])
+    postal_code = StringField('Postal Code', validators=[Regexp(regex=r'\d*', message='Values must be digits')])
+    address_line_2 = StringField('Address Line 2')
+    submit = SubmitField('Update Your Address')
+    

@@ -189,3 +189,20 @@
 .n-d .prep {
   padding: 18px 117px;
 }
+
+/*scroollbar*/
+::-webkit-scrollbar{
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #110526;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-button{
+  display: block;
+}
+
+::-webkit-scrollbar-track{
+  background-color: silver;
+}
