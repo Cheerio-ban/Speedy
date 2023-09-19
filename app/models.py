@@ -81,6 +81,15 @@ class Customer(db.Model):
     else:
       customer = None
     return customer
+  
+  def format_time(self, date: datetime):
+    """This to format object to string"""
+    format = ("%B %d %Y")
+    return datetime.strftime(date, format)
+
+  def get_address(self):
+    """Get customer address"""
+    return self.address.first()
 
 
   def create_customer(self, form, account: Account):
