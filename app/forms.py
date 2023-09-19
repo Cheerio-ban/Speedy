@@ -92,3 +92,8 @@ class FillAddress(FlaskForm):
     postal_code = StringField('Postal Code', validators=[Regexp(regex=r'\d*', message='Values must be digits')])
     address_line_2 = StringField('Address Line 2')
     submit = SubmitField('Add address')
+
+
+class Transfer(FlaskForm):
+    """Form to carry out transfers"""
+    pass
