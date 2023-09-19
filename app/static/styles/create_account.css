@@ -61,6 +61,7 @@ button, #submit{
     background-color: rgb(99,21,63);
     border:  1px solid silver;
     color: white;
+    border-radius: 14px;
 }
 
 button:hover, #submit:hover{
@@ -101,6 +102,7 @@ button:hover, #submit:hover{
     top: -10px;
     background-color: rgb(99,21,63);
     color: white;
+    border-radius: 14px;
 }
 
 #message a{
@@ -145,4 +147,20 @@ input{
     color: red;
     font-size: 10px;
     margin-left: 20px;
+}
+
+::-webkit-scrollbar{
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #110526;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-button{
+    display: block;
+}
+
+::-webkit-scrollbar-track{
+    background-color: silver;
 }
