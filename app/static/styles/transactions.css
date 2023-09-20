@@ -13,7 +13,7 @@
 .top-btn {
   display: flex;
   justify-content: space-between;
-  margin: 5% 20%;
+  margin: 40px 20% 30px 20%;
 }
 
 .top-btn p {
@@ -93,26 +93,58 @@
   cursor: pointer;
 }
 
-table {
-  width: 80%;
-  margin: 0 auto;
-  box-shadow: 1px 7px 20px 5px #ddd1dc;
-  max-height: 500px;
+.bills:hover {
+  color: #63153F;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
 }
 
 .list-head {
-  margin: 0 10%;
-  height: 55px;
-  overflow-y: scroll;
+  min-width: 600px;
+  table-layout: fixed;
+  margin: 0 auto;
+  box-shadow: 1px 7px 20px 5px #ddd1dc;
   border-radius: 8px;
-  border: 2px soiid rgba(73, 33, 71, 0.25)
+ 
 }
 
+
+
+.list-head tbody{
+  display: block;
+  width: 100%;
+  overflow-y: scroll;
+  height: 280px;
+}
+
+.list-head thead tr{
+  display: block;
+  align-items: center;
+}
 .list-head > p {
   color: #000;
   font-family: Inter;
   font-size: 24px;
   font-weight: 700;
+}
+
+th{
+  text-align: center;
+}
+
+
+table thead th:nth-child(1){
+  padding: 10px 80px;
+}
+table thead th:nth-child(2), table thead th:nth-child(3){
+  padding: 10px 100px;
+  
+}
+td{
+  background-color: white;
+  padding: 10px 55px;
+  text-align: center;
 }
 
 .list-coll {
@@ -129,15 +161,6 @@ table {
   font-size: 24px;
   font-weight: 700;
 }
-
-td{
-  background-color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-
-
 
 /*scrollbar*/
 ::-webkit-scrollbar{
