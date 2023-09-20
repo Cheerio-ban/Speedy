@@ -65,7 +65,7 @@ def create_account():
     form = CreateAccountForm()
     if form.validate_on_submit():
         flash('Account successfully created')
-        current_user.has_acc = 1  # This should be an in-place increment.
+        current_user.has_acc = 1
         customer =Customer()
         account = Account()
         account.create_account(form)
@@ -151,7 +151,7 @@ def edit_profile(username):
 def transactions(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
-        return redirect('user_home', username=customer.username)
+        return redirect(url_for('user_home', username=customer.username))
     cus = Customer.query.filter_by(username=username).first()
     account = cus.accounts.first()
     transactions = account.transactions
@@ -166,10 +166,10 @@ def transfer(username):
     #     cus_1 = Customer.query.filter_by(form.acc_number.data)
     return render_template('transfer.html', username=customer.username, form=form, customer=customer)
 
-@app.route('/navbar')
-def navbar():
-    """ Tests Navbar """
-    return render_template('nav-bar.html')
+@app.route('/<username>/accounts')
+def accounts(username):
+    customer = Customer.query.filter_by(user_id=current_user.id).first()
+    return render_template('accounts.html', customer=customer)
 
 @app.route('/logout')
 def logout():

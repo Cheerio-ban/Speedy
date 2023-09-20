@@ -7,7 +7,7 @@
   </div>
   <div class="links">
     <a href="{{ url_for('user_home', username=customer.username)}}">HOME</a>
-    <a href="{{ url_for('profile', username=customer.username)}}">ACCOUNTS</a>
+    <a href="{{ url_for('accounts', username=customer.username)}}">ACCOUNTS</a>
     <a href="{{ url_for('transactions', username=customer.username )}}">TRANSACTIONS</a>
     <a href="">SERVICES</a>
   </div>

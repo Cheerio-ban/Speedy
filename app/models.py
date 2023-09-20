@@ -107,7 +107,6 @@ class Customer(db.Model):
 
 
 class Transaction(db.Model):
-  # Needs a transaction description.
   id = db.Column(db.Integer, primary_key=True)
   description = db.Column(db.String(250))
   acc_num = db.Column(db.String(100), db.ForeignKey('account.account_number'))

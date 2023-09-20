@@ -86,6 +86,13 @@
   box-shadow: 0px 10px 20px 0px #cccccc;
 }
 
+.bills:hover {
+  color: #63153F;
+  background-color: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
 table {
   width: 80%;
   margin: 0 auto;
