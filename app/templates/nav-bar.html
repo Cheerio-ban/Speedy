@@ -1,19 +1,21 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/nav-bar.css') }}">
+
 <div class="nav-bar">
   <div class="logo">
     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
-    <a href="">Speeedy</a>
+    <a href="">Speedy</a>
   </div>
   <div class="links">
-    <a href="">HOME</a>
-    <a href="">ACCOUNTS</a>
-    <a href="">TRANSFER</a>
+    <a href="{{ url_for('user_home', username=customer.username)}}">HOME</a>
+    <a href="{{ url_for('profile', username=customer.username)}}">ACCOUNTS</a>
+    <a href="{{ url_for('transactions', username=customer.username )}}">TRANSACTIONS</a>
     <a href="">SERVICES</a>
   </div>
-  <div class="profile">
-    <a>c</a>
+  <div class="profile" title="View your profile">
+    <a href="{{ url_for('profile', username=customer.username)}}">{{ customer.username[0] }}</a>
   </div>
 </div>
+
 
 {% block content %}
 {% endblock %}

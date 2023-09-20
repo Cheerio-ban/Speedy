@@ -4,7 +4,9 @@
   box-sizing: border-box;
 }
 
+
 .nav-bar {
+  min-width: 1015px;
   display: flex;
   justify-content: space-between;
   padding:   0 10%;
@@ -15,6 +17,7 @@
 }
 
 .logo {
+  width: 10%;
   display: flex;
   align-items: center;
 }
@@ -24,7 +27,7 @@
   text-align: center;
   text-decoration: none;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
 }
 
@@ -36,6 +39,7 @@
   font-size: 16px;
   font-weight: 700;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
 }
 
 .profile a {
@@ -44,3 +48,30 @@
   border-radius: 50%;
   text-decoration: none;
 }
+
+.links{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.profile{
+  width: 10%;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .nav-bar{
+    padding: 0 5%;
+  }
+
+
+  .link a{
+    padding: 0 20px;
+  }
+}
+
+
+
+

@@ -10,13 +10,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile.css')}}">
 </head>
 <body>
+    {% include 'nav-bar.html' %}
     <div id="container">
-        <header>
-            <div id="logo">
-                <img src="{{ url_for('static', filename='images/logo.png')}}">
-                <span>Speedy</span>
-            </div>
-        </header>
         <div id="profile_page">
             <div id="nav_bar">
                 <a href="{{ url_for('user_home', username=customer.username)}}">  Back</a>
@@ -24,6 +19,7 @@
                 <a>Manage Accounts</a>
                 <a>Manage User Account</a>
                 <a>Settings</a>
+                <a>Logout</a>
             </div>
             <div id="profile">
                 {% block content %}{% endblock %}

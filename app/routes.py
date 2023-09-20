@@ -154,7 +154,7 @@ def transactions(username):
     cus = Customer.query.filter_by(username=username).first()
     account = cus.accounts.first()
     transactions = account.transactions.first()
-    return render_template('transactions.html', transactions=transactions, account=account)
+    return render_template('transactions.html', transactions=transactions, account=account, customer=customer)
 
 
 @app.route('/<username>/transfer')
