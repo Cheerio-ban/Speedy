@@ -6,79 +6,26 @@
 <div class="accounts">
   <div class="bank-btn">
     <p>Bank Accounts</p>
-    <a href="">Add Bank Account</a>
+    <a href="">Create Bank Account</a>
   </div>
   <div class="account-grid">
+    {% for account in accounts %}
     <div class="account-tile">
       <div class="name-icon">
         <div class="name">
-          <p class="bk-name">Bank Name</p>
-          <p class="status">Bank Status</p>
+          <p class="bk-name">{{account.bank_name}}</p>
+          <p class="status">{{account.acc_type}}</p>
+          <p class="status">{{account.account_number}}</p>
         </div>
         <div class="icon">
-          <img src="" alt="">
+          <img src="{{ url_for('static', filename='images/bank-icon.png') }}" alt="">
         </div>
       </div>
       <div class="amount">
-        <p>N 160000</p>
+        <p>N{{ account.balance }}</p>
       </div>
     </div>
-    <div class="account-tile">
-      <div class="name-icon">
-        <div class="name">
-          <p class="bk-name">Bank Name</p>
-          <p class="status">Bank Status</p>
-        </div>
-        <div class="icon">
-          <img src="" alt="">
-        </div>
-      </div>
-      <div class="amount">
-        <p>N 160000</p>
-      </div>
-    </div>
-    <div class="account-tile">
-      <div class="name-icon">
-        <div class="name">
-          <p class="bk-name">Bank Name</p>
-          <p class="status">Bank Status</p>
-        </div>
-        <div class="icon">
-          <img src="" alt="">
-        </div>
-      </div>
-      <div class="amount">
-        <p>N 160000</p>
-      </div>
-    </div>
-    <div class="account-tile">
-      <div class="name-icon">
-        <div class="name">
-          <p class="bk-name">Bank Name</p>
-          <p class="status">Bank Status</p>
-        </div>
-        <div class="icon">
-          <img src="" alt="">
-        </div>
-      </div>
-      <div class="amount">
-        <p>N 160000</p>
-      </div>
-    </div>
-    <div class="account-tile">
-      <div class="name-icon">
-        <div class="name">
-          <p class="bk-name">Bank Name</p>
-          <p class="status">Bank Status</p>
-        </div>
-        <div class="icon">
-          <img src="" alt="">
-        </div>
-      </div>
-      <div class="amount">
-        <p>N 160000</p>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

@@ -169,7 +169,8 @@ def transfer(username):
 @app.route('/<username>/accounts')
 def accounts(username):
     customer = Customer.query.filter_by(user_id=current_user.id).first()
-    return render_template('accounts.html', customer=customer)
+    accounts = customer.accounts
+    return render_template('accounts.html', customer=customer, accounts=accounts)
 
 @app.route('/logout')
 def logout():

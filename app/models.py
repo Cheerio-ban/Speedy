@@ -11,7 +11,7 @@ class User(UserMixin, db.Model):
   password_hash = db.Column(db.String(128))
   has_acc = db.Column(db.Integer, default=0, nullable=False)
   def __repr__(self):
-    return '<User {}>'.format(self.username)
+    return '<User {}>'.format(self.email)
     
   def set_password(self, password):
     self.password_hash = generate_password_hash(password)
@@ -34,7 +34,7 @@ class Account(db.Model):
   acc_type = db.Column(db.String(240))
   balance = db.Column(db.Integer)
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
-  date_created = db.Column(db.DateTime)
+  date_created = db.Column(db.DateTime, default=datetime.utcnow)
   transactions = db.relationship('Transaction', backref='account', lazy='dynamic')
 
   def create_account_number(self):
@@ -65,15 +65,20 @@ class Customer(db.Model):
   username = db.Column(db.String(200))
   address = db.relationship('Address', backref='customer', lazy='dynamic')
   dob = db.Column(db.DateTime)
-  date_created= db.Column(db.DateTime)
+  date_created= db.Column(db.DateTime, default=datetime.utcnow)
   bank_name = db.Column(db.String(240), default="Speedy")
   accounts = db.relationship('Account', backref='customer', lazy='dynamic')
+
+  def __repr__(self):
+      return "Customer: {} {}".format(self.first_name, self.last_name)
 
   @classmethod
   def get(cls, param, arg):
     """Get a customer from the database based on information given"""
     if param == "id":
       customer = Customer.query.filter_by(id=arg).first()
+    elif param == "user_id":
+      customer = Customer.query.filter_by(user_id=arg).first()
     elif param == "email":
       customer = Customer.query.filter_by(email=arg).first()
     elif param == "phone_number":

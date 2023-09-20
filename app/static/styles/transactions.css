@@ -137,10 +137,12 @@ th{
 table thead th:nth-child(1){
   padding: 10px 80px;
 }
+
 table thead th:nth-child(2), table thead th:nth-child(3){
   padding: 10px 100px;
-  
 }
+
+
 td{
   background-color: white;
   padding: 10px 55px;
