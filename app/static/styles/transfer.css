@@ -1,4 +1,4 @@
-.transfer {
+/* .transfer {
   width: 100%;
   max-width: 500px;
   margin: 5% auto;
@@ -83,4 +83,26 @@
   .from-acc p {
     margin: 0;
   }
+} */
+
+.user{
+  height: 40px;
+  text-align: center;
+  margin: 20px;
+  width: 20%;
+  display: none;
+}
+
+.user:first-of-type{
+  display: block;
+}
+
+#test{
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+}
+
+button{
+ width: 50%;
 }

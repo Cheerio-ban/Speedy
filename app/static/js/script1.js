@@ -17,11 +17,6 @@ cancel_pop.addEventListener('click', () => {
 
 
 
-const cus_button = document.querySelector('#show_cus')
-const p = document.querySelector('.title')
 
-cus_button.addEventListener('click', () => {
-    cus_info.style.display = 'none';
-})
 
 

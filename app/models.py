@@ -47,13 +47,13 @@ class Account(db.Model):
       exist = False
     self.account_number = number
 
-  def create_account(self, form):
+  def create_account(self, pin):
     """This creates the accoi=unt based on the form's data"""
     self.date_created = datetime.utcnow()
     self.create_account_number()
     self.acc_type = 'active'
     self.balance = 0
-    self.account_pin = form.pin.data
+    self.account_pin = generate_password_hash(str(pin))
 
 class Customer(db.Model):
   id = db.Column(db.Integer, primary_key=True)

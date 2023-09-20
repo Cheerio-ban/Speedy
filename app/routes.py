@@ -68,7 +68,7 @@ def create_account():
         current_user.has_acc = 1
         customer =Customer()
         account = Account()
-        account.create_account(form)
+        account.create_account(form.data.pin)
         account.customer = customer
         customer.create_customer(form, account)
         customer.email = current_user.email
@@ -161,10 +161,12 @@ def transactions(username):
 @app.route('/<username>/transfer')
 def transfer(username):
     customer = Customer.query.filter_by(user_id=current_user.id).first()
+    user = User.query.all()
     form = InterTransfer()
+    accounts = customer.accounts.all()
     # if form.validate_on_submit:
     #     cus_1 = Customer.query.filter_by(form.acc_number.data)
-    return render_template('transfer.html', username=customer.username, form=form, customer=customer)
+    return render_template('make_transfer.html', username=customer.username, form=form, customer=customer, users=user, accounts=accounts)
 
 @app.route('/<username>/accounts')
 def accounts(username):

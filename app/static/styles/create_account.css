@@ -165,20 +165,3 @@ input{
     background-color: silver;
 }
 
-
-/* scrollbar*/
-::-webkit-scrollbar{
-    width: 4px;
-}
-
-::-webkit-scrollbar-thumb{
-    background: #110526;
-    border-radius: 10px;
-}
-::-webkit-scrollbar-button{
-    display: block;
-}
-
-::-webkit-scrollbar-track{
-    background-color: silver;
-}
