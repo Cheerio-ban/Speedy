@@ -115,6 +115,7 @@ class Transaction(db.Model):
   transaction_type = db.Column(db.String(240))
   amount = db.Column(db.Integer)
   timestamp = db.Column(db.DateTime)
+  balance = db.Column(db.Integer)
 
   def format_time(self, time):
     """Format time"""
