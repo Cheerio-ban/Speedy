@@ -5,13 +5,15 @@
 }
 
 .transactions {
-  width: 100%;
+  max-width: 100%;
+  min-width: 1000px;
+  
 }
 
 .top-btn {
   display: flex;
   justify-content: space-between;
-  margin: 5% 10%;
+  margin: 5% 20%;
 }
 
 .top-btn p {
@@ -19,6 +21,7 @@
 }
 
 .bal {
+  width: 300px;
   padding: 20px 100px 20px 20px;
   border-radius: 25px;
   border: 1px solid #000;
@@ -71,6 +74,7 @@
 
 
 .bills {
+  width: 300px;
   color: #FFF;
   font-family: Inter;
   font-size: 16px;
@@ -84,13 +88,17 @@
 
 table {
   width: 80%;
+  margin: 0 auto;
+  box-shadow: 1px 7px 20px 5px #ddd1dc;
+  max-height: 500px;
 }
 
 .list-head {
   margin: 0 10%;
   height: 55px;
+  overflow-y: scroll;
   border-radius: 8px;
-  border: 1px solid #000;
+  border: 2px soiid rgba(73, 33, 71, 0.25)
 }
 
 .list-head > p {
@@ -114,6 +122,15 @@ table {
   font-size: 24px;
   font-weight: 700;
 }
+
+td{
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
 
 /*scrollbar*/
 ::-webkit-scrollbar{

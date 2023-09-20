@@ -19,7 +19,7 @@
                 <a>Manage Accounts</a>
                 <a>Manage User Account</a>
                 <a>Settings</a>
-                <a>Logout</a>
+                <a href="{{ url_for('logout')}}">Logout</a>
             </div>
             <div id="profile">
                 {% block content %}{% endblock %}

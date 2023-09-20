@@ -109,11 +109,17 @@ class Customer(db.Model):
 class Transaction(db.Model):
   # Needs a transaction description.
   id = db.Column(db.Integer, primary_key=True)
+  description = db.Column(db.String(250))
   acc_num = db.Column(db.String(100), db.ForeignKey('account.account_number'))
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
   transaction_type = db.Column(db.String(240))
   amount = db.Column(db.Integer)
   timestamp = db.Column(db.DateTime)
+
+  def format_time(self, time):
+    """Format time"""
+    return datetime.strftime(time, '%m/%d/%Y')
+
 
 class Address(db.Model):
   id = db.Column(db.Integer, primary_key=True)

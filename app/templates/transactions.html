@@ -10,7 +10,8 @@
       <p class="acc-bal-ngn">NGN {{account.balance | default('15000')}} </p>
     </div>
     <div class="act-btn">
-      <div><a class="transfer" href="{{ url_for('transfer', username=customer.username) }}">Make a Transfer</a></div>
+      <div>
+      <a class="transfer" href="{{ url_for('transfer', username=customer.username) }}">Make a Transfer</a></div>
       <a class="bills">Pay a Bill</a>
     </div>
   </div>
@@ -22,10 +23,11 @@
       <th>Amount</th>
       <th>Balance</th>
     </tr>
+    {% for transaction in transactions %}
+      {% include '_transactions.html' %}
+    {% endfor %} 
   </table>
-  {% for transaction in transactions %}
-    {% include '_transactions.html' %}
-  {% endfor %}
+  
 </div>
 
 {% endblock %}

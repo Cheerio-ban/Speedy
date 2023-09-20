@@ -35,7 +35,10 @@ class DBStorage:
             if parameter == 'email':
                 obj = cls.query.filter_by(email=arg).first()
             return obj
-    
+        if cls is Account:
+            if parameter == 'id':
+                obj = cls.query.filter_by(id=arg).first()
+            return obj
     def delete(cls, obj):
         """To delete an object from the database"""
         objs = obj.associated()

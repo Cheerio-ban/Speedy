@@ -1,10 +1,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/_transactions.css') }}">
-<table>
   <tr valign="top">
-    <td>{{ transaction.timestamtd }}</td>
-    <td>Unilag fees</td>
-    <td>{{ transaction.tytde }}</td>
+    <td >{{ transaction.format_time(transaction.timestamp) }}</td>
+    <td>{{ transaction.description |default("") }}</td>
+    <td>{{ transaction.transaction_type }}</td>
     <td>{{ transaction.amount }}</td>
     <td>{{ account.balance }}</td>
   </tr>
-</table>
