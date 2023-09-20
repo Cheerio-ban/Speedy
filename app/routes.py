@@ -103,9 +103,10 @@ def add_address(username):
 @login_required
 def user_home(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    account = Account.query.filter_by(cus_id=customer.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    return render_template('user_home.html', username=username, customer=customer)
+    return render_template('user_home.html', username=username, customer=customer, account=account)
 
 @app.route('/<username>/profile', methods=['GET'])
 @login_required
