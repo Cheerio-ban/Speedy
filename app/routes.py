@@ -154,7 +154,7 @@ def transactions(username):
         return redirect('user_home', username=customer.username)
     cus = Customer.query.filter_by(username=username).first()
     account = cus.accounts.first()
-    transactions = account.transactions.first()
+    transactions = account.transactions
     return render_template('transactions.html', transactions=transactions, account=account, customer=customer)
 
 

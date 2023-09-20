@@ -14,12 +14,16 @@
   margin: 5% 10%;
 }
 
+.top-btn p {
+  font-size: 16px;
+}
+
 .bal {
-  padding: 20px 100px 0px 20px;
+  padding: 20px 100px 20px 20px;
   border-radius: 25px;
   border: 1px solid #000;
   background: #63153F;
-  box-shadow: 0px 10px 20px 0px rgba(99, 21, 63, 0.50);
+  box-shadow: 0px 10px 20px 0px #ccc;
 }
 
 .acc-bal {
@@ -32,7 +36,7 @@
 
 .acc-num {
   color: #DDD;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
   font-family: Inter;
   font-size: 21px;
   font-weight: 700;
@@ -46,34 +50,43 @@
   }
 
 .transfer {
+  display: inline-block;
   border-radius: 14px;
-  margin-bottom: 42px;
+  margin-bottom: 50px;
   color: #FFF;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
-  padding: 20px 40px;
+  padding: 15px 30px;
   background: #63153F;
-  box-shadow: 0px 10px 20px 0px #63153F;
+  text-decoration: none;
+  box-shadow: 0px 10px 20px 0px #cccccc;
+}
+
+.transfer:hover {
+  color: #63153F;
+  background-color: #fff;
+  border: 1px solid #000;
 }
 
 
 .bills {
   color: #FFF;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
-  padding: 15px 92px 21px 92px;
+  padding: 15px 56px;
   align-items: center;
   border-radius: 14px;
   background: #63153F;
-  box-shadow: 0px 10px 20px 0px #63153F;
+  box-shadow: 0px 10px 20px 0px #cccccc;
+}
+
+table {
+  width: 80%;
 }
 
 .list-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   margin: 0 10%;
   height: 55px;
   border-radius: 8px;

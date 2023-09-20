@@ -1,0 +1,13 @@
+tr {
+  height: 55px;
+}
+
+tr:nth-child(odd) {
+  border-radius: 8px;
+  border: 1px solid #000;
+}
+
+tr:nth-child(even) {
+  background-color: #ccc;
+  border: 0px; 
+}

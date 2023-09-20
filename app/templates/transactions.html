@@ -10,24 +10,22 @@
       <p class="acc-bal-ngn">NGN {{account.balance | default('15000')}} </p>
     </div>
     <div class="act-btn">
-      <div class="transfer">Make a Transfer</div>
-      <div class="bills">Pay a Bill</div>
+      <div><a class="transfer" href="{{ url_for('transfer', username=customer.username) }}">Make a Transfer</a></div>
+      <a class="bills">Pay a Bill</a>
     </div>
   </div>
-  <div class="list-head">
-    <p>Date</p>
-    <p>Description</p>
-    <p>Type</p>
-    <p>Amount</p>
-    <p>Balance</p>
-  </div>
-  <div class="list-coll">
-    <p>Sep 15</p>
-    <p>Unilag fees</p>
-    <p>Debit</p>
-    <p>160,000</p>
-    <p>NGN 1.20</p>
-  </div>
+  <table class="list-head">
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Balance</th>
+    </tr>
+  </table>
+  {% for transaction in transactions %}
+    {% include '_transactions.html' %}
+  {% endfor %}
 </div>
 
 {% endblock %}

@@ -107,6 +107,7 @@ class Customer(db.Model):
 
 
 class Transaction(db.Model):
+  # Needs a transaction description.
   id = db.Column(db.Integer, primary_key=True)
   acc_num = db.Column(db.String(100), db.ForeignKey('account.account_number'))
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
