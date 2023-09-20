@@ -5,19 +5,23 @@
  }
 
  .user_home {
-  width: 80vw;
-  margin: 0 10%;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px auto;
  }
 
  .top-sec {
+  width: 90%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 70px;
  }
 
  .bal-box {
-  width: 30%;
-  margin: 0 10%;
+  min-width: 500px;
+  margin: 0 0 0 7%;
   padding: 3%;
   border-radius: 13px;
   border: 1px solid #000;
@@ -50,7 +54,7 @@
  }
 
  .act-btn {
-  width: 50%;
+  min-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,29 +79,31 @@
 }
 
 .act-btn .transf {
-  padding: 18px 60px;
+  padding: 12px 60px;
   margin-bottom: 10px;
 }
 
 .act-btn .transac {
-  padding: 18px 48px;
+  padding: 12px 48px;
   margin-bottom: 10px;
 }
 
 .act-btn .creat {
-  padding: 18px 55px;
+  padding: 12px 55px;
   margin-bottom: -13px;
 }
 
 .bot-sec {
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  min-width: 1000px;
 }
 
 .accounts {
   padding: 20px;
-  width: 30%;
-  margin: 0 10%;
+  min-width: 300px;
+  margin: 0 auto;
 }
 
 .accounts p {
@@ -143,8 +149,8 @@
 
 .cards {
   padding: 20px;
-  width: 30%;
-  margin: 0 10%;
+  min-width: 300px;
+  margin: 0 auto;
 }
 
 .cards p {

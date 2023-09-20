@@ -14,7 +14,7 @@
     <div id="container">
         <div id="profile_page">
             <div id="nav_bar">
-                <a href="{{ url_for('user_home', username=customer.username)}}">  Back</a>
+                <a href="{{ url_for('profile', username=customer.username)}}">  Back</a>
                 <a href="{{ url_for('edit_profile', username=customer.username)}}">Edit profile</a>
                 <a>Manage Accounts</a>
                 <a>Manage User Account</a>

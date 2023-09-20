@@ -14,7 +14,7 @@
                 <div class="acc-sta">
                     <div class="balance">
                         <p>Balance</p>
-                        <p>N 500.00</p>
+                        <p>N500</p>
                     </div>
                     <div class="status">
                         <p>Status</p>
@@ -34,7 +34,7 @@
             </div>
             <div class="act-btn">
                 <a href="{{ url_for('transfer', username=customer.username) }}" class="transf">Make a Transfer</a><br>
-            <a href="{{ url_for('transactions', username=customer.username) }}" class="transac">Transaction History</a><br>
+                <a href="{{ url_for('transactions', username=customer.username) }}" class="transac">Transaction History</a><br>
                 <a href="/" class="creat">Create an Account</a><br>
             </div>
         </div>
