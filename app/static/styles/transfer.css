@@ -85,24 +85,108 @@
   }
 } */
 
-.user{
-  height: 40px;
-  text-align: center;
-  margin: 20px;
-  width: 20%;
-  display: none;
+
+#make_transfer{
+  margin: 30px auto;
+  width: 1000px;
+
+}
+.account{
+  display: flex;
+  padding: 20px 30px;
+  width: 400px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #63153F;
+  color: white;
+  border-radius: 18px;
 }
 
-.user:first-of-type{
+.acc{
+  display: none;
+ 
+  position: relative;
+  left: -50px;
+}
+
+.acc:first-of-type{
   display: block;
 }
 
-#test{
-  display: flex;
-  width: 80%;
-  flex-wrap: wrap;
+.acc p:last-child{
+  padding: 25px 0px 15px 0px;
+  font-size: 30px;
 }
 
+
+
 button{
- width: 50%;
+ width: 10%;
+ border: none;
+ font-size: 20px;
+ color: white;
+ background-color: #63153F;
+}
+
+
+button:hover{
+  font-size: 30px;
+  color: darkmagenta;
+}
+
+#transfer_body{
+  width: 740px;
+  margin: 13px auto;
+  height: 290px;
+  overflow-y: scroll;
+  padding: 0px 20px
+}
+
+#state{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 3em;
+}
+
+.transfer_input{
+  padding: 10px;
+  border: 1px solid  #63153F;
+  width: 600px;
+  margin: 0 auto;
+  border-radius: 14px;
+  font-family: 'Baloo Thambi 2';
+  font-weight: bold;
+  border:  1px solid silver;
+}
+
+form{
+  padding: 3px 2.4em;
+  
+}
+form p{
+  padding:  5px 10px;
+  font-size: 16px;
+}
+
+
+.ben{
+  text-align: center;
+}
+
+#submit{
+  margin: 10px;
+  margin-bottom: 0px;
+  width: 300px;
+  padding: 10px 5px;
+  background-color: rgb(99,21,63);
+  border:  1px solid silver;
+  color: white;
+  border-radius: 14px;
+}
+
+#sub{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

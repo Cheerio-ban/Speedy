@@ -162,7 +162,7 @@ def transactions(username):
 def transfer(username):
     customer = Customer.query.filter_by(user_id=current_user.id).first()
     user = User.query.all()
-    form = InterTransfer()
+    form = Transfer()
     accounts = customer.accounts.all()
     # if form.validate_on_submit:
     #     cus_1 = Customer.query.filter_by(form.acc_number.data)

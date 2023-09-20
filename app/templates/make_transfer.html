@@ -9,11 +9,47 @@
 <body>
     {% include 'nav-bar.html' %}
     <div id="make_transfer">
-        {% for account in accounts %}
         <div class="account">
-            
+            <button id="previous">&#10094;</button>
+            {% for account in accounts %}
+            <div class="acc" id="{{account.id}}">
+            <p>{{ account.account_number}}</p>
+            <p>{{ account.acc_type }}</p>
+            <p>&#8358;{{ account.balance}}</p>
+            </div>
+            {% endfor %}
+            <button id="next">&#10095;</button>
         </div>
-        {% endfor %}
+       
+        <div id="transfer_body">
+            <div id="beneficiary">
+                <div id="state">
+                    <p>Frequent Beneficiaries</p>
+                    <p>Find Beneficiary</p>
+                </div>
+                <div class="transfer_input ben">No Frequent Beneficiaries Available</div>
+            </div>
+            <form action="" method="POST" novalidate>
+                {{form.hidden_tag()}}
+                <div id="bank_name">
+                    <p>{{form.bank_name.label}}</p>
+                    <p>{{form.bank_name(size=70, class="transfer_input")}}</p>
+                </div>
+                <div id="beneficiary_account">
+                    <p>{{ form.acc_number.label}}</p>
+                    <p>{{ form.acc_number(size=70, class="transfer_input") }}</p>
+                </div>
+                <div id="amount">
+                    <p>{{form.amount.label}}</p>
+                    <p>{{form.amount(size=70, class="transfer_input")}}</p>
+                </div>
+                <div id="sub">
+                    {{form.submit(id="submit")}}
+                </div>
+
+
+            </form>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='js/script3.js') }}"></script>
 </body>

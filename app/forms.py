@@ -94,12 +94,11 @@ class FillAddress(FlaskForm):
     submit = SubmitField('Add address')
 
 
-class InterTransfer(FlaskForm):
+class Transfer(FlaskForm):
     """Form to carry out transfers"""
     amount = StringField('Amount')
     acc_number = StringField('Beneficiary Account Number', validators=[DataRequired()])
     bank_name = StringField('Beneficiary Bank Number', validators=[DataRequired()])
-    from_acc = StringField('From Account')
     submit = SubmitField('Transfer')
 
 
