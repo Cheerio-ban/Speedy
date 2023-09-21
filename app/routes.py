@@ -172,6 +172,16 @@ def accounts(username):
     accounts = customer.accounts
     return render_template('accounts.html', customer=customer, accounts=accounts)
 
+@app.route('/<username>/services')
+def services(username):
+    customer = Customer.get('user_id', current_user.id)
+    return render_template('services.html', customer=customer)
+
+
+@app.route('/footer')
+def footer():
+    return render_template('footer.html')
+
 @app.route('/logout')
 def logout():
     logout_user()

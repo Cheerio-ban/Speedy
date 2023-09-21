@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'nav-bar.html' %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ username }} | Speedy</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_home.css'   ) }}">
 </head>
-<body>
-    {% include 'nav-bar.html' %}
     <div class="user_home">
         <div class="top-sec">
             <div class="bal-box">
@@ -59,5 +57,5 @@
             </div>
         </div>
     </div>
-</body>
 </html>
+{% endblock %}

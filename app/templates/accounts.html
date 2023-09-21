@@ -10,7 +10,7 @@
   </div>
   <div class="account-grid">
     {% for account in accounts %}
-    <div class="account-tile">
+    <div class="account-tile" account-id="{{ account.id }}">
       <div class="name-icon">
         <div class="name">
           <p class="bk-name">{{account.bank_name}}</p>
