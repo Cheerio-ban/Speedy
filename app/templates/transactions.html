@@ -4,15 +4,21 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/transactions.css') }}">
 <div class="transactions">
   <div class="top-btn">
-    <div class="bal">
-      <p class="acc-bal">Account Balance</p>
-      <p class="acc-num">{{ account.account_number | default('0456757879')}}</p>
-      <p class="acc-bal-ngn">NGN {{account.balance | default('15000')}} </p>
+    <div class="account">
+      <button id="previous">&#10094;</button>
+      {% for account in accounts %}
+      <div class="bal" id="{{account.id}}">
+      <p class="acc-num">{{ account.account_number}}</p>
+      <p class="acc-bal">{{ account.acc_type }}</p>
+      <p class="acc-bal-ngn">&#8358;{{ account.balance}}</p>
+      </div>
+      {% endfor %}
+      <button id="next">&#10095;</button>
     </div>
     <div class="act-btn">
       <div>
-      <a class="transfer" href="{{ url_for('transfer', username=customer.username) }}">Make a Transfer</a></div>
-      <a class="bills">Pay a Bill</a>
+      <a class="transfer" id="show"> Show Transaction History</a></div>
+      <a class="bills">Get E-statement</a>
     </div>
   </div>
   <table class="list-head">
@@ -33,5 +39,6 @@
   </table>
 
 </div>
+<script src="{{ url_for('static', filename='js/script4.js') }}"></script>
 
 {% endblock %}

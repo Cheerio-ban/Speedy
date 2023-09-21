@@ -154,10 +154,21 @@ def transactions(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
+    
     cus = Customer.query.filter_by(username=username).first()
-    account = cus.accounts.first()
-    transactions = account.transactions
-    return render_template('transactions.html', transactions=transactions, account=account, customer=customer)
+    accounts = cus.accounts.all()
+    transactions = accounts[0].transactions
+    if 'id' not in request.args:
+        return redirect(url_for('transactions', id=accounts[0].id, username=customer.username))
+    if 'id' in request.args:
+        id = request.args.get('id')
+        accounts = cus.accounts.all()
+        account  = Account.query.filter_by(id=id).first()
+        accounts.remove(account)
+        accounts.insert(0, account)
+        transactions = account.transactions
+        return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username)
+    return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username)
 
 
 @app.route('/<username>/transfer', methods=['GET', 'POST'])
@@ -198,3 +209,24 @@ def footer():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+from weasyprint import HTML, CSS
+from flask import Flask, Response
+
+
+
+@app.route('/render/<name>', methods=['GET'])
+def render(name):
+    account: Account = Account.query.filter_by(id=11).first()
+    transactions = account.transactions.all()
+    customer = Customer.query.filter_by(id=11).first()
+    rendered = render_template('transactions.html', username=customer.username, customer=customer, account=account, transactions=transactions)
+    with open('app/static/styles/transactions.css', 'rb') as css_file:
+        css_content = css_file.read()
+    pdf = HTML(string=rendered).write_pdf(stylesheets=[CSS(string=css_content)])
+
+    # Create a Flask Response object with the PDF content
+    response = Response(pdf, content_type='application/pdf')
+    response.headers['Content-Disposition'] = f'inline; filename=statemnet_pdf.pdf'
+
+    return response

@@ -21,13 +21,18 @@
 }
 
 .bal {
+  display: none;
   width: 300px;
   padding: 20px 100px 20px 20px;
   border-radius: 25px;
-  border: 1px solid #000;
   background: #63153F;
   box-shadow: 0px 10px 20px 0px #ccc;
 }
+
+.bal:first-of-type{
+  display: block;
+}
+
 
 .acc-bal {
   color: #FFF;
@@ -52,6 +57,20 @@
   font-weight: 700;
   }
 
+
+#previous, #next{
+  border: none;
+  font-size: 20px;
+  color: #63153F
+}
+
+#previous:hover, #next:hover{
+  font-size: 30px;
+}
+
+.account{
+  display: flex;
+}
 .transfer {
   display: inline-block;
   border-radius: 14px;
