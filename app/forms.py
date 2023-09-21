@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DateField, SelectField, TextAreaField, PasswordField
 from wtforms.validators import Regexp, Length
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
+from flask import request
+from werkzeug.security import check_password_hash
 
 class LoginForm(FlaskForm):
     """
@@ -96,10 +98,46 @@ class FillAddress(FlaskForm):
 
 class Transfer(FlaskForm):
     """Form to carry out transfers"""
-    amount = StringField('Amount')
-    acc_number = StringField('Beneficiary Account Number', validators=[DataRequired()])
-    bank_name = StringField('Beneficiary Bank Number', validators=[DataRequired()])
+    amount = StringField('Amount', validators=[DataRequired()])
+    acc_number = StringField('Beneficiary Account Number', validators=[DataRequired(),  Length(min=10, max=10, message="Account number must be 10 digits only")])
+    bank_name = SelectField('Beneficiary Bank Name', choices=[('Speedy', 'Speedy'), ('Dainty Bank', 'Dainty Bank')], validators=[DataRequired()])
+    description = TextAreaField('Transfer Description', validators=[Length(max=250)])
+    pin = PasswordField('Account Pin', validators=[DataRequired(), Length(min=4, max=4)])
     submit = SubmitField('Transfer')
+
+    def validate_amount(self, amount):
+        """Validate the amount"""
+        from app.models import Account
+        if int(amount.data) < 50:
+            raise ValidationError('The minimum amount for transfer is 50 naira')
+        id = request.args.get('id')
+        account = Account.query.filter_by(id=id).first()
+        if int(amount.data) > account.balance:
+            raise ValidationError('This amount is greater than your account balance')
+
+    def validate_acc_number(self, acc_number):
+        """Check if the account number exists for the selected bank"""
+        from app.models import Account
+        account = Account.query.filter_by(account_number=acc_number.data).first()
+        if account is None or account.bank_name != self.bank_name.data:
+            raise ValidationError("Error with the account number or bank selected")
+    
+    def validate_pin(self, pin):
+        """Validate the validity of the pin"""
+        from app.models import Account
+        id = request.args.get('id')
+        account = Account.query.filter_by(id=id).first()
+        try:
+            int(account.account_pin)
+            if pin.data != account.account_pin:
+                raise ValidationError('Wrong pins')
+        except Exception:
+            if check_password_hash(account.account_pin, pin.data) is False:
+                raise ValidationError('Wrong pin')
+        
+            
+        
+        
 
 
 class EditProfileInfo(FlaskForm):

@@ -24,8 +24,8 @@
         <div id="transfer_body">
             <div id="beneficiary">
                 <div id="state">
-                    <p>Frequent Beneficiaries</p>
-                    <p>Find Beneficiary</p>
+                    <p><a>Frequent Beneficiaries</a></p>
+                    <p><a>Find Beneficiary</a></p>
                 </div>
                 <div class="transfer_input ben">No Frequent Beneficiaries Available</div>
             </div>
@@ -33,15 +33,45 @@
                 {{form.hidden_tag()}}
                 <div id="bank_name">
                     <p>{{form.bank_name.label}}</p>
-                    <p>{{form.bank_name(size=70, class="transfer_input")}}</p>
+                    <select name="{{form.bank_name.name}}" class="transfer_input">
+                        {% for choice, label in form.bank_name.choices %}
+                        <option value="{{ choice }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% for error in form.bank_name.errors %}
+                        <p class="error"> {{ error }}</p>
+                    {% endfor %}
                 </div>
                 <div id="beneficiary_account">
                     <p>{{ form.acc_number.label}}</p>
-                    <p>{{ form.acc_number(size=70, class="transfer_input") }}</p>
+                    <p>{{ form.acc_number(size=70, class="transfer_input", id="acc_no") }}</p>
+                    {% for error in form.acc_number.errors %}
+                        <p class="error" id="no_err"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div id="check">
+
                 </div>
                 <div id="amount">
-                    <p>{{form.amount.label}}</p>
-                    <p>{{form.amount(size=70, class="transfer_input")}}</p>
+                    <p>{{form.amount.label}} <span>(minimum is 50 naira)</span></p>
+                    <p>{{form.amount(size=70, class="transfer_input", id="amount_in")}}</p>
+                    {% for error in form.amount.errors %}
+                        <p class="error" id="err"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div id="description">
+                    <p>{{form.description.label}}</p>
+                    <p>{{form.description(row=4, cols=70, class="transfer_input")}}</p>
+                    {% for error in form.description.errors %}
+                        <p class="error"> {{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div id="pin">
+                    <p>{{form.pin.label}}</p>
+                    <p>{{form.pin(size=16, class="transfer_input", id="pin_no")}}</p>
+                    {% for error in form.pin.errors %}
+                        <p class="error"> {{ error }}</p>
+                    {% endfor %}
                 </div>
                 <div id="sub">
                     {{form.submit(id="submit")}}

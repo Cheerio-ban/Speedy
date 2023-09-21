@@ -89,6 +89,8 @@
 #make_transfer{
   margin: 30px auto;
   width: 1000px;
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25) ;
+  
 
 }
 .account{
@@ -101,6 +103,7 @@
   background-color: #63153F;
   color: white;
   border-radius: 18px;
+  
 }
 
 .acc{
@@ -119,7 +122,13 @@
   font-size: 30px;
 }
 
+#bank_name{
+  margin-left: 8px;
+}
 
+#bank_name p{
+  margin-left: -10px;
+}
 
 button{
  width: 10%;
@@ -140,7 +149,8 @@ button:hover{
   margin: 13px auto;
   height: 290px;
   overflow-y: scroll;
-  padding: 0px 20px
+  padding: 0px 20px;
+  
 }
 
 #state{
@@ -189,4 +199,20 @@ form p{
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.error{
+  font-size: 13px;
+  color: red;
+}
+
+#amount span{
+  font-size: 12px;
+}
+
+#pin_no{
+  width: 150px;
+  letter-spacing: 10px;
+  font-size: 20px;
+  padding: 5px;
 }

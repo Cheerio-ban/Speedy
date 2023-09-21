@@ -9,9 +9,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def get_accounts():
     """Get all accounts"""
     accounts = storage.all(Account)
-    account_dict = {}
+    account_dict = []
     for account in accounts:
-        account_dict[account.id] = storage.to_json(account)
+        account_dict.append(storage.to_json(account))
     return jsonify(account_dict)
 
 @app_views.route('/accounts/<id>', methods=['GET'])

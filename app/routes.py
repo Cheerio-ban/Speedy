@@ -8,6 +8,8 @@ from datetime import datetime
 import random
 
 
+
+
 @app.route('/', methods=['GET'])
 def home():    
     return render_template('home.html')
@@ -158,14 +160,22 @@ def transactions(username):
     return render_template('transactions.html', transactions=transactions, account=account, customer=customer)
 
 
-@app.route('/<username>/transfer')
+@app.route('/<username>/transfer', methods=['GET', 'POST'])
 def transfer(username):
     customer = Customer.query.filter_by(user_id=current_user.id).first()
     user = User.query.all()
     form = Transfer()
     accounts = customer.accounts.all()
-    # if form.validate_on_submit:
-    #     cus_1 = Customer.query.filter_by(form.acc_number.data)
+    if 'id' not in request.args:
+        return redirect(url_for('transfer', id=accounts[0].id, username=customer.username))
+    if form.validate_on_submit():
+        transaction  = Transaction()
+        id = request.args.get('id')
+        account = Account.query.filter_by(id=request.args.get('id')).first()
+        transaction.create_transaction(account, form)
+        db.session.add(transaction)
+        db.session.commit()
+        return redirect(url_for('transactions', username=customer.username, id=id))
     return render_template('make_transfer.html', username=customer.username, form=form, customer=customer, users=user, accounts=accounts)
 
 @app.route('/<username>/accounts')
