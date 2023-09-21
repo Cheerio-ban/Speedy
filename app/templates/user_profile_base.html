@@ -19,7 +19,7 @@
                 <a>Manage Accounts</a>
                 <a>Manage User Account</a>
                 <a>Settings</a>
-                <a href="{{ url_for('logout')}}">Logout</a>
+                <a  id="logout">Logout</a>
             </div>
             <div id="profile">
                 {% block content %}{% endblock %}
@@ -27,6 +27,15 @@
         </div>
         
     </div>
+    <div class="pop">
+            <div id="message">
+                <p>Are you sure you want to Logout?</p>
+                <div>
+                    <button id="message_no">No</button>
+                    <a href="{{ url_for('logout')}}">Logout</a>
+                </div>
+            </div>
+        </div>
     <script src="{{ url_for('static', filename='js/script2.js') }}"></script>
 </body>
 </html>

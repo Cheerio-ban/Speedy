@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import random
 from datetime import datetime
 
+
 class User(UserMixin, db.Model):
   id = db.Column(db.Integer, primary_key=True)
   email = db.Column(db.String(), index=True, nullable=False, unique=True)
@@ -47,13 +48,17 @@ class Account(db.Model):
       exist = False
     self.account_number = number
 
-  def create_account(self, form):
+  def create_account(self, pin):
     """This creates the accoi=unt based on the form's data"""
     self.date_created = datetime.utcnow()
     self.create_account_number()
     self.acc_type = 'active'
     self.balance = 0
-    self.account_pin = form.pin.data
+    self.account_pin = generate_password_hash(str(pin))
+
+  def check_pin(self, pin):
+    """Chc=eck to see if a provided pin is correct"""
+    return check_password_hash(self.account_pin, str(pin))
 
 class Customer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -119,11 +124,26 @@ class Transaction(db.Model):
   transaction_type = db.Column(db.String(240))
   amount = db.Column(db.Integer)
   timestamp = db.Column(db.DateTime)
+  initial_balance = db.Column(db.Integer)
   balance = db.Column(db.Integer)
 
   def format_time(self, time):
     """Format time"""
     return datetime.strftime(time, '%m/%d/%Y')
+  
+  def create_transaction(self, account: Account, form):
+    """This creates a transaction object and modifies the account accordingly"""
+    self.description = form.description.data
+    self.acc_num = account.account_number
+    self.bank_name = form.bank_name.data
+    self.amount = int(form.amount.data)
+    self.transaction_type = 'Debit'
+    self.initial_balance = account.balance
+    self.balance = account.balance - int(self.amount)
+    self.timestamp = datetime.utcnow()
+    account.balance = account.balance - int(self.amount)
+
+
 
 
 class Address(db.Model):

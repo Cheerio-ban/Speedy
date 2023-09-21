@@ -11,9 +11,6 @@ import asyncio
 from datetime import datetime
 
 
-address = Address.query.filter_by(cus_id=4).first()
-db.session.delete(address)
-address = Address.query.filter_by(cus_id=4).first()
-print(Address)
-    
-    
+customer: Customer = Customer.query.filter_by(id=11).first()
+accounts = customer.accounts.all()
+print(len(accounts))
