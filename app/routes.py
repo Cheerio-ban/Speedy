@@ -230,3 +230,11 @@ def render(name):
     response.headers['Content-Disposition'] = f'inline; filename=statemnet_pdf.pdf'
 
     return response
+
+@app.route('/<username>/generate_statement', methods=['GET'])
+def generate_statement(username):
+    """Generate the e statement of the selected account"""
+    customer = Customer.query.filter_by(id=current_user.id)
+    account = Account.query.filter_by(id=11).first()
+    transactions = account.transactions.all()
+    return render_template('e_statement.html', transactions=transactions, account=account, username=username)

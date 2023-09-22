@@ -18,7 +18,7 @@
     <div class="act-btn">
       <div>
       <a class="transfer" id="show"> Show Transaction History</a></div>
-      <a class="bills">Get E-statement</a>
+      <a class="bills" href="{{url_for('generate_statement', username=customer.username)}}">Open E-statement</a>
     </div>
   </div>
   <table class="list-head">
