@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, flash
+from flask import Flask, redirect, render_template, request, url_for, flash, Response
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import *
@@ -6,7 +6,7 @@ from app import app, db
 from app.models import *
 from datetime import datetime
 import random
-
+from weasyprint import HTML, CSS
 
 
 
@@ -149,15 +149,33 @@ def edit_profile(username):
 #     address = cus.address.first()
 #     return render_template('profile.html', customer=cus, account=account, address=address)
 
-@app.route('/<username>/transactions')
+@app.route('/<username>/transactions', methods=['GET', 'POST'])
+@login_required
 def transactions(username):
+    """Route function for the transactions page"""
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    
     cus = Customer.query.filter_by(username=username).first()
     accounts = cus.accounts.all()
     transactions = accounts[0].transactions
+    form = GenerateStatement()
+    if form.validate_on_submit():
+        id = request.args.get('id')
+        account: Account = Account.query.filter_by(id=id).first()
+        transactions = account.transactions.all()
+        start = datetime(form.start.data.year, form.start.data.month, form.start.data.day)
+        end = datetime(form.end.data.year, form.end.data.month, form.end.data.day)
+        transact_list = Transaction.get_dated_transaction(start, end, transactions)
+        customer = Customer.query.filter_by(id=current_user.id).first()
+        rendered = render_template('e_statement.html', username=customer.username, customer=customer, account=account, transactions=transact_list)
+        with open('app/static/styles/e_statement.css', 'rb') as css_file:
+            css_content = css_file.read()
+        pdf = HTML(string=rendered).write_pdf(stylesheets=[CSS(string=css_content)])
+        # Create a Flask Response object with the PDF content
+        response = Response(pdf, content_type='application/pdf')
+        response.headers['Content-Disposition'] = f'attachment; filename=statemnet_pdf.pdf'
+        return response
     if 'id' not in request.args:
         return redirect(url_for('transactions', id=accounts[0].id, username=customer.username))
     if 'id' in request.args:
@@ -167,13 +185,17 @@ def transactions(username):
         accounts.remove(account)
         accounts.insert(0, account)
         transactions = account.transactions
-        return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username)
-    return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username)
+        return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
+    return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
 
 
 @app.route('/<username>/transfer', methods=['GET', 'POST'])
+@login_required
 def transfer(username):
-    customer = Customer.query.filter_by(user_id=current_user.id).first()
+    """Route function for making transfers"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
     user = User.query.all()
     form = Transfer()
     accounts = customer.accounts.all()
@@ -181,7 +203,6 @@ def transfer(username):
         return redirect(url_for('transfer', id=accounts[0].id, username=customer.username))
     if form.validate_on_submit():
         transaction  = Transaction()
-        id = request.args.get('id')
         account = Account.query.filter_by(id=request.args.get('id')).first()
         transaction.create_transaction(account, form)
         db.session.add(transaction)
@@ -190,13 +211,20 @@ def transfer(username):
     return render_template('make_transfer.html', username=customer.username, form=form, customer=customer, users=user, accounts=accounts)
 
 @app.route('/<username>/accounts')
+@login_required
 def accounts(username):
-    customer = Customer.query.filter_by(user_id=current_user.id).first()
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
     accounts = customer.accounts
     return render_template('accounts.html', customer=customer, accounts=accounts)
 
 @app.route('/<username>/services')
+@login_required
 def services(username):
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
     customer = Customer.get('user_id', current_user.id)
     return render_template('services.html', customer=customer)
 
@@ -210,31 +238,3 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-from weasyprint import HTML, CSS
-from flask import Flask, Response
-
-
-
-@app.route('/render/<name>', methods=['GET'])
-def render(name):
-    account: Account = Account.query.filter_by(id=11).first()
-    transactions = account.transactions.all()
-    customer = Customer.query.filter_by(id=11).first()
-    rendered = render_template('transactions.html', username=customer.username, customer=customer, account=account, transactions=transactions)
-    with open('app/static/styles/transactions.css', 'rb') as css_file:
-        css_content = css_file.read()
-    pdf = HTML(string=rendered).write_pdf(stylesheets=[CSS(string=css_content)])
-
-    # Create a Flask Response object with the PDF content
-    response = Response(pdf, content_type='application/pdf')
-    response.headers['Content-Disposition'] = f'inline; filename=statemnet_pdf.pdf'
-
-    return response
-
-@app.route('/<username>/generate_statement', methods=['GET'])
-def generate_statement(username):
-    """Generate the e statement of the selected account"""
-    customer = Customer.query.filter_by(id=current_user.id)
-    account = Account.query.filter_by(id=11).first()
-    transactions = account.transactions.all()
-    return render_template('e_statement.html', transactions=transactions, account=account, username=username)

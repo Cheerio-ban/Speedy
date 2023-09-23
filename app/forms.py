@@ -167,3 +167,8 @@ class EditProfileAddress(FlaskForm):
     address_line_2 = StringField('Address Line 2')
     submit = SubmitField('Update Your Address')
     
+class GenerateStatement(FlaskForm):
+    """Class form for generating statements"""
+    start = DateField('Start Date', validators=[DataRequired()])
+    end = DateField('End Date', validators=[DataRequired()])
+    submit = SubmitField('Generate Statement')

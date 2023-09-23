@@ -17,8 +17,8 @@
     </div>
     <div class="act-btn">
       <div>
-      <a class="transfer" id="show"> Show Transaction History</a></div>
-      <a class="bills" href="{{url_for('generate_statement', username=customer.username)}}">Open E-statement</a>
+      <button class="transfer" id="show"> Show Transaction History</button></div>
+      <a class="bills" id="open">Generate E-statement</a>
     </div>
   </div>
   <table class="list-head">
@@ -38,6 +38,36 @@
    
   </table>
 
+</div>
+<div id="pop_up">
+  <div id="gen">
+    <form action="" method="POST" novalidate>
+      {{form.hidden_tag()}}
+        <p id="title"><b>Generate E-Statement</b></p>
+      <div id="start">
+        <div>
+          <p>{{form.start.label}}</p>
+          <p>{{form.start(class="input")}}</p>
+        </div>
+        {% for error in form.start.errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+      </div>
+      <div id="end">
+        <div>
+          <p>{{form.end.label}}</p>
+          <p>{{form.end(class="input")}}</p>
+        </div>
+        {% for error in form.start.errors %}
+        <p>{{error}}</p>
+        {% endfor %}
+      </div>
+      <div id="sub">
+        {{form.submit(id="submit")}}
+        <p id="cancel">Cancel</p>
+      </div>
+    </form>
+  </div>
 </div>
 <script src="{{ url_for('static', filename='js/script4.js') }}"></script>
 

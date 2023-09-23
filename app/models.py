@@ -140,12 +140,20 @@ class Transaction(db.Model):
     self.transaction_type = 'Debit'
     self.initial_balance = account.balance
     self.balance = account.balance - int(self.amount)
-    self.timestamp = datetime.utcnow()
+    self.timestamp = datetime.utcnow().replace(hour=0, minute=0, microsecond=0)
     account.balance = account.balance - int(self.amount)
 
-
-
-
+  @classmethod
+  def get_dated_transaction(cls, start: datetime, end: datetime, transactions):
+    """Get the transactions in a time interval"""
+    transactions_list = []
+    for transaction in transactions:
+      if transaction.timestamp >= start and transaction.timestamp <= end:
+        transactions_list.append(transaction)
+      if transaction.timestamp > end:
+        break
+    return transactions_list
+  
 class Address(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
