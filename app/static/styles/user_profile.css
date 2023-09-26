@@ -265,7 +265,7 @@ form div p:first-child{
     padding:  5px 10px;
     font-size: 16px;
 }
-form #title{
+#title{
     font-family: 'Iceberg';
     font-size: 20px;
     padding: 10px;
@@ -374,3 +374,117 @@ form{
     display: flex;
     justify-content: space-between;
 }
+
+#back span{
+    width:75px;
+    text-align: left;
+    position: relative;
+    top: -2px;
+
+}
+
+
+
+#back{
+    display: flex;
+    justify-content: left;
+}
+
+/*end of the user edit profile css*/
+
+/*manage account css*/
+
+#manage{
+    width: 700px;
+    margin: 0px auto;
+    height: 30em;
+    padding: 20px;
+    /* border: 2px solid rgb(24, 41, 97);
+    border-radius: 20px; */
+    overflow-y: scroll;
+    background-color: white;
+}
+
+#manage div{
+    margin-left: 10px;
+}
+
+#account_title{
+    display: flex;
+    margin: 10px;
+    justify-content: space-between;
+    font-size: 20px;
+    font-family: 'Baloo Thambi 2';
+}
+
+#name{
+    display: flex;   
+}
+
+#name p{
+    margin-right: 10px;
+}
+
+.tab p:first-child{
+    padding: 10px;
+    color: #110526;
+    font-family: 'Libre Caslon Text';
+    font-size: 15px;
+    width: fit-content;
+}
+
+.tab p:nth-child(2){
+    padding-left: 15px;
+    width: 620px;
+    font-size: 13px;
+    display: none;
+}
+
+.tab p:first-child span{
+    margin-right: 5px;
+    font-family: 'Bagel Fat One';
+    font-size: 10px;
+
+}
+
+
+#manage_account{
+    padding: 20px 0px 20px 10px;
+    font-family: 'Cherry Bomb One';
+}
+
+#manage_account select{
+    width: 300px;
+    height: 25px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid #110526;
+    border-radius: 4px;
+}
+
+.acc_buttons{
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.acc_buttons button{
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 13px;
+    border: none;
+}
+
+.acc_buttons button:hover{
+    opacity: 0.5;
+}
+.acc_buttons button:first-child{
+    background-color: green;
+    color: white;
+}
+.acc_buttons button:last-child{
+    background-color: red;
+    color: white;
+}
+

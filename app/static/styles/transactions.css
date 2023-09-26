@@ -219,12 +219,11 @@ td{
 
 
 #end, #start{
-  padding: 4px;
-  margin-bottom: 5px;
+  padding: 3px;
 }
 
-form div p{
-  padding: 5px;
+#end p:last-child, #start p:last-child{
+  margin-bottom: 12px;
 }
 
 form div p:first-child{

@@ -1,0 +1,40 @@
+{% extends 'user_profile_base.html' %}
+
+
+{% block content %}
+<div id="manage">
+    <p id="title">Manage your accounts</p>
+    <div id="account_title">
+        <div id="name">
+            <p>{{customer.first_name}}</p>
+            <p>{{customer.last_name}}</p>
+        </div>
+        <p>{{ customer.username}}</p>
+    </div>
+    <div class="delete tab">
+        <p><span>&#62;</span>Close Account</p>
+        <p>Before an account is closed, please, make sure to transfer all funds present in the account to another account.
+            Failure to do so can result in loss of funds and an email will have to be written to the service provider to trace and recover
+            the funds. Also, for future ease, printing some part of the transactions history is advised, as transactions from closed accounts cannot be recovered unless 
+            appropriate authorities request it. 
+        </p>
+    </div>
+    <div class="change tab">
+        <p><span>&#62;</span>Change your account pin</p>
+        <p>Account pin can only be changed a month after the previous pin was changed. It is advised to store ypur account pin in a safe place,
+         because, account pin recovery process can only be initiated by the service providers after an email is sent. This is to reduce any chance of fraudulent activities.
+        </p>
+    </div>
+    <div id="manage_account">
+        <select id="select_account">
+            <option value="0" default>Select an account</option>
+            {% for account in accounts %}
+            <option value="{{account.id}}">{{account.account_number}} - {{account.acc_type}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="acc_buttons">
+        <button>Change Account Pin</button>
+        <button>Close Account</button>   
+</div>
+{% endblock %}

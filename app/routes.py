@@ -169,12 +169,13 @@ def transactions(username):
         transact_list = Transaction.get_dated_transaction(start, end, transactions)
         customer = Customer.query.filter_by(id=current_user.id).first()
         rendered = render_template('e_statement.html', username=customer.username, customer=customer, account=account, transactions=transact_list)
+        htm_render = render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
         with open('app/static/styles/e_statement.css', 'rb') as css_file:
             css_content = css_file.read()
         pdf = HTML(string=rendered).write_pdf(stylesheets=[CSS(string=css_content)])
         # Create a Flask Response object with the PDF content
         response = Response(pdf, content_type='application/pdf')
-        response.headers['Content-Disposition'] = f'attachment; filename=statemnet_pdf.pdf'
+        response.headers['Content-Disposition'] = f'attachment; filename="{customer.first_name} {customer.last_name} statement_pdf.pdf"'
         return response
     if 'id' not in request.args:
         return redirect(url_for('transactions', id=accounts[0].id, username=customer.username))
@@ -228,6 +229,15 @@ def services(username):
     customer = Customer.get('user_id', current_user.id)
     return render_template('services.html', customer=customer)
 
+@app.route('/<username>/profile/manage_accounts')
+@login_required
+def manage_accounts(username):
+    """Manage all accounts"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    accounts = customer.accounts
+    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer)
 
 @app.route('/footer')
 def footer():
