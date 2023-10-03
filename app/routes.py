@@ -70,7 +70,7 @@ def create_account():
         current_user.has_acc = 1
         customer =Customer()
         account = Account()
-        account.create_account(form.data.pin)
+        account.create_account(form.pin.data)
         account.customer = customer
         customer.create_customer(form, account)
         customer.email = current_user.email
@@ -203,12 +203,13 @@ def transfer(username):
     if 'id' not in request.args:
         return redirect(url_for('transfer', id=accounts[0].id, username=customer.username))
     if form.validate_on_submit():
-        transaction  = Transaction()
-        account = Account.query.filter_by(id=request.args.get('id')).first()
-        transaction.create_transaction(account, form)
-        db.session.add(transaction)
+        creditor = Account.query.filter_by(id=request.args.get('id')).first()
+        debitor = Account.query.filter_by(account_number=form.acc_number.data)
+        transact = Transact()
+        transact.transact(creditor, debitor, form)
+        db.session.add(transact)
         db.session.commit()
-        return redirect(url_for('transactions', username=customer.username, id=id))
+        return redirect(url_for('transactions', username=customer.username, id=request.args.get('id')))
     return render_template('make_transfer.html', username=customer.username, form=form, customer=customer, users=user, accounts=accounts)
 
 @app.route('/<username>/accounts')
@@ -229,7 +230,7 @@ def services(username):
     customer = Customer.get('user_id', current_user.id)
     return render_template('services.html', customer=customer)
 
-@app.route('/<username>/profile/manage_accounts')
+@app.route('/<username>/profile/manage_accounts', methods=['POST', 'GET'])
 @login_required
 def manage_accounts(username):
     """Manage all accounts"""
@@ -237,7 +238,57 @@ def manage_accounts(username):
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     accounts = customer.accounts
-    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer)
+    form = VerifyPin()
+    if form.is_submitted():
+        if form.validate():
+            return redirect(url_for('new_password', username=customer.username, id=request.args.get('id')))
+        else:
+            flash('Wrong Pin')
+    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form)
+
+@app.route('/<username>/profile/manage_accounts/new_pin', methods=['POST', 'GET'])
+def new_password(username):
+    """The new password function route"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    accounts = customer.accounts
+    form = VerifyPin()
+    form2 = NewPin() 
+    form3 = DeleteAccount()
+    if form2.validate_on_submit():
+        flash('New Password Successfully Changed')
+        id = request.args.get('id')
+        account = Account.query.filter_by(id=id).first()
+        account.account_pin = generate_password_hash(str(form2.pin.data))
+        db.session.commit()
+        return redirect(url_for('manage_accounts', username=customer.username))
+    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form2=form2)
+
+@app.route('/<username>/profile/manage_accounts/close_account', methods=['POST', 'GET'])
+def close_account(username):
+    """Route for close account"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    accounts = customer.accounts
+    form = VerifyPin()
+    form3 = CloseAccount()
+    if form3.is_submitted():
+        if form3.validate():
+            account = Account.query.filter_by(id=request.args.get('id')).first()
+            closed_account = ClosedAccounts()
+            closed_account.user_id = current_user.id
+            if form3.reason.data:
+                closed_account.close_reason = form3.reason.data
+            closed_account.close_account(account)
+            db.session.add(closed_account)
+            db.session.commit()
+            flash('Account successfully closed')
+            return redirect(url_for('manage_accounts', username=customer.username))
+        else:
+            flash('Wrong pin')
+    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form3=form3)
 
 @app.route('/footer')
 def footer():

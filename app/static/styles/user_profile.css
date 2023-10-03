@@ -414,11 +414,12 @@ form{
     margin: 10px;
     justify-content: space-between;
     font-size: 20px;
-    font-family: 'Baloo Thambi 2';
+    font-family: 'Cherry Bomb One';
 }
 
 #name{
-    display: flex;   
+    display: flex;
+      
 }
 
 #name p{
@@ -428,16 +429,17 @@ form{
 .tab p:first-child{
     padding: 10px;
     color: #110526;
-    font-family: 'Libre Caslon Text';
-    font-size: 15px;
+    font-family: 'Marvel';
+    font-size: 19px;
     width: fit-content;
 }
 
 .tab p:nth-child(2){
     padding-left: 15px;
     width: 620px;
-    font-size: 13px;
+    font-size: 14px;
     display: none;
+    text-align: justify;
 }
 
 .tab p:first-child span{
@@ -460,13 +462,14 @@ form{
     outline: none;
     border: 1px solid #110526;
     border-radius: 4px;
+    font-family: 'Cherry Bomb One';
 }
 
 .acc_buttons{
     padding: 10px;
-    width: 300px;
+    width: 200px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .acc_buttons button{
@@ -474,6 +477,7 @@ form{
     border-radius: 5px;
     font-size: 13px;
     border: none;
+    margin-bottom: 30px;
 }
 
 .acc_buttons button:hover{
@@ -486,5 +490,135 @@ form{
 .acc_buttons button:last-child{
     background-color: red;
     color: white;
+    margin-top: 20px;
+    width: 300px;
 }
 
+.manage_pop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(236, 213, 213, 0.1); /* Adjust the opacity as needed */
+    z-index: 9999;
+    color: black;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.first{
+    display: none;
+}
+
+#verify_box{
+    width: 350px;
+    height: fit-content;
+    background-color: white;
+    padding: 0px 20px 0px 0px;
+    box-shadow: 0px 4px 31px 6px rgba(0,0,0,0.75);
+}
+
+#acc_manage_form div:nth-child(3){
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+#verify p:first-child{
+    padding: 15px 5px;
+    font-family: 'Bagel Fat One';
+}
+#verify_box form div:nth-child(3) a{
+    position: relative;
+    top: 1.8em;
+    cursor: pointer;
+    
+}
+
+.next{
+    display: flex;
+}
+
+.fmessage{
+    margin-left: 25px;
+    font-size: 15px;
+    color: red;
+    position: relative;
+    top: -1em;
+    font-family: 'Cherry Bomb One';
+    list-style: none;
+}
+
+.errors{
+    margin-left: 15px;
+    font-size: 13px;
+    color: red;   
+}
+
+.second {
+    display: flex;
+}
+
+#delete_box{
+    width: 600px;
+    height: fit-content;
+    background-color: white;
+    padding: 30px 45px 5px 25px;
+    box-shadow: 0px 4px 31px 6px rgba(0,0,0,0.75);
+    border-radius: 14px;
+  
+}
+
+#reason select{
+    margin-left: 10px;
+    width: 485px;
+}
+
+#delete_box div{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#delete_box div p:first-child{
+    padding: 5px;
+    font-size: 15px;
+    font-family: 'Libre Caslon Text';
+}
+
+
+#delete{
+    
+}
+
+.warning{
+    padding: 10px 0px 10px 20px;
+    font-size: 10px;
+    font-family: 'Libre Caslon Text';
+}
+.warning span{
+    color: red;
+}
+
+.del_buttons{
+    cursor: pointer;
+}
+
+.del_buttons a{
+    position: relative;
+    left: 22em;
+    top: -3.3em;
+    text-decoration: none;
+    color: #110526;
+}
+
+#close{
+    font-size: 20px;
+    font-family: 'Iceberg';
+    padding: 10px 0px 20px 20px;
+}

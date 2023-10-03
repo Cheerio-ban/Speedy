@@ -42,7 +42,7 @@ class CreateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     phonenumber = StringField('Phone number', validators=[DataRequired()])
     dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
-    pin = StringField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits"), Regexp(regex=r'\d*', message='Values must be digits')])
+    pin = PasswordField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits")])
     email = StringField('Email')
     create = SubmitField('Create account')
     
@@ -99,7 +99,7 @@ class FillAddress(FlaskForm):
 class Transfer(FlaskForm):
     """Form to carry out transfers"""
     amount = StringField('Amount', validators=[DataRequired()])
-    acc_number = StringField('Beneficiary Account Number', validators=[DataRequired(),  Length(min=10, max=10, message="Account number must be 10 digits only")])
+    acc_number = StringField('Beneficiary Account Number', validators=[DataRequired(),  Length(min=9, max=10, message="Account number must be 10 digits only")])
     bank_name = SelectField('Beneficiary Bank Name', choices=[('Speedy', 'Speedy'), ('Dainty Bank', 'Dainty Bank')], validators=[DataRequired()])
     description = TextAreaField('Transfer Description', validators=[Length(max=250)])
     pin = PasswordField('Account Pin', validators=[DataRequired(), Length(min=4, max=4)])
@@ -172,3 +172,62 @@ class GenerateStatement(FlaskForm):
     start = DateField('Start Date', validators=[DataRequired()])
     end = DateField('End Date', validators=[DataRequired()])
     submit = SubmitField('Generate Statement')
+
+
+class VerifyPin(FlaskForm):
+    """Class form for pin verification in changing pin"""
+    pin = PasswordField('Input Pin', validators=[DataRequired(), Length(min=4, max=4)])
+    verify = SubmitField('Verify')
+
+    def validate_pin(self, pin):
+        """Validate the pin"""
+        from app.models import Account
+        in_pin = pin.data
+        account: Account = Account.query.filter_by(id=request.args.get('id')).first()
+        if check_password_hash(account.account_pin, in_pin) is False:
+            raise ValidationError('Pin inputed is incorrect')
+        
+
+class NewPin(FlaskForm):
+    """Class form for pin verification in changing pin"""
+    pin = PasswordField('Input New Pin', validators=[DataRequired(), Length(min=4, max=4)])
+    change = SubmitField('Change Pin')
+
+    def validate_pin(self, pin):
+        try:
+            int(pin.data)
+        except Exception:
+            raise ValidationError('The pin should be digits')
+        
+class CloseAccount(FlaskForm):
+    """Form to delete your account"""
+    acc_num = StringField('Input your account number', validators=[DataRequired(), Length(min=10, max=10)])
+    pin = PasswordField('Input Pin', validators=[DataRequired(), Length(min=4, max=4)])
+    reason = SelectField('Why do you want to close your account?', choices=[
+        ('I have a lot of accounts', 'I have a lot of accounts'), 
+        ("I do not want to have a speedy account again", 'I do not want to have a speedy account again'),
+        ('I want to open another speedy account', 'I want to open another speedy account'),
+        ('I want to open another fintech account', 'I want to open another fintech account'),
+        ('I am not satisfied with Speedy', 'I am not satisfied with speedy'),
+        ('I do not have a reason', 'I do not have a reason')], 
+        validators=[DataRequired()])
+    close = SubmitField('Request Closure')
+        
+    def validate_acc_num(self, acc_num):
+        """Validate the account number given"""
+        account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
+        from app.models import Account
+        if account is None:
+            raise ValidationError('Account number inputed does not exist')
+        try:
+            int(acc_num.data)
+        except Exception:
+            raise ValidationError('The account number should be digits')
+    
+    def validate_pin(self, pin):
+        """Validate the pin"""
+        from app.models import Account
+        in_pin = pin.data
+        account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
+        if check_password_hash(account.account_pin, in_pin) is False:
+            raise ValidationError('Please, input the right pin')

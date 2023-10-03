@@ -33,6 +33,7 @@ class Account(db.Model):
   account_number = db.Column(db.String(100), nullable=False)
   account_pin = db.Column(db.String(4))
   acc_type = db.Column(db.String(240))
+  status = db.Column(db.String(10), default='active')
   balance = db.Column(db.Integer)
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
   date_created = db.Column(db.DateTime, default=datetime.utcnow)
@@ -116,6 +117,14 @@ class Customer(db.Model):
     self.username = form.username.data
 
 
+
+class Transact(db.model):
+  """A class on the transaction type"""
+  transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'))
+  crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
+  deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))  
+
+
 class Transaction(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   description = db.Column(db.String(250))
@@ -131,17 +140,28 @@ class Transaction(db.Model):
     """Format time"""
     return datetime.strftime(time, '%m/%d/%Y')
   
-  def create_transaction(self, account: Account, form):
+  def create_transaction(self, creditor: Account, form, type: str, debitor: Account=None):
     """This creates a transaction object and modifies the account accordingly"""
     self.description = form.description.data
-    self.acc_num = account.account_number
-    self.bank_name = form.bank_name.data
     self.amount = int(form.amount.data)
-    self.transaction_type = 'Debit'
-    self.initial_balance = account.balance
-    self.balance = account.balance - int(self.amount)
+    if type == 'debit':
+      self.initial_balance = creditor.balance
+      self.balance = creditor.balance - int(self.amount)
+      creditor.balance = self.balance
+      self.amount = -1 * self.amount
+      self.bank_name = form.bank_name.data
+      self.acc_num = debitor.account_number
+      self.account = creditor
+    else:
+      self.initial_balance = debitor.balance
+      debitor.balance = debitor.balance + int(self.amount)
+      self.balance = debitor.balance
+      self.bank_name = creditor.bank_name
+      self.acc_num = creditor.account_number
+      self.account = creditor
+    self.transaction_type = type
     self.timestamp = datetime.utcnow().replace(hour=0, minute=0, microsecond=0)
-    account.balance = account.balance - int(self.amount)
+    
 
   @classmethod
   def get_dated_transaction(cls, start: datetime, end: datetime, transactions):
@@ -153,6 +173,28 @@ class Transaction(db.Model):
       if transaction.timestamp > end:
         break
     return transactions_list
+  
+class Transact(db.model):
+  """A class on the transaction type"""
+  id = db.Column(db.Integer, primary_key=True)
+  transaction_id_creditor = db.Column(db.Integer, db.ForeignKey('transaction.id'))
+  transaction_id_debitor = db.Column(db.Integer, db.ForeignKey('transaction.id'))
+  crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
+  deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))
+
+  def transact(self, creditor:Account, debitor:Account, form):
+    """Create transaction records"""
+    transaction_creditor = Transaction()
+    transaction_debitor = Transaction()
+    self.crebitor = creditor.account_number
+    self.deditor = debitor.account_number
+    self.transaction_id_creditor = transaction_creditor.id
+    self.transaction_id_debitor = transaction_debitor.id
+    transaction_creditor.create_transaction(creditor, form, "debit", debitor)
+    transaction_debitor.create_transaction(creditor, form, "crebit", debitor)
+    db.session.add(transaction_creditor)
+    db.session.add(transaction_debitor)
+
   
 class Address(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -175,6 +217,34 @@ class Address(db.Model):
     self.country = form.country.data
     self.postal_code = form.postal_code.data
     self.address_line_2 = form.address_line_2.data
+
+class ClosedAccounts(db.Model):
+  """This class creates object for closed fintech accounts """
+  id = db.Column(db.Integer, primary_key=True)
+  acc_num = db.Column(db.String(15), nullable=False)
+  acc_pin = db.Column(db.String(4), nullable=False)
+  cus_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+  user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+  acc_balance = db.Column(db.Integer)
+  date_closed = db.Column(db.DateTime)
+  acc_type = db.Column(db.String(240))
+  bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
+  close_reason = db.Column(db.String(256))
+  date_acc_created = db.Column(db.DateTime)
+  
+
+  def close_account(self, acc: Account):
+    """This is the function to call to close the account"""
+    self.acc_num = acc.account_number
+    self.acc_pin = acc.account_pin
+    self.cus_id = acc.cus_id
+    self.timestamp = datetime.utcnow().replace(hour=0, minute=0, microsecond=0)
+    self.acc_balance = acc.balance
+    self.date_acc_created = acc.date_created
+    self.acc_type = acc.acc_type
+    self.bank_name = acc.bank_name
+    db.session.delete(acc)
+    db.session.commit()  
 
 
 @login.user_loader
