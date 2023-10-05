@@ -118,11 +118,11 @@ class Customer(db.Model):
 
 
 
-class Transact(db.model):
-  """A class on the transaction type"""
-  transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'))
-  crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
-  deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))  
+# class Transact(db.Model):
+#   """A class on the transaction type"""
+#   transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
+#   crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
+#   deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))  
 
 
 class Transaction(db.Model):
@@ -174,7 +174,7 @@ class Transaction(db.Model):
         break
     return transactions_list
   
-class Transact(db.model):
+class Transact(db.Model):
   """A class on the transaction type"""
   id = db.Column(db.Integer, primary_key=True)
   transaction_id_creditor = db.Column(db.Integer, db.ForeignKey('transaction.id'))

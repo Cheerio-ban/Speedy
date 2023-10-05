@@ -2,6 +2,14 @@ body {
   background: #fff;
 }
 
+a {
+  text-decoration: none;
+}
+
+a p {
+  color: #101010;
+}
+
 .accounts {
   max-width: 80%;
   margin: 3% auto;

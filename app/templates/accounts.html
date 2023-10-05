@@ -10,21 +10,23 @@
   </div>
   <div class="account-grid">
     {% for account in accounts %}
-    <div class="account-tile" account-id="{{ account.id }}">
-      <div class="name-icon">
-        <div class="name">
-          <p class="bk-name">{{account.bank_name}}</p>
-          <p class="status">{{account.acc_type}}</p>
-          <p class="status">{{account.account_number}}</p>
+    <a href="/{{customer.username}}/accounts/{{account.id}}">
+      <div class="account-tile" account-id="{{ account.id }}">
+        <div class="name-icon">
+          <div class="name">
+            <p class="bk-name">{{account.bank_name}}</p>
+            <p class="status">{{account.acc_type}}</p>
+            <p class="status">{{account.account_number}}</p>
+          </div>
+          <div class="icon">
+            <img src="{{ url_for('static', filename='images/bank-icon.png') }}" alt="">
+          </div>
         </div>
-        <div class="icon">
-          <img src="{{ url_for('static', filename='images/bank-icon.png') }}" alt="">
+        <div class="amount">
+          <p>N{{ account.balance }}</p>
         </div>
       </div>
-      <div class="amount">
-        <p>N{{ account.balance }}</p>
-      </div>
-    </div>
+    </a>
     {% endfor %}
   </div>
 </div>

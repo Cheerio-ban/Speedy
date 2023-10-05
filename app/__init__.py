@@ -7,9 +7,6 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 
 app = Flask(__name__)
-
-# from app.auth import bp as auth_bp
-# app.register_blueprint(auth_bp, url_prefix='/auth')
 app.config.from_object(Config)
 app.app_context().push()
 db = SQLAlchemy(app)

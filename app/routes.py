@@ -221,6 +221,16 @@ def accounts(username):
     accounts = customer.accounts
     return render_template('accounts.html', customer=customer, accounts=accounts)
 
+@app.route('/<username>/accounts/<id>')
+@login_required
+def account(username, id):
+    customer: Customer = Customer.get('user_id', current_user.id)
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    account = Account.query.filter_by(id=id).first()
+    return render_template('account.html', customer=customer, account=account)
+
+
 @app.route('/<username>/services')
 @login_required
 def services(username):
