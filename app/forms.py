@@ -215,8 +215,8 @@ class CloseAccount(FlaskForm):
         
     def validate_acc_num(self, acc_num):
         """Validate the account number given"""
-        account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
         from app.models import Account
+        account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
         if account is None:
             raise ValidationError('Account number inputed does not exist')
         try:
@@ -226,8 +226,12 @@ class CloseAccount(FlaskForm):
     
     def validate_pin(self, pin):
         """Validate the pin"""
+        if self.acc_num.data == "":
+            raise ValidationError('Please, input the account number')
         from app.models import Account
         in_pin = pin.data
         account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
-        if check_password_hash(account.account_pin, in_pin) is False:
-            raise ValidationError('Please, input the right pin')
+        if account is not None:
+            if check_password_hash(account.account_pin, in_pin) is False:
+                raise ValidationError('Please, input the right pin')
+        

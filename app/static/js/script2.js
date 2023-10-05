@@ -36,9 +36,11 @@ if (acc_button !== null && cus_button !== null && cus_info !== null && acc_info 
     })   
 }
 
-logout.addEventListener('click', () => {
-    pop_up.style.display = 'flex';
-})
+if (logout !== null){
+    logout.addEventListener('click', () => {
+        pop_up.style.display = 'flex';
+    })
+}
 
 if (cancel_pop !== null){
     cancel_pop.addEventListener('click', () => {

@@ -4,6 +4,7 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/account.css') }}">
 <div class="account-page">
+  <a id="back"> <span>&#x276E;</span>Back</a>
   <div class="account-holder">
     <article class="account-title">Account Holder Details</article>
     <p>First Name: {{ customer.first_name }}</p>
@@ -40,5 +41,9 @@
       </tbody>
     </table>
   </div>
+  <div id="transfer">
+    <a href="{{url_for('transfer', username=customer.username, id=id)}}">Make a Transfer</a>
+  </div>
 </div>
+<script src="{{ url_for('static', filename='js/script2.js') }}"></script>
 {% endblock %}

@@ -204,6 +204,10 @@ def transfer(username):
     user = User.query.all()
     form = Transfer()
     accounts = customer.accounts.all()
+    if 'id' in request.args:
+        account = Account.query.filter_by(id=request.args.get('id')).first()
+        accounts.remove(account)
+        accounts.insert(0, account)
     if 'id' not in request.args:
         return redirect(url_for('transfer', id=accounts[0].id, username=customer.username))
     if form.validate_on_submit():
@@ -215,6 +219,9 @@ def transfer(username):
         db.session.commit()
         return redirect(url_for('transactions', username=customer.username, id=request.args.get('id')))
     return render_template('make_transfer.html', username=customer.username, form=form, customer=customer, users=user, accounts=accounts)
+
+
+
 
 @app.route('/<username>/accounts')
 @login_required
@@ -235,7 +242,7 @@ def account(username, id):
     transactions = account.transactions
     transactions = list(transactions)
     transactions.reverse()
-    return render_template('account.html', customer=customer, account=account, transactions=transactions)
+    return render_template('account.html', customer=customer, account=account, transactions=transactions, id=id)
 
 
 @app.route('/<username>/services')
@@ -310,7 +317,10 @@ def close_account(username):
 @app.route('/<username>/profile/manage_user_account', methods=['GET', 'POST'])
 def user_acc(username):
     """Edit the user account details"""
-    pass
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    return render_template('manage_user_account.html', username=customer.username, customer=customer)
 
 @app.route('/footer')
 def footer():

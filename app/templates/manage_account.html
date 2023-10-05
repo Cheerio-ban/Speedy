@@ -71,6 +71,9 @@
             <div id="info_acc">
                 <p>{{form3.acc_num.label}}</p>
                 <p>{{form3.acc_num(class="input", size=70)}}</p>
+                {% for error in form3.acc_num.errors %}
+                <p class="errors">{{error}}</p>
+                {% endfor %}
             </div>
             <div id="reason">
                 <p>{{form3.reason.label}}</p>

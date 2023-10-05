@@ -1,13 +1,12 @@
 {% extends 'user_profile_base.html' %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile_base.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/user_profile.css')}}">
 
 <div id="user_acc">
-    <p class="title">Edit User Details</p>
-    <p></p>
+    <p id="title">Edit User Details</p>
+    <p class="title user_name">{{customer.username}}</p>
     <div id="email_edit">
-        <button>Edit Email</button>
         <div id="form_user">
             <form action="" method="POST" novalidate>
     
