@@ -1,5 +1,6 @@
 tr {
   height: 55px;
+  min-width: 821.89px;
 }
 
 tr:nth-child(odd) {

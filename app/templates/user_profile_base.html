@@ -17,7 +17,7 @@
                 <a id="back"> <span>&#x276E;</span>Back</a>
                 <a href="{{ url_for('edit_profile', username=customer.username)}}">Edit profile</a>
                 <a href="{{url_for('manage_accounts', username=customer.username)}}">Manage Accounts</a>
-                <a>Manage User Account</a>
+                <a href="{{url_for('user_acc', username=customer.username)}}">Manage User Account</a>
                 <a>Settings</a>
                 <a  id="logout">Logout</a>
             </div>

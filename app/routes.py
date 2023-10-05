@@ -159,6 +159,8 @@ def transactions(username):
     cus = Customer.query.filter_by(username=username).first()
     accounts = cus.accounts.all()
     transactions = accounts[0].transactions
+    transactions = list(transactions)
+    transactions.reverse()
     form = GenerateStatement()
     if form.validate_on_submit():
         id = request.args.get('id')
@@ -167,7 +169,7 @@ def transactions(username):
         start = datetime(form.start.data.year, form.start.data.month, form.start.data.day)
         end = datetime(form.end.data.year, form.end.data.month, form.end.data.day)
         transact_list = Transaction.get_dated_transaction(start, end, transactions)
-        customer = Customer.query.filter_by(id=current_user.id).first()
+        customer = Customer.query.filter_by(user_id=current_user.id).first()
         rendered = render_template('e_statement.html', username=customer.username, customer=customer, account=account, transactions=transact_list)
         htm_render = render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
         with open('app/static/styles/e_statement.css', 'rb') as css_file:
@@ -186,6 +188,8 @@ def transactions(username):
         accounts.remove(account)
         accounts.insert(0, account)
         transactions = account.transactions
+        transactions = list(transactions)
+        transactions.reverse()
         return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
     return render_template('transactions.html', transactions=transactions, accounts=accounts, customer=customer, username=customer.username, form=form)
 
@@ -204,7 +208,7 @@ def transfer(username):
         return redirect(url_for('transfer', id=accounts[0].id, username=customer.username))
     if form.validate_on_submit():
         creditor = Account.query.filter_by(id=request.args.get('id')).first()
-        debitor = Account.query.filter_by(account_number=form.acc_number.data)
+        debitor = Account.query.filter_by(account_number=form.acc_number.data).first()
         transact = Transact()
         transact.transact(creditor, debitor, form)
         db.session.add(transact)
@@ -265,7 +269,7 @@ def new_password(username):
     accounts = customer.accounts
     form = VerifyPin()
     form2 = NewPin() 
-    form3 = DeleteAccount()
+    form3 = CloseAccount()
     if form2.validate_on_submit():
         flash('New Password Successfully Changed')
         id = request.args.get('id')
@@ -299,6 +303,11 @@ def close_account(username):
         else:
             flash('Wrong pin')
     return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form3=form3)
+
+@app.route('/<username>/profile/manage_user_account', methods=['GET', 'POST'])
+def user_acc(username):
+    """Edit the user account details"""
+    pass
 
 @app.route('/footer')
 def footer():

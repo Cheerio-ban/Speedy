@@ -19,7 +19,7 @@
       <div class="bal" id="{{account.id}}">
       <p class="acc-num">{{ account.account_number}}</p>
       <p class="acc-bal">{{ account.acc_type }}</p>
-      <p class="acc-bal-ngn">&#8358;{{ account.balance}}</p>
+      <p class="acc-bal-ngn">&#8358;{{ account.parse_balance()}}</p>
       </div>
       {% endfor %}
       <button id="next">&#10095;</button>
@@ -34,6 +34,7 @@
     <thead>
       <tr>
         <th>Date</th>
+        <th>Transfer Details</th>
         <th>Description</th>
         <th>Type</th>
         <th>Amount</th>

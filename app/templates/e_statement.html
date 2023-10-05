@@ -29,6 +29,7 @@
                 <thead>
                     <tr>
                         <th>Transaction Date</th>
+                        <th>Transaction Reference</th>
                         <th>Details</th>
                         <th>Type</th>
                         <th>Amount</th>
@@ -40,6 +41,7 @@
                     {% for transaction in transactions %}
                     <tr>
                         <td>{{transaction.format_time(transaction.timestamp)}}</td>
+                        <td>{{transaction.ref}}</td>
                         <td>{{transaction.description}}</td>
                         <td>{{transaction.transaction_type}}</td>
                         <td>{{transaction.amount}}</td>

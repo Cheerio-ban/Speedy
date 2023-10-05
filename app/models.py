@@ -60,7 +60,32 @@ class Account(db.Model):
   def check_pin(self, pin):
     """Chc=eck to see if a provided pin is correct"""
     return check_password_hash(self.account_pin, str(pin))
-
+  
+  def parse_balance(self):
+    """Parse the account balance to include comas"""
+    balance = list(str(self.balance))
+    num = len(str(self.balance))
+    j = 0
+    if num > 3:
+      if num % 3 == 1:
+        balance.insert(1, ",")
+        for i in range(4, num):
+          if i % 3 == 2:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 2:
+        balance.insert(2, ",")
+        for i in range(4, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 0:
+        for i in range(2, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+    return "".join(balance)
+      
 class Customer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
@@ -118,13 +143,6 @@ class Customer(db.Model):
 
 
 
-# class Transact(db.Model):
-#   """A class on the transaction type"""
-#   transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
-#   crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
-#   deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))  
-
-
 class Transaction(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   description = db.Column(db.String(250))
@@ -134,7 +152,9 @@ class Transaction(db.Model):
   amount = db.Column(db.Integer)
   timestamp = db.Column(db.DateTime)
   initial_balance = db.Column(db.Integer)
+  cus_name = db.Column(db.String)
   balance = db.Column(db.Integer)
+  ref = db.Column(db.String(256))
 
   def format_time(self, time):
     """Format time"""
@@ -144,24 +164,64 @@ class Transaction(db.Model):
     """This creates a transaction object and modifies the account accordingly"""
     self.description = form.description.data
     self.amount = int(form.amount.data)
+    self.ref = random.choice(['SPD', 'SPY' 'SPE', 'SPDY']) + "-" + str(random.randint(1111111111, 9999999999)) 
     if type == 'debit':
+      if form.description.data == "" or form.description.data == None:
+        self.description = 'Online Transfer to a customer' 
       self.initial_balance = creditor.balance
       self.balance = creditor.balance - int(self.amount)
       creditor.balance = self.balance
       self.amount = -1 * self.amount
       self.bank_name = form.bank_name.data
       self.acc_num = debitor.account_number
+      customer = Customer.query.filter_by(id=debitor.cus_id).first()
+      self.cus_name = customer.first_name + " " + customer.last_name
       self.account = creditor
     else:
+      if form.description.data == "" or form.description.data == None:
+        self.description = 'Online transfer from a Customer '
       self.initial_balance = debitor.balance
       debitor.balance = debitor.balance + int(self.amount)
       self.balance = debitor.balance
       self.bank_name = creditor.bank_name
       self.acc_num = creditor.account_number
-      self.account = creditor
+      customer = Customer.query.filter_by(id=creditor.cus_id).first()
+      self.cus_name = customer.first_name + " " + customer.last_name
+      self.account = debitor
     self.transaction_type = type
-    self.timestamp = datetime.utcnow().replace(hour=0, minute=0, microsecond=0)
-    
+    self.timestamp = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+
+  def parse_balance(self, amount):
+    """Parse the account balance to include comas"""
+    n_balance = list(str(amount))
+    balance = n_balance[:]
+    num = len(str(amount))
+    if n_balance[0] == "-":
+      num -= 1
+      balance.pop(0)
+    j = 0
+    if num > 3:
+      if num % 3 == 1:
+        balance.insert(1, ",")
+        for i in range(4, num):
+          if i % 3 == 2:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 2:
+        balance.insert(2, ",")
+        for i in range(4, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 0:
+        for i in range(2, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+    if n_balance[0] == "-":
+      balance.insert(0, "-")
+    return "".join(balance)
+      
 
   @classmethod
   def get_dated_transaction(cls, start: datetime, end: datetime, transactions):
@@ -179,19 +239,19 @@ class Transact(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   transaction_id_creditor = db.Column(db.Integer, db.ForeignKey('transaction.id'))
   transaction_id_debitor = db.Column(db.Integer, db.ForeignKey('transaction.id'))
-  crebitor = db.Column(db.Integer, db.ForeignKey('customer.id'))
-  deditor =  db.Column(db.Integer, db.ForeignKey('customer.id'))
+  crebitor = db.Column(db.Integer, db.ForeignKey('account.account_number'))
+  deditor =  db.Column(db.Integer, db.ForeignKey('account.account_number'))
 
   def transact(self, creditor:Account, debitor:Account, form):
     """Create transaction records"""
     transaction_creditor = Transaction()
     transaction_debitor = Transaction()
-    self.crebitor = creditor.account_number
+    self.creditor = creditor.account_number
     self.deditor = debitor.account_number
     self.transaction_id_creditor = transaction_creditor.id
     self.transaction_id_debitor = transaction_debitor.id
     transaction_creditor.create_transaction(creditor, form, "debit", debitor)
-    transaction_debitor.create_transaction(creditor, form, "crebit", debitor)
+    transaction_debitor.create_transaction(creditor, form, "credit", debitor)
     db.session.add(transaction_creditor)
     db.session.add(transaction_debitor)
 

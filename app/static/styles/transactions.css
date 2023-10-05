@@ -132,15 +132,23 @@
 
 .list-head tbody{
   display: block;
-  width: 100%;
+  width: 800px;
   overflow-y: scroll;
   height: 280px;
+  font-family: 'Baloo Thambi 2';
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 2px;
 }
+
+
 
 .list-head thead tr{
   display: block;
   align-items: center;
+  min-width: 100%;
 }
+
 .list-head > p {
   color: #000;
   font-family: Inter;
@@ -153,18 +161,44 @@ th{
 }
 
 
-table thead th:nth-child(1){
-  padding: 10px 80px;
+table thead th:first-child, table thead th:nth-child(3){
+  width: 100px;
+  
 }
 
-table thead th:nth-child(2), table thead th:nth-child(3){
-  padding: 10px 100px;
+table thead th:nth-child(2){
+  width: 200px;
+ 
+  } 
+
+table thead th:nth-child(3){
+  width: 280px;
+}
+table thead th:nth-child(4){
+  width: 100px;
+}
+table thead th{
+  padding: 10px;
+  
 }
 
+td:first-of-type{
+  width: 100px;
+}
 
+td:nth-of-type(2){
+  width: 200px;
+}
+td:nth-child(3){
+  width: 280px;
+}
+
+td:nth-child(4){
+  width: 100px;
+}
 td{
   background-color: white;
-  padding: 10px 55px;
+  padding: 20px 10px;
   text-align: center;
 }
 
