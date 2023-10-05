@@ -1,1 +1,20 @@
 {% extends 'nav-bar.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/services.css') }}">
+<div class="services">
+  <div class="business-services">
+    <article>Business Services</article>
+    <p class="smart">Smart solutions for successful businesses.</p>
+    <p class="para">It's easier to reach your goals when you have the right account. We'll hwlp you choose the one that'll get you
+      there</p>
+  </div>
+  <div class="other-services">
+    <article>
+      Other Services
+    </article>
+    <p>E-Statement</p>
+    <a href="{{ url_for('transactions', username=customer.username) }}" class="learn">Learn More ></a>
+  </div>
+</div>
+{% endblock %}

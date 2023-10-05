@@ -1,7 +1,7 @@
 .account-page {
   margin: 60px auto;
   max-width: 90%;
-  padding: 60px;
+  padding: 50px;
   background: #fff;
   box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);
 }
@@ -36,7 +36,6 @@
   margin: 50px auto;
   box-shadow: 1px 7px 20px 5px #ddd1dc;
   border-radius: 8px;
- 
 }
 
 
