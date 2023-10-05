@@ -60,7 +60,32 @@ class Account(db.Model):
   def check_pin(self, pin):
     """Chc=eck to see if a provided pin is correct"""
     return check_password_hash(self.account_pin, str(pin))
-
+  
+  def parse_balance(self):
+    """Parse the account balance to include comas"""
+    balance = list(str(self.balance))
+    num = len(str(self.balance))
+    j = 0
+    if num > 3:
+      if num % 3 == 1:
+        balance.insert(1, ",")
+        for i in range(4, num):
+          if i % 3 == 2:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 2:
+        balance.insert(2, ",")
+        for i in range(4, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 0:
+        for i in range(2, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+    return "".join(balance)
+      
 class Customer(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
@@ -129,6 +154,7 @@ class Transaction(db.Model):
   initial_balance = db.Column(db.Integer)
   cus_name = db.Column(db.String)
   balance = db.Column(db.Integer)
+  ref = db.Column(db.String(256))
 
   def format_time(self, time):
     """Format time"""
@@ -138,6 +164,7 @@ class Transaction(db.Model):
     """This creates a transaction object and modifies the account accordingly"""
     self.description = form.description.data
     self.amount = int(form.amount.data)
+    self.ref = random.choice(['SPD', 'SPY' 'SPE', 'SPDY']) + "-" + str(random.randint(1111111111, 9999999999)) 
     if type == 'debit':
       if form.description.data == "" or form.description.data == None:
         self.description = 'Online Transfer to a customer' 
@@ -163,7 +190,38 @@ class Transaction(db.Model):
       self.account = debitor
     self.transaction_type = type
     self.timestamp = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
-    
+
+  def parse_balance(self, amount):
+    """Parse the account balance to include comas"""
+    n_balance = list(str(amount))
+    balance = n_balance[:]
+    num = len(str(amount))
+    if n_balance[0] == "-":
+      num -= 1
+      balance.pop(0)
+    j = 0
+    if num > 3:
+      if num % 3 == 1:
+        balance.insert(1, ",")
+        for i in range(4, num):
+          if i % 3 == 2:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 2:
+        balance.insert(2, ",")
+        for i in range(4, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+      if num % 3 == 0:
+        for i in range(2, num):
+          if i % 3 == 0:
+            balance.insert(i+j, ",")
+            j+=1
+    if n_balance[0] == "-":
+      balance.insert(0, "-")
+    return "".join(balance)
+      
 
   @classmethod
   def get_dated_transaction(cls, start: datetime, end: datetime, transactions):

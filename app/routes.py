@@ -259,7 +259,7 @@ def new_password(username):
     accounts = customer.accounts
     form = VerifyPin()
     form2 = NewPin() 
-    form3 = DeleteAccount()
+    form3 = CloseAccount()
     if form2.validate_on_submit():
         flash('New Password Successfully Changed')
         id = request.args.get('id')
@@ -293,6 +293,11 @@ def close_account(username):
         else:
             flash('Wrong pin')
     return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form3=form3)
+
+@app.route('/<username>/profile/manage_user_account', methods=['GET', 'POST'])
+def user_acc(username):
+    """Edit the user account details"""
+    pass
 
 @app.route('/footer')
 def footer():

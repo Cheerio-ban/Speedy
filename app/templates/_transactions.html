@@ -4,5 +4,5 @@
     <td>{{transaction.cus_name}}<br>{{transaction.bank_name}}</td>
     <td>{{ transaction.description | default("NIL") }}</td>
     <td>{{ transaction.transaction_type }}</td>
-    <td>{{ transaction.amount }}</td>
+    <td>{{ transaction.parse_balance(transaction.amount) }}</td>
   </tr>

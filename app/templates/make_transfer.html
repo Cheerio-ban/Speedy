@@ -15,7 +15,7 @@
             <div class="acc" id="{{account.id}}">
             <p>{{ account.account_number}}</p>
             <p>{{ account.acc_type }}</p>
-            <p>&#8358;{{ account.balance}}</p>
+            <p>&#8358;{{ account.parse_balance()}}</p>
             </div>
             {% endfor %}
             <button id="next">&#10095;</button>
