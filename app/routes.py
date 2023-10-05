@@ -232,7 +232,10 @@ def account(username, id):
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     account = Account.query.filter_by(id=id).first()
-    return render_template('account.html', customer=customer, account=account)
+    transactions = account.transactions
+    transactions = list(transactions)
+    transactions.reverse()
+    return render_template('account.html', customer=customer, account=account, transactions=transactions)
 
 
 @app.route('/<username>/services')

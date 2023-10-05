@@ -1,0 +1,113 @@
+.account-page {
+  margin: 60px auto;
+  max-width: 90%;
+  padding: 60px;
+  background: #fff;
+  box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);
+}
+
+.account-holder > p {
+  font-size: 20px;
+  font-family: Inter;
+  margin: 6px 0;
+  padding: 0 10px;
+}
+
+.account-account > p {
+  font-size: 20px;
+  font-family: Inter;
+  margin: 6px 0;
+  padding: 0 10px;
+}
+
+.account-title {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: Inter;
+  background-color: #eee;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.list-head {
+  min-width: 600px;
+  table-layout: fixed;
+  margin: 50px auto;
+  box-shadow: 1px 7px 20px 5px #ddd1dc;
+  border-radius: 8px;
+ 
+}
+
+
+.list-head tbody{
+  display: block;
+  width: 800px;
+  overflow-y: scroll;
+  height: 280px;
+  font-family: 'Baloo Thambi 2';
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+
+
+.list-head thead tr{
+  display: block;
+  align-items: center;
+  min-width: 100%;
+}
+
+.list-head > p {
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+th{
+  text-align: center;
+}
+
+
+table thead th:first-child, table thead th:nth-child(3){
+  width: 100px;
+  
+}
+
+table thead th:nth-child(2){
+  width: 200px;
+ 
+  } 
+
+table thead th:nth-child(3){
+  width: 280px;
+}
+table thead th:nth-child(4){
+  width: 100px;
+}
+table thead th{
+  padding: 10px;
+  
+}
+
+td:first-of-type{
+  width: 100px;
+}
+
+td:nth-of-type(2){
+  width: 200px;
+}
+td:nth-child(3){
+  width: 280px;
+}
+
+td:nth-child(4){
+  width: 100px;
+}
+td{
+  background-color: white;
+  padding: 20px 10px;
+  text-align: center;
+}
