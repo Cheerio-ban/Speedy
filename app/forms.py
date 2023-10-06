@@ -4,6 +4,7 @@ from wtforms.validators import Regexp, Length
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 from flask import request
+from flask_login import current_user
 from werkzeug.security import check_password_hash
 
 class LoginForm(FlaskForm):
@@ -246,3 +247,12 @@ class ChangePassword(FlaskForm):
     new_password = PasswordField('New Password', validators=[DataRequired()]) 
     submit = SubmitField('Change Password')
 
+    def validate_old_password(self, old_password):
+        """Check to see if the inputed password is correct"""
+        if check_password_hash(current_user.password_hash, old_password.data) is False:
+            raise ValidationError('Wrong Pasword')
+        
+class DeleteAccount(FlaskForm):
+    """Form to delete account"""
+    password = PasswordField('Password', validators=[DataRequired()])
+    delete = SubmitField('Delete My User Account', validators=[DataRequired()])

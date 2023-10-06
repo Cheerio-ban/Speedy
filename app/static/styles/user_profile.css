@@ -489,20 +489,22 @@ form{
     border: none;
     margin-bottom: 30px;
     box-shadow: 1px 3px 12px -2px rgba(0,0,0,0.58);
+    border-radius: 10px;
 }
 
 .acc_buttons button:hover{
     opacity: 0.5;
 }
 .acc_buttons button:first-child{
-    background-color: green;
+    background-color: rgb(99,21,63);;
     color: white;
 }
 .acc_buttons button:last-child{
     background-color: red;
     color: white;
     margin-top: 20px;
-    width: 300px;
+    border-radius: 10px;
+    
 }
 
 .manage_pop{
@@ -654,7 +656,7 @@ form{
 #change{
     margin-right: 10px;
     margin-bottom: 0px;
-    padding: 10px 25px;
+    padding: 10px 15px;
     background-color: rgb(99,21,63);
     border:  1px solid silver;
     color: white;
@@ -662,13 +664,15 @@ form{
     margin-left: 40px;
     cursor:pointer;
     text-decoration: none;
+    width: 150px;
+    text-align: center;
 }
 
-#change:active{
+#change:active, #del:active{
     color: white;
 }
 
-#change:visited{
+#change:visited, #del:visited{
     color: white;
 }
 #change:hover{
@@ -701,4 +705,64 @@ form{
 
 #form2_user .submit{
     margin-top: 30px;
+}
+
+#form2_user a{
+    position: relative;
+    left: 19em;
+    top: -3.6em;
+    cursor:pointer;
+    text-decoration: none;
+}
+
+#form2_user a:visited, #form2_user a:active{
+    color: #110526;
+}
+
+.er{
+    font-size: 10px;
+    color: red;
+    margin: 3px 0px 5px 20px;
+}
+
+#del_acc{
+    margin-right: 10px;
+    margin-bottom: 0px;
+    padding: 5px 25px;
+    background-color: red;
+    border:  1px solid silver;
+    color: white;
+    border-radius: 5px;
+    margin-left: 40px;
+    cursor:pointer;
+    text-decoration: none;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    top: 7em;
+}
+#del_acc:hover{
+    background-color:rgba(243, 11, 11, 0.7);
+}
+#del_div{
+    display: flex;
+    flex-direction: column;
+}
+
+.del{
+    margin-top: 10px;
+    width: 200px;
+    padding: 10px 15px;
+    background-color: rgb(99,21,63);
+    color: white;
+    border-radius: 18px;
+}
+
+.wid{
+    width: 350px;
+    color: red;
+}
+
+#cancel_del{
+    color: aliceblue;
 }

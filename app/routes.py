@@ -328,7 +328,7 @@ def user_acc(username):
         return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1)
     return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1)
 
-@app.route('/<username>/profile/manage_user_account/change_password')
+@app.route('/<username>/profile/manage_user_account/change_password', methods=['GET', 'POST'])
 def change_password(username):
     """Change user password"""
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
@@ -336,7 +336,30 @@ def change_password(username):
         return redirect(url_for('user_home', username=customer.username))
     form1 = ChangeEmail()
     form2 = ChangePassword()
+    if form2.validate_on_submit():
+        current_user.password_hash = generate_password_hash(form2.new_password.data)
+        db.session.commit()
+        return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1)
     return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1, form2=form2)
+
+@app.route('/<username>/profile/manage_user_account/delete_account', methods=['GET', 'POST'])
+def delete_account(username):
+    """Delete user account"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    form1 = ChangeEmail()
+    form3 = DeleteAccount()
+    if form3.validate_on_submit():
+        deleted_account = DeletedAccount()
+        deleted_account.user_id = current_user.id
+        deleted_account.customer_id = customer.id
+        user = User.query.filter_by(id=current_user.id)
+        db.session.add(deleted_account)
+        db.session.delete(user)
+        db.session.commit()
+        return redirect(url_for('logout'))
+    return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1, form3=form3)
 
 
 

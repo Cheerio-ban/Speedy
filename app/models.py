@@ -24,7 +24,7 @@ class User(UserMixin, db.Model):
     """This returns associated objects in the db"""
     id = self.id
     customer = Customer.query.filter_by(user_id=id).first()
-    account = Account.query.filter_by(cus_id=customer.id).first()
+    accounts = Account.query.filter_by(cus_id=customer.id).all()
     return [customer, account]
 
 class Account(db.Model):
@@ -37,6 +37,7 @@ class Account(db.Model):
   balance = db.Column(db.Integer)
   bank_name = db.Column(db.String(240), default="Speedy", nullable=False)
   date_created = db.Column(db.DateTime, default=datetime.utcnow)
+  req_clos = db.Column(db.String(3), default="No")
   transactions = db.relationship('Transaction', backref='account', lazy='dynamic')
 
   def create_account_number(self):
@@ -305,6 +306,12 @@ class ClosedAccounts(db.Model):
     self.bank_name = acc.bank_name
     db.session.delete(acc)
     db.session.commit()  
+
+class DeletedAccount(db.Model):
+  """Class for deleted accounts"""
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer)
+  customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
 
 
 @login.user_loader

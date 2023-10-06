@@ -18,7 +18,6 @@
                 <a href="{{ url_for('edit_profile', username=customer.username)}}">Edit profile</a>
                 <a href="{{url_for('manage_accounts', username=customer.username)}}">Manage Accounts</a>
                 <a href="{{url_for('user_acc', username=customer.username)}}">Manage User Account</a>
-                <a>Settings</a>
                 <a  id="logout">Logout</a>
             </div>
             <div id="profile">
@@ -37,5 +36,6 @@
             </div>
     </div>
     <script src="{{ url_for('static', filename='js/script2.js') }}"></script>
+    
 </body>
 </html>
