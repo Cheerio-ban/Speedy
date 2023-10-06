@@ -33,7 +33,7 @@
             <div class="act-btn">
                 <a href="{{ url_for('transfer', username=customer.username) }}" class="transf">Make a Transfer</a><br>
                 <a href="{{ url_for('transactions', username=customer.username) }}" class="transac">Transaction History</a><br>
-                <a href="/" class="creat">Create an Account</a><br>
+                <a href="{{ url_for('create_acc', username=customer.username) }}" class="creat">Create an Account</a><br>
             </div>
         </div>
         <div class="bot-sec">

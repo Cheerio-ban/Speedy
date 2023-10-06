@@ -44,7 +44,7 @@ class CreateAccountForm(FlaskForm):
     phonenumber = StringField('Phone number', validators=[DataRequired()])
     dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
     pin = PasswordField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits")])
-    email = StringField('Email')
+    email = StringField('Email', validators=[Email()])
     create = SubmitField('Create account')
     
 
@@ -82,7 +82,15 @@ class CreateAccountForm(FlaskForm):
         try:
             int(pin.data)
         except Exception:
-            raise ValidationError('The pin should be digits')   
+            raise ValidationError('The pin should be digits')
+
+
+class CreateUserAccountForm(FlaskForm):
+    email = StringField('Email', validators=[Email(), DataRequired()])
+    phonenumber = StringField('Phone number', validators=[DataRequired()])
+    dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
+    pin = PasswordField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits")])
+    create = SubmitField('Create account')
 
 
 class FillAddress(FlaskForm):

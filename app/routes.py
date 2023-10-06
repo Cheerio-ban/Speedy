@@ -83,6 +83,23 @@ def create_account():
         return redirect(url_for('add_address', username=customer.username))
     return render_template('acc_creation.html', form=form)
 
+
+@app.route('/<username>/create_account', methods=['GET', 'POST'])
+@login_required
+def create_acc(username):
+    customer: Customer = Customer.get('user_id', current_user.id)
+    form = CreateUserAccountForm()
+    if form.validate_on_submit():
+        new_account = Account()
+        new_account.create_account(form.pin.data)
+        new_account.customer = customer
+        db.session.add(new_account)
+        db.session.commit()
+        flash('Account successfully created', 'success')
+        return redirect(url_for('accounts', username=customer.username))
+    return render_template('create_user_account.html', form=form, customer=customer)
+
+
 @app.route('/<username>/add_address', methods=['GET', 'POST'])
 @login_required
 def add_address(username):
