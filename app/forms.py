@@ -234,4 +234,15 @@ class CloseAccount(FlaskForm):
         if account is not None:
             if check_password_hash(account.account_pin, in_pin) is False:
                 raise ValidationError('Please, input the right pin')
-        
+
+class ChangeEmail(FlaskForm):
+    """Change user email"""   
+    email = StringField('Email', validators=[DataRequired()])
+    submit = SubmitField('Change Email')
+
+class ChangePassword(FlaskForm):
+    """Change user password"""
+    old_password = PasswordField('Old Password', validators=[DataRequired()]) 
+    new_password = PasswordField('New Password', validators=[DataRequired()]) 
+    submit = SubmitField('Change Password')
+

@@ -51,7 +51,30 @@ previous.addEventListener('click', ()=>{
     }
 })
 
+
+
 amount.addEventListener('input', (event)=>{
+    let currentURL = window.location.href;
+    let urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    let id = parseInt(urlSearchParams.get('id'), 10);
+
+    fetch(`http://127.0.0.1:5050/api/v1/accounts/${id}`)
+    .then(res=>{
+        return res.json();
+    })
+    .then(data=>{
+        const acc = data[`${id}`]
+        const acc_bal = acc['balance'] 
+        const err = document.querySelector('#erro')
+        if (Number(event.target.value) > acc_bal){
+            event.target.style.color = 'red'
+            err.innerText = 'This amount exceeds the amount in your account'
+        }
+        if (Number(event.target.value) <= acc_bal){
+            err.innerText = ''
+        }
+    })
+
     if (Number(event.target.value) < 50){
         event.target.style.color = 'red';
     }

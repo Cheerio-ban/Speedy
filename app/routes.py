@@ -320,7 +320,25 @@ def user_acc(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    return render_template('manage_user_account.html', username=customer.username, customer=customer)
+    form1 = ChangeEmail()
+    if form1.validate_on_submit():
+        customer.email = form1.email.data
+        current_user.email = form1.email.data
+        db.session.commit()
+        return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1)
+    return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1)
+
+@app.route('/<username>/profile/manage_user_account/change_password')
+def change_password(username):
+    """Change user password"""
+    customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
+    if username != customer.username:
+        return redirect(url_for('user_home', username=customer.username))
+    form1 = ChangeEmail()
+    form2 = ChangePassword()
+    return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1, form2=form2)
+
+
 
 @app.route('/footer')
 def footer():

@@ -5,22 +5,47 @@
 
 <div id="user_acc">
     <p id="title">Edit User Details</p>
-    <p class="title user_name">{{customer.username}}</p>
+    <p class="title user_name">Hello, {{customer.username}}</p>
     <div id="email_edit">
         <div id="form_user">
             <form action="" method="POST" novalidate>
-    
+                {{form1.hidden_tag()}}
+                <div id="email">
+                    <p>{{form1.email.label}}</p>
+                    <p>{{form1.email(size=70, class="input", id="input_email", value=customer.email)}}</p>
+                    {% for error in form1.email.errors %}
+                    <p class="error">{{error}}</p>
+                    {% endfor %}
+                </div>
+                <div id="submit/cancel">
+                    {{form1.submit(class="submit")}}
+                </div>
             </form>
+            <a id="change" href="{{url_for('change_password', username=customer.username)}}">Change Password</a>
         </div>
     </div>
+    {% if form2 %}
     <div id="password_change">
-        <button>Change Password</button>
-        <div id="form_user">
+        <div id="form2_user">
             <form action="" method="POST" novalidate>
-    
+                {{ form2.hidden_tag() }}
+                <p id="title">Change Your Password </p>
+                <div id="old_pas">
+                    <p>{{form2.old_password.label }}</p>
+                    <p>{{form2.old_password(class="input", size=40)}}</p>
+                </div>
+                <div id="new_pas">
+                    <p>{{form2.new_password.label}}</p>
+                    <p>{{form2.new_password(class="input", size=40)}}</p>
+                </div>
+                <div id="submit/cancel">
+                    {{form2.submit(class="submit")}}
+                </div>
             </form>
+            <a>Cancel</a>
         </div>
     </div>
+    {% endif %}
     
 
 </div>
