@@ -6,7 +6,7 @@
 <div class="accounts">
   <div class="bank-btn">
     <p>Bank Accounts</p>
-    <a href="">Create Bank Account</a>
+    <a href="{{ url_for('create_account') }}">Create Bank Account</a>
   </div>
   <div class="account-grid">
     {% for account in accounts %}

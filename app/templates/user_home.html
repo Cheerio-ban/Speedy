@@ -41,9 +41,9 @@
                 <p>Accounts</p>
                 <p>Here are your options for a fulfiling bank experience.</p>
                 <div class="a-s">
-                    <a href="/" class="sav">Savings Accounts</a><br>
-                    <a href="/" class="cur">Current Accounts</a><br>
-                    <a href="/" class="comp">Compare Accounts</a><br>
+                    <a href="{{ url_for('accounts', username=customer.username)}}" class="sav">Savings Accounts</a><br>
+                    <a href="{{ url_for('accounts', username=customer.username)}}" class="cur">Current Accounts</a><br>
+                    <a href="{{ url_for('accounts', username=customer.username)}}" class="comp">Compare Accounts</a><br>
                 </div>
             </div>
             <div class="cards">

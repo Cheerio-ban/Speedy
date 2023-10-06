@@ -144,6 +144,7 @@ td{
 
 #back{
   display: flex;
+  align-items: center;
   justify-content: left;
   padding: 5px 10px;
   max-width: 120px;
@@ -156,6 +157,10 @@ td{
 
 #back span{
   margin-right: 20px;
+}
+
+#back article {
+  margin-top: 3px;
 }
 
 #back:hover{

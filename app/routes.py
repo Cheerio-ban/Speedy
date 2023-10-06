@@ -141,14 +141,6 @@ def edit_profile(username):
         return redirect(url_for('edit_profile', username=customer.username))
     return render_template('edit_profile.html', username=customer.username, customer=customer, form=form, form2=form2)
 
-
-# @app.route('/<username>/profile', methods=['GET', 'POST'])
-# def profile(username):
-#     cus = Customer.query.filter_by(username=username).first()
-#     account = cus.accounts.first()
-#     address = cus.address.first()
-#     return render_template('profile.html', customer=cus, account=account, address=address)
-
 @app.route('/<username>/transactions', methods=['GET', 'POST'])
 @login_required
 def transactions(username):
