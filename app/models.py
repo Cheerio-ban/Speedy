@@ -44,7 +44,7 @@ class Account(db.Model):
     """This function will use the random module to create a unique number"""
     exists = True #bool for if the generated account number exists
     #while exists:
-    number = random.randint(111111111, 999999999)
+    number = random.randint(1111111111, 9999999999)
     acc_no = Account.query.filter_by(account_number=number).first()
     if acc_no is None:
       exist = False
@@ -235,6 +235,7 @@ class Transaction(db.Model):
         break
     return transactions_list
   
+  
 class Transact(db.Model):
   """A class on the transaction type"""
   id = db.Column(db.Integer, primary_key=True)
@@ -304,8 +305,6 @@ class ClosedAccounts(db.Model):
     self.date_acc_created = acc.date_created
     self.acc_type = acc.acc_type
     self.bank_name = acc.bank_name
-    db.session.delete(acc)
-    db.session.commit()  
 
 class DeletedAccount(db.Model):
   """Class for deleted accounts"""

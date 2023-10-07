@@ -44,6 +44,7 @@
         <button>Change Account Pin</button>
         <button href="{{url_for('close_account', username=username)}}">Close An Account</button>   
 </div>
+{% if form %}
 <div class="manage_pop first">
     <div id="verify_box">
         <form action="" method="POST" id="acc_manage_form" novalidate>
@@ -57,11 +58,12 @@
             </div>
             <div >
                 {{form.verify(id="submit")}}
-                <a>Cancel</a>
+                <a class="pop_cancel">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+{% endif %}
 {% if form3 %}
 <div class="manage_pop second">
     <div id="delete_box">
@@ -77,22 +79,22 @@
             </div>
             <div id="reason">
                 <p>{{form3.reason.label}}</p>
-                <select class="input" name="{{form3.reason.label}}">
+                <select class="input" name="{{form3.reason.name}}">
                     {% for choice, label in form3.reason.choices %}
                     <option value="{{choice}}">{{label}}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <div id="delete">
-                <p>{{form3.pin.label}}</p>
-                <p>{{form3.pin(class="input", size=10)}}</p>
-                {% for error in form3.pin.errors %}
+                {% for error in form3.reason.errors %}
                 <p class="errors">{{error}}</p>
                 {% endfor %}
             </div>
-            {% for error in form3.reason.errors %}
+            <div id="delete">
+                <p>{{form3.dpin.label}}</p>
+                <p>{{form3.dpin(class="input", size=10)}}</p>
+                {% for error in form3.dpin.errors %}
                 <p class="errors">{{error}}</p>
-            {% endfor %}
+                {% endfor %}
+            </div>
             <p class="warning"><span>*</span>Please, be informed that once you request a closure, it cannot be withdrawn</p>
             <div class="del_buttons">
                 <p>{{form3.close(id="submit")}}</p>
@@ -116,7 +118,7 @@
             </div>
             <div >
                 {{form2.change(id="submit")}}
-                <a href="{{url_for('manage_accounts', username=username)}}">Cancel</a>
+                <a class="pop_cancel" href="{{url_for('manage_accounts', username=username)}}">Cancel</a>
             </div>
         </form>
     </div>

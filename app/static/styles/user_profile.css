@@ -707,7 +707,7 @@ form{
     margin-top: 30px;
 }
 
-#form2_user a{
+#pass_can{
     position: relative;
     left: 19em;
     top: -3.6em;
@@ -724,6 +724,8 @@ form{
     color: red;
     margin: 3px 0px 5px 20px;
 }
+
+
 
 #del_acc{
     margin-right: 10px;
@@ -756,6 +758,8 @@ form{
     background-color: rgb(99,21,63);
     color: white;
     border-radius: 18px;
+    position: relative;
+    left: -1em;
 }
 
 .wid{
@@ -764,5 +768,21 @@ form{
 }
 
 #cancel_del{
-    color: aliceblue;
+    position: relative;
+    text-decoration: none;
+    left: 21em;
+    top: -2.5em;
+}
+
+.pop_cancel{
+    padding: 9px 1px;
+    text-decoration: none;
+}
+
+.manage_pop #submit{
+    margin-left: -7px;
+}
+
+.pop_cancel:active, .pop_cancel:visited{
+    color: #110526;
 }

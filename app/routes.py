@@ -122,10 +122,13 @@ def add_address(username):
 @login_required
 def user_home(username):
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
-    account = Account.query.filter_by(cus_id=customer.id).first()
+    accounts = Account.query.filter_by(cus_id=customer.id).all()
+    for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
-    return render_template('user_home.html', username=username, customer=customer, account=account)
+    return render_template('user_home.html', username=username, customer=customer, account=accounts[0])
 
 @app.route('/<username>/profile', methods=['GET'])
 @login_required
@@ -167,6 +170,9 @@ def transactions(username):
         return redirect(url_for('user_home', username=customer.username))
     cus = Customer.query.filter_by(username=username).first()
     accounts = cus.accounts.all()
+    for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
     transactions = accounts[0].transactions
     transactions = list(transactions)
     transactions.reverse()
@@ -193,6 +199,9 @@ def transactions(username):
     if 'id' in request.args:
         id = request.args.get('id')
         accounts = cus.accounts.all()
+        for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
         account  = Account.query.filter_by(id=id).first()
         accounts.remove(account)
         accounts.insert(0, account)
@@ -213,8 +222,11 @@ def transfer(username):
     user = User.query.all()
     form = Transfer()
     accounts = customer.accounts.all()
+    for account in accounts:
+        if account.req_clos == 'Yes':
+            accounts.remove(account)
     if 'id' in request.args:
-        account = Account.query.filter_by(id=request.args.get('id')).first()
+        account: Account = Account.query.filter_by(id=request.args.get('id')).first()
         accounts.remove(account)
         accounts.insert(0, account)
     if 'id' not in request.args:
@@ -271,6 +283,9 @@ def manage_accounts(username):
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     accounts = customer.accounts
+    for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
     form = VerifyPin()
     if form.is_submitted():
         if form.validate():
@@ -286,9 +301,11 @@ def new_password(username):
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     accounts = customer.accounts
+    for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
     form = VerifyPin()
     form2 = NewPin() 
-    form3 = CloseAccount()
     if form2.validate_on_submit():
         flash('New Password Successfully Changed')
         id = request.args.get('id')
@@ -299,17 +316,24 @@ def new_password(username):
     return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form2=form2)
 
 @app.route('/<username>/profile/manage_accounts/close_account', methods=['POST', 'GET'])
+@login_required
 def close_account(username):
     """Route for close account"""
     customer: Customer = Customer.query.filter_by(user_id=current_user.id).first()
     if username != customer.username:
         return redirect(url_for('user_home', username=customer.username))
     accounts = customer.accounts
-    form = VerifyPin()
+    for account in accounts:
+            if account.req_clos == 'Yes':
+                accounts.remove(account)
     form3 = CloseAccount()
-    if form3.is_submitted():
-        if form3.validate():
-            account = Account.query.filter_by(id=request.args.get('id')).first()
+    if form3.validate_on_submit():
+        account: Account = Account.query.filter_by(account_number=form3.acc_num.data).first()
+        if account.req_clos == 'Yes':
+            flash('Account already requested for closure or closed')
+        else:
+            account.req_clos = 'Yes'
+            db.session.commit()
             closed_account = ClosedAccounts()
             closed_account.user_id = current_user.id
             if form3.reason.data:
@@ -317,11 +341,9 @@ def close_account(username):
             closed_account.close_account(account)
             db.session.add(closed_account)
             db.session.commit()
-            flash('Account successfully closed')
-            return redirect(url_for('manage_accounts', username=customer.username))
-        else:
-            flash('Wrong pin')
-    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form=form, form3=form3)
+            flash('Closure request succesfully sent')
+        return redirect(url_for('manage_accounts', username=customer.username))
+    return render_template('manage_account.html', username=customer.username, accounts=accounts, customer=customer, form3=form3)
 
 @app.route('/<username>/profile/manage_user_account', methods=['GET', 'POST'])
 def user_acc(username):
@@ -363,7 +385,7 @@ def delete_account(username):
         deleted_account = DeletedAccount()
         deleted_account.user_id = current_user.id
         deleted_account.customer_id = customer.id
-        user = User.query.filter_by(id=current_user.id)
+        user = User.query.filter_by(id=current_user.id).first()
         db.session.add(deleted_account)
         db.session.delete(user)
         db.session.commit()

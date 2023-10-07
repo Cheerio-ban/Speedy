@@ -211,15 +211,14 @@ class NewPin(FlaskForm):
 class CloseAccount(FlaskForm):
     """Form to delete your account"""
     acc_num = StringField('Input your account number', validators=[DataRequired(), Length(min=10, max=10)])
-    pin = PasswordField('Input Pin', validators=[DataRequired(), Length(min=4, max=4)])
+    dpin = PasswordField('Input Pin', validators=[DataRequired(), Length(min=4, max=4)])
     reason = SelectField('Why do you want to close your account?', choices=[
         ('I have a lot of accounts', 'I have a lot of accounts'), 
         ("I do not want to have a speedy account again", 'I do not want to have a speedy account again'),
         ('I want to open another speedy account', 'I want to open another speedy account'),
         ('I want to open another fintech account', 'I want to open another fintech account'),
         ('I am not satisfied with Speedy', 'I am not satisfied with speedy'),
-        ('I do not have a reason', 'I do not have a reason')], 
-        validators=[DataRequired()])
+        ('I do not have a reason', 'I do not have a reason')])
     close = SubmitField('Request Closure')
         
     def validate_acc_num(self, acc_num):
@@ -233,12 +232,12 @@ class CloseAccount(FlaskForm):
         except Exception:
             raise ValidationError('The account number should be digits')
     
-    def validate_pin(self, pin):
+    def validate_dpin(self, dpin):
         """Validate the pin"""
+        from app.models import Account
         if self.acc_num.data == "":
             raise ValidationError('Please, input the account number')
-        from app.models import Account
-        in_pin = pin.data
+        in_pin = dpin.data
         account: Account = Account.query.filter_by(account_number=self.acc_num.data).first()
         if account is not None:
             if check_password_hash(account.account_pin, in_pin) is False:

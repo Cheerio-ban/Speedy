@@ -42,7 +42,13 @@
     </table>
   </div>
   <div id="transfer">
+    {% if account.req_clos == 'Yes' %}
+    <p style="padding: 10px; ">This account has been requested for closure</p>
+    <a style="background-color: violet;">Make a Transfer</a>
+    {% else %}
     <a href="{{url_for('transfer', username=customer.username, id=id)}}">Make a Transfer</a>
+    {% endif %}
+
   </div>
 </div>
 <script src="{{ url_for('static', filename='js/script2.js') }}"></script>

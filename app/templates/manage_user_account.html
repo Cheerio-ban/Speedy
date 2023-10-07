@@ -18,7 +18,7 @@
                     {% endfor %}
                 </div>
                 <div id="submit/cancel">
-                    {{form1.submit(class="submit use_acc")}}
+                    {{form1.submit(class="use_acc")}}
                 </div>
             </form>
             <div id="del_div">
@@ -51,7 +51,7 @@
                     {{form2.submit(class="use_acc")}}
                 </div>
             </form>
-            <a href="{{url_for('user_acc', username=customer.username)}}">Cancel</a>
+            <a id="pass_can" href="{{url_for('user_acc', username=customer.username)}}">Cancel</a>
         </div>
     </div>
     {% endif %}
