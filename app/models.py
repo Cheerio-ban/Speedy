@@ -55,7 +55,7 @@ class Account(db.Model):
     self.date_created = datetime.utcnow()
     self.create_account_number()
     self.acc_type = 'savings'
-    self.balance = 0
+    self.balance = 200000
     self.account_pin = generate_password_hash(str(pin))
 
   def check_pin(self, pin):

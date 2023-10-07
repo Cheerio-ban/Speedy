@@ -390,6 +390,12 @@ form{
 
 }
 
+.error{
+    font-size: 10px;
+    color: red;
+    font-family: 'Baloo Thambi 2';
+    margin-left: 5px;
+}
 
 
 #back{
