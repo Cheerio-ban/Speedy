@@ -6,17 +6,18 @@
 
 | API Method | Route         | Authenticated | Roles Permitted | Description  |
 | ---------- |:-------------:| -------------:| --------------- |:------------:|
-| POST       | /api/register | No            | User            | Register a new user with an email and password.|
-| POST       | /api/login    | No            | User            | Authenticate a user   |
-| GET        | /api/logout   | Yes           | User            | Log out the user      |
-| POST       |  /api/accounts   | Yes           | User            | Create a new bank account for a user.    |
-| GET        | /api/accounts/:accountId/balance  | Yes           | User            | Retrieve the account balance.  |
-| POST        | /api/accounts/:accountId/deposit  | Yes           | User            | Deposit funds into the account.  |
-| POST        | /api/accounts/:accountId/withdraw  | Yes           | User            | Withdraw funds from the account. |
-| POST        | /api/accounts/:sourceAccountId/transfer/:targetAccountId | Yes           | User            | Transfer funds between two accounts (of the same user). |
-| GET        | /api/accounts/:accountId/transactions | Yes           | User            | Retrieve the transaction history for an account.  |
-| POST        | /api/admin/login  | Yes           | Admin            | Authenticate as an admin user. |
-| GET        | /api/admin/accounts  | Yes           | Admin            | Retrieve a list of all user accounts. |
-| GET        | /api/admin/accounts/:accountId:  | Yes           | Admin            | Retrieve details for a specific user account.|
-| POST        | /api/admin/accounts/:accountId/freeze  | Yes           | Admin            | Freeze or block a user account. |
-| GET        | /api/docs  | Yes           | Admin            | Documentation. (Swagger) |
+| POST       | /signup | No            | User            | Register a new user with an email and password.|
+| POST       | /login    | No            | User            | Authenticate a user   |
+| GET        | /logout   | Yes           | User            | Log out the user      |
+| POST       |  /<username>/create_account   | Yes           | User            | Create a new bank account for a user.    |
+| GET        | /<username>/transactions/  | Yes           | User            | Retrieve the list of transactions the user made.  |
+| POST        | /<username>/add_address  | Yes           | User            | Sets address of the user.  |
+| POST        | /<username>/home  | Yes           | User            | Home page of the user |
+| POST        | /<username>/profile/edit_profile/ | Yes           | User            | Edit profile information of the user |
+| GET        | /<username>/transfer | Yes           | User            | Make an Inter bank or Intra bank transfer  |
+| GET        | /<username>/accounts  | Yes           | Admin            | Returns a list of accounts owned by the user |
+| POST        | /<username>/accounts/<id>  | Yes           | Admin            | Creates an account with the specific ID. |
+| GET        | /<username>/services | Yes           | Admin            | Lists the services rendered by the bank. |
+| POST        | /<username>/profile/manage_accounts  | Yes           | Admin            | Manages the list of accounts owned by a specific user. |
+| GET        | /<username>/profile/manage_accounts/close_account  | Yes           | Admin            | Close a specific account. |
+| GET        | /<username>/profile/manage_user_account/delete_account  | Yes           | Admin            | Delete a specific account |
