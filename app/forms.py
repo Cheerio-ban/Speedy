@@ -267,3 +267,12 @@ class DeleteAccount(FlaskForm):
     """Form to delete account"""
     password = PasswordField('Password', validators=[DataRequired()])
     delete = SubmitField('Delete My User Account', validators=[DataRequired()])
+
+
+class ContactUs(FlaskForm):
+    """Contact us flask form"""
+    fullname = StringField('FULL NAME', validators=[DataRequired()])
+    email = StringField('EMAIL ADDRESS', validators=[DataRequired(), Email()])
+    subject = StringField('SUBJECT', validators=[DataRequired()])
+    message = TextAreaField('MESSAGE', validators=[DataRequired()])
+    submit = SubmitField('Send Message')

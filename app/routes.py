@@ -353,6 +353,8 @@ def user_acc(username):
         return redirect(url_for('user_home', username=customer.username))
     form1 = ChangeEmail()
     if form1.validate_on_submit():
+        user = User.query.filter_by(id=current_user.id).first()
+        user.email = form1.email.data
         customer.email = form1.email.data
         current_user.email = form1.email.data
         db.session.commit()
@@ -396,6 +398,14 @@ def delete_account(username):
 def contact(username):
     customer: Customer = Customer.get('user_id', current_user.id)
     return render_template('contact.html', customer=customer)
+   
+    
+@app.route('/contact_us', methods=['GET', 'POST'])
+def land_contact():
+    form = ContactUs()
+    if form.validate_on_submit():
+        return render_template('land_contact.html', form=form)
+    return render_template('land_contact.html', form=form)
 
 
 @app.route('/footer')
