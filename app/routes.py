@@ -392,11 +392,16 @@ def delete_account(username):
         return redirect(url_for('logout'))
     return render_template('manage_user_account.html', username=customer.username, customer=customer, form1=form1, form3=form3)
 
+@app.route('/<username>/contact')
+def contact(username):
+    customer: Customer = Customer.get('user_id', current_user.id)
+    return render_template('contact.html', customer=customer)
 
 
 @app.route('/footer')
 def footer():
     return render_template('footer.html')
+
 
 @app.route('/logout')
 def logout():

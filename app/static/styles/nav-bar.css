@@ -9,6 +9,9 @@
   min-width: 1015px;
   display: flex;
   justify-content: space-between;
+  /* position: fixed;
+  width: 100%;
+  top: 0; */
   padding: 0 10%;
   height: 70px;
   align-items: center;
