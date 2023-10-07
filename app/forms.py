@@ -87,6 +87,13 @@ class CreateAccountForm(FlaskForm):
             int(pin.data)
         except Exception:
             raise ValidationError('The pin should be digits')
+        
+    def validate_username(self, username):
+        """Validate username"""
+        from app.models import Customer
+        customer = Customer.query.filter_by(username=username.data).first()
+        if customer is not None:
+            raise ValidationError('Username already taken.')
 
 
 class CreateUserAccountForm(FlaskForm):
@@ -147,7 +154,8 @@ class Transfer(FlaskForm):
         except Exception:
             if check_password_hash(account.account_pin, pin.data) is False:
                 raise ValidationError('Wrong pin')
-        
+    
+
             
         
         
@@ -161,6 +169,10 @@ class EditProfileInfo(FlaskForm):
 
     def validate_phonenumber(self, phonenumber):
         """validate the phonenmber"""
+        from app.models import Customer
+        customer = Customer.query.filter_by(phone_number=phonenumber.data).first()
+        if customer is not None and current_user.id != customer.user_id:
+            raise ValidationError('Phonenumber already in use')
         phone_no = phonenumber.data
         if phonenumber.data[0] == 0:
             phone_no = phonenumber.data[1:]
@@ -168,6 +180,15 @@ class EditProfileInfo(FlaskForm):
             int(phone_no)
         except Exception:
             raise ValidationError('Phonenumber cannot be words')
+        customer 
+
+    
+    def validate_username(self, username):
+        """Validate username"""
+        from app.models import Customer
+        customer = Customer.query.filter_by(username=username.data).first()
+        if customer is not None:
+            raise ValidationError('Username already taken.')
         
 class EditProfileAddress(FlaskForm):
     """This is to edit the address"""
