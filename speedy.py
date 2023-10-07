@@ -8,4 +8,4 @@ def make_shell_context():
   return {'db': db, 'User': User, 'Transaction': Transaction, 'Customer': Customer, 'Account': Account, 'Address': Address}
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(port=5050, debug=True)
