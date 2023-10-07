@@ -15,12 +15,12 @@
         <p><span>&#62;</span>Close account</p>
         <p>Before an account is closed, please, make sure to transfer all funds present in the account to another account.
             Failure to do so can result in loss of funds and an email will have to be written to the service provider to trace and recover
-            the funds.
+            the funds. Transfers cannot be made with accounts that have been requested for closure.
         </p>
     </div>
     <div class="change tab">
         <p><span>&#62;</span>Change your account pin</p>
-        <p>Account pin can only be changed once a month. Make sure that your account pin is npt exposed to any third party.</p>
+        <p>Account pin can only be changed once a month. Make sure that your account pin is not exposed to any third party.</p>
     </div>
     <div id="manage_account">
         <select id="select_account">
@@ -95,7 +95,7 @@
                 <p class="errors">{{error}}</p>
                 {% endfor %}
             </div>
-            <p class="warning"><span>*</span>Please, be informed that once you request a closure, it cannot be withdrawn</p>
+            <p class="warning"><span>*</span>Closure requests cannot be withdrawn. Transfers cannot be made with accounts that have been requested for closure.</p>
             <div class="del_buttons">
                 <p>{{form3.close(id="submit")}}</p>
                 <a href="{{url_for('manage_accounts', username=username)}}">Cancel</a>

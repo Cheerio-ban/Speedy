@@ -8,6 +8,15 @@
     <p>Bank Accounts</p>
     <a href="{{ url_for('create_acc', username=customer.username) }}">Create Bank Account</a>
   </div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="fmessages">
+        {% for message in messages %}
+            <li class="fmessage">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
   <div class="account-grid">
     {% for account in accounts %}
     <a href="/{{customer.username}}/accounts/{{account.id}}">

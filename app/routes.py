@@ -95,7 +95,7 @@ def create_acc(username):
         new_account.customer = customer
         db.session.add(new_account)
         db.session.commit()
-        flash('Account successfully created', 'success')
+        flash(f'Account {new_account.account_number} successfully created', 'success')
         return redirect(url_for('accounts', username=customer.username))
     return render_template('create_user_account.html', form=form, customer=customer)
 

@@ -204,7 +204,23 @@ footer div{
     width: 30%;
 }
 
+.photo{
+    border-radius: 500px;
+    width: 500px;
+    height: 363px;
+    flex-shrink: 0;
+    filter: blur(1px) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.ph_one{
+    background: url('../images/transfer.png'), lightgray 50% / cover no-repeat;
+    background-position: -50px -50px;
+    
+}
 
+.ph_two{
+    background: url('../images/rewards.png'), lightgray 50% / cover no-repeat;
+    background-position: -50px -50px;
+}
 /*scrollbar*/
 ::-webkit-scrollbar{
     width: 4px;

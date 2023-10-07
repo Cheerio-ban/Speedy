@@ -48,7 +48,7 @@
     </div>
     <div class="dob">
         <p> {{ form.dob.label }}</p>
-        <p>{{ form.dob(max='2015-01-31', class="input") }}</p>
+        <p>{{ form.dob(max='2005-10-31', class="input") }}</p>
         {% for error in form.dob.errors %}
          <p class="error"> {{ error }}</p>
          {% endfor %}

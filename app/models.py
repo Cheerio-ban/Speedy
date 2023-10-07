@@ -54,7 +54,7 @@ class Account(db.Model):
     """This creates the accoi=unt based on the form's data"""
     self.date_created = datetime.utcnow()
     self.create_account_number()
-    self.acc_type = 'active'
+    self.acc_type = 'savings'
     self.balance = 0
     self.account_pin = generate_password_hash(str(pin))
 
@@ -122,6 +122,10 @@ class Customer(db.Model):
   def format_time(self, date: datetime):
     """This to format object to string"""
     format = ("%B %d %Y")
+    return datetime.strftime(date, format)
+  
+  def date_time(self, date:datetime):
+    format = ('%Y-%m-%d')
     return datetime.strftime(date, format)
 
   def get_address(self):

@@ -71,3 +71,9 @@ a p {
   font-size: 30px;
   font-weight: 500;
 }
+
+.fmessage{
+  color: #110526;
+  list-style: none;
+  font-family: 'Baloo Thambi 2';
+}

@@ -44,7 +44,7 @@ class CreateAccountForm(FlaskForm):
     phonenumber = StringField('Phone number', validators=[DataRequired()])
     dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
     pin = PasswordField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits")])
-    email = StringField('Email', validators=[Email()])
+    email = StringField('Email')
     create = SubmitField('Create account')
     
 
@@ -70,7 +70,11 @@ class CreateAccountForm(FlaskForm):
 
     def validate_phonenumber(self, phonenumber):
         """validate the phonenmber"""
+        from app.models import Customer
         phone_no = phonenumber.data
+        customer = Customer.query.filter_by(phone_number=phone_no).first()
+        if customer is not None:
+            raise ValidationError('Phonenumber already in use')
         if phonenumber.data[0] == 0:
             phone_no = phonenumber.data[1:]
         try:
@@ -86,9 +90,9 @@ class CreateAccountForm(FlaskForm):
 
 
 class CreateUserAccountForm(FlaskForm):
-    email = StringField('Email', validators=[Email(), DataRequired()])
-    phonenumber = StringField('Phone number', validators=[DataRequired()])
-    dob = DateField('Date of Birth:', validators=[DataRequired()], format='%Y-%m-%d')
+    email = StringField('Email')
+    phonenumber = StringField('Phone number')
+    dob = DateField('Date of Birth:', format='%Y-%m-%d')
     pin = PasswordField('Set Pin', validators=[DataRequired(), Length(min=4, max=4, message="Pin must be 4 digits")])
     create = SubmitField('Create account')
 
