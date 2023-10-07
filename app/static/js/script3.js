@@ -58,7 +58,7 @@ amount.addEventListener('input', (event)=>{
     let urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
     let id = parseInt(urlSearchParams.get('id'), 10);
 
-    fetch(`http://127.0.0.1:5050/api/v1/accounts/${id}`)
+    fetch(`http://127.0.0.1:5000/api/v1/accounts/${id}`)
     .then(res=>{
         return res.json();
     })
